@@ -1,0 +1,128 @@
+@import './global.css';
+.login{
+    height:100vh;
+    width:100vw;
+}
+.login_wrapper{
+    position: absolute;
+    min-height:600px;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    padding:70px 50px;
+    box-shadow:1px 1px 2px rgba(0,0,0,0.5),
+    -1px -1px 2px rgba(0,0,0,0.01);
+}
+
+.login_header h1{
+    text-align: center;
+    margin-bottom:50px;
+    font-weight: 800;
+    font-size:3rem;
+    color:black;
+    pointer-events: none;
+}
+.login_form{
+    display:flex;
+    flex-direction: column;
+}
+.input_group{
+    position: relative;
+    margin:33px;
+
+}
+.input_group.active::after
+{
+    width:100%;
+}
+.input_group.active::before{
+    width:0;
+}
+.input_group::after{
+    content:"";
+    background:var(--main-color);
+    height:5px;
+    border-radius: 15px;
+    width:0;
+    position: absolute;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    transition:0.3s;
+}
+.input_group::before{
+    content:"";
+    background:gray;
+    height:1px;
+    border-radius: 15px;
+    width:100%;
+    position: absolute;
+    bottom:2px;
+    left:50%;
+    transform:translateX(-50%);
+
+}
+.input_group.active i{
+    color:var(--main-color);
+}
+.input_group i{
+    font-size:25px;
+    transition:0.5s;
+}
+.input_group input{
+    padding:10px 20px;
+    font-size:22px;
+    outline: none;
+    border:none;
+}
+.input_group label{
+    font-weight: 500;
+    pointer-events: none;
+    position:absolute;
+    font-size:22px;
+    color:black;
+    top:50%;
+    left:55px;
+    transform:translateY(-50%);
+    transition:0.5s;
+}
+.input_group label.active{
+    color:var(--main-color);
+    top:-5px;
+}
+.login_btn_group{
+    width:100%;
+    position: relative;
+}
+.login_btn{
+    padding:10px 30px;
+    font-weight: 700;
+    border:none;
+    border-radius: 25px;
+    position: relative;
+    width:100%;
+    background:rgb(243, 242, 242);
+    transition: 0.4s;
+    margin-bottom:30px;
+}
+.login_btn:hover{
+    color:white;
+    background:var(--main-color);
+}
+@media screen and (max-width:1108px){
+    .login_wrapper{
+        width:70%;
+    }
+}
+@media screen and (max-width:718px){
+    .login_wrapper{
+        width:90%;
+        padding:70px 0px;
+    }
+    .input_group{
+        margin:15px;
+    }
+}

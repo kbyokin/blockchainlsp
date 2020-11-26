@@ -1,0 +1,22 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+:root{
+    --main-color:#7386D5;
+    --header-color:#6d7fcc;
+}
+h3{
+    font-size:24px;
+}
+ul,li{
+    list-style-type:none;
+}
+p,ul{
+    margin-bottom: 0;
+}
+a,a:hover{
+    color:black;
+    text-decoration: none;
+}
