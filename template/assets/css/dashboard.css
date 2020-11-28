@@ -1,0 +1,29 @@
+@import './global.css';
+.dashboard_wrapper{
+    display:flex;
+    border-radius: 5px;
+    border:2px solid black;
+    min-height:50vh;
+}
+.dashboard_sidemenu{
+    width:150px;
+    border-right:1px solid gray;
+}
+.dashboard_content_tab{
+    padding:10px 20px;
+    border-bottom:1px solid gray;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    transition:0.2s ease-in-out;
+}
+.dashboard_content_tab:hover{
+    background:var(--main-color);
+    color:white;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+}
+#dashboard_content{
+    padding:25px;
+    width:calc(100% - 150px);
+
+}

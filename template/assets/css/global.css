@@ -6,6 +6,10 @@
 :root{
     --main-color:#7386D5;
     --header-color:#6d7fcc;
+    --btn-color:#5bc0de;
+}
+body{
+    background:#fafafa;
 }
 h3{
     font-size:24px;
@@ -19,4 +23,104 @@ p,ul{
 a,a:hover{
     color:black;
     text-decoration: none;
+}
+
+/* main-content */
+/* main content */
+.main_content{
+    width:calc(100% - 0px);
+    margin-left:0;
+    padding:30px;
+    transition: 0.2s ease-in-out;
+}
+/* HEADER MENU  */
+.header{
+    margin:0 auto;
+    background:#fff;
+    box-shadow:1px 1px 5px rgba(121, 121, 121, 0.1),
+    -1px -1px 5px rgba(121, 121, 121,0.1);
+}
+.header_menu{
+    display:flex;
+    justify-content: space-between;
+    padding:0 25px;
+    align-items: center;
+    overflow: hidden;
+}
+.nav_group{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    min-width:250px;
+
+}
+.burger_menu{
+    background:var(--btn-color);
+    border:none;
+    border-radius: 5px;
+    padding:5px 15px;
+    font-size:14px;
+    color:white;
+}
+.burger_menu i{
+    margin-right:5px;
+}
+.input-group{
+    display:Flex;
+    align-items:center;
+    justify-content: center;
+    margin-top:15px;
+}
+.navbar_items{
+    display:flex;
+    align-items: center;
+}
+#logout_btn{
+    padding:5px 15px;
+    background:var(--btn-color);
+    color:white;
+    border-radius: 5px;
+    font-size:14px;
+    margin:0 20px;
+
+}
+/* MAIN CONTENT BODY */
+.main_content_body{
+    padding:30px 0;
+}
+.main_content_body p{
+    color:#999;
+    font-size:1.1rem;
+}
+
+.main_content.active{
+    width:calc(100% - 250px);
+    margin-left:250px;
+}
+
+.input-group-prepend{
+    cursor:pointer;
+    padding:5px;
+}
+.input-group-prepend i{
+    pointer-events: none;
+}
+
+/* responsive */
+@media screen and (max-width:454px){
+    .main_content.active{
+        width:50%;
+    }
+    .burger_menu i{
+        margin:0;
+    }
+    .burger_text{
+        display:none;
+    }
+    .main_content.active .header_menu{
+        min-height:10vh
+    }
+    .main_content.active .nav_group{
+        display:none;
+    }
 }
