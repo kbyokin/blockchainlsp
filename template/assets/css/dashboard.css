@@ -22,17 +22,9 @@
     background:var(--main-color);
     color:white;
 }
-.dashboard_content_tab.active::after{
-    content:"";
-    background:white;
-    width:25px;
-    height:25px;
-    position: absolute;
-    right:-16px;
-    transform:rotate(45deg);
-}
-.dashboard_content_tab.active:hover::after{
-    display:none;
+.dashboard_content_tab.active{
+    background:var(--main-color);
+    color:white;
 }
 #dashboard_content{
     padding:25px;
