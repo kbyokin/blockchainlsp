@@ -74,6 +74,7 @@ a,a:hover{
 .navbar_items{
     display:flex;
     align-items: center;
+    margin-left:3rem;
 }
 #logout_btn{
     padding:5px 15px;
@@ -82,7 +83,6 @@ a,a:hover{
     border-radius: 5px;
     font-size:14px;
     margin:0 20px;
-
 }
 /* MAIN CONTENT BODY */
 .main_content_body{

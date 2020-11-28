@@ -99,6 +99,7 @@
     position: relative;
 }
 .login_btn{
+    text-align: center;
     padding:10px 30px;
     font-weight: 700;
     border:none;
