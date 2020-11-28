@@ -16,14 +16,26 @@
     cursor: pointer;
     user-select: none;
     transition:0.2s ease-in-out;
+    position: relative;
 }
 .dashboard_content_tab:hover{
     background:var(--main-color);
     color:white;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+}
+.dashboard_content_tab.active::after{
+    content:"";
+    background:white;
+    width:25px;
+    height:25px;
+    position: absolute;
+    right:-16px;
+    transform:rotate(45deg);
+}
+.dashboard_content_tab.active:hover::after{
+    display:none;
 }
 #dashboard_content{
     padding:25px;
     width:calc(100% - 150px);
-
+    background:white;
 }

@@ -59,8 +59,8 @@
            <div class="dashboard_wrapper">
                 <div class="dashboard_sidemenu">
                     <ul>
-                       <li class="dashboard_content_tab" data-href="./dashboard_content/dashboard_content_one.html">ORDER#1</li> 
-                       <li class="dashboard_content_tab" data-href="./dashboard_content/dashboard_content_two.html">ORDER#2</li> 
+                       <li class="dashboard_content_tab " data-href="./dashboard_content/dashboard_content_one.html">ORDER#1</li> 
+                       <li class="dashboard_content_tab active" data-href="./dashboard_content/dashboard_content_two.html">ORDER#2</li> 
                        <li class="dashboard_content_tab" data-href="./dashboard_content/dashboard_content_three.html">ORDER#3</li> 
                     </ul>
                 </div>
@@ -79,6 +79,10 @@
         $('#dashboard_content').load('./dashboard_content/dashboard_content_one.html');
         $('.dashboard_content_tab').each(function(){
            $(this).click(function(){
+               $('.dashboard_content_tab').each(function(){
+                   $(this).removeClass('active');
+               })
+               $(this).addClass('active');
                var tabTarget = $(this).attr('data-href');
                     $('.dashboard_tab_item').fadeOut(500,function(){
                         $('#dashboard_content').load(tabTarget);
