@@ -21,19 +21,18 @@
     padding:20px 0;
     border-bottom:1px solid #47748b;
 }
-.sidebar_item{
+.sidebar_item li{
     cursor: pointer;
     padding:10px;
     transition:background 0.2s ease-in;
-    width:100%;
 }
-.sidebar_item:hover{
+.sidebar_item:hover li{
     background:white;
 }
-.sidebar_item:hover a{
+.sidebar_item:hover{
     color:#7386D5;
 }
-.sidebar_item a{
+.sidebar_item{
     color:white;
     font-size:1.1rem;
 }

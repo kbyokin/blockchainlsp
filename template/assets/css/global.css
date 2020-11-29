@@ -83,6 +83,12 @@ a,a:hover{
     border-radius: 5px;
     font-size:14px;
     margin:0 20px;
+    transition: opacity .3s;
+    font-weight: 500;
+}
+#logout_btn:hover{
+    opacity: 0.8;
+    background:#52acc7;
 }
 /* MAIN CONTENT BODY */
 .main_content_body{
