@@ -133,7 +133,7 @@
     position: absolute;
     z-index:-1;
     height:300px;
-    background:rgb(72, 177, 72);
+    background:var(--main-color);
     transition:0.5s;
     transform: translateX(-100%);
 }
@@ -144,7 +144,7 @@
     position: absolute;
     z-index:-1;
     height:300px;
-    background:rgb(72, 177, 72);
+    background:var(--main-color);
     transition:1s;
     transform: translateX(-100%);
 }
@@ -172,7 +172,7 @@
 .progress_line .progress_line_work{
     height:5px;
     content:"";
-    background:rgb(72, 177, 72);
+    background:var(--main-color);
     width:100%;
     transform: translateX(-100%);
     transition: 0.5s;
@@ -189,7 +189,7 @@
     background-color:rgba(128, 128, 128, 0.267);
 }
 .login_progress .progress_line.active{
-    background:rgb(72, 177, 72);
+    background:var(--main-color);
 }
 @media screen and (max-width:1108px){
     .login_wrapper{
