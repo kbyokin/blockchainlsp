@@ -17,3 +17,5 @@ searchIcon.addEventListener('click',()=>{
     }
 
 })
+
+console.log(a.classList)

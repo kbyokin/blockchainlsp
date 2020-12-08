@@ -1,3 +1,35 @@
 <div class="dashboard_tab_item">
-    <h1>#CONTENT1</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody id="data-body">
+
+        </tbody>
+    </table>
 </div>
+
+<script>
+    var data = [
+        {'name':'dome',
+         'age':'23'
+        },{
+         'name':'boss',
+         'age':'23'
+        }
+    ]
+
+    getData(data);
+    function getData(data){
+        for(i=0;i<data.length;i++){
+            var row = `<tr>
+                        <td>${data[i].name}</td>
+                        <td>${data[i].age}</td>
+                        </tr>`
+        document.getElementById('data-body').innerHTML += row
+        }
+    }
+</script>
