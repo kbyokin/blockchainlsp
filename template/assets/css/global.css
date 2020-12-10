@@ -113,20 +113,14 @@ a,a:hover{
 }
 
 /* responsive */
-@media screen and (max-width:454px){
+@media screen and (max-width:826px){
     .main_content.active{
-        width:50%;
+    width:calc(100% - 0px);
+    margin-left:0;
     }
-    .burger_menu i{
-        margin:0;
-    }
+}
+@media screen and (max-width:458px){
     .burger_text{
-        display:none;
-    }
-    .main_content.active .header_menu{
-        min-height:10vh
-    }
-    .main_content.active .nav_group{
         display:none;
     }
 }

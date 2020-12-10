@@ -120,7 +120,7 @@
 .login_progress{
     display:flex;
     flex-wrap: nowrap;
-    width:300px;
+
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -203,5 +203,28 @@
     }
     .input_group{
         margin:15px;
+    }
+}
+@media screen and (max-width:384px){
+    .login_wrapper{
+        width:100%;
+        padding:50px 0;
+    }
+    .input_group input{
+        padding:10px 0;
+    }
+    .login_form{
+        width:100%;
+    }
+}
+@media screen and (max-width:315px){
+    .input_group i{
+        display:none;
+    }
+    .input_group input{
+        width:100%;
+    }
+    .login_header h1{
+        font-size:2rem;
     }
 }

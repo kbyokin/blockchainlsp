@@ -54,3 +54,24 @@
 .sidebar.active{
     max-width:250px;
 }
+.sidebar_burger{
+    display:none;
+}
+@media screen and (max-width:826px){
+    .sidebar .sidebar_burger{
+        display:flex;
+        justify-content: flex-end;
+        font-size:22px;
+        padding:13px;
+        color:white;
+        font-weight: 500;
+        align-items: center;
+    }
+
+    .fa-arrow-alt-circle-left{
+        margin-right:10px;
+    }
+    .sidebar{
+        z-index:1;
+    }
+}

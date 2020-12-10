@@ -1,7 +1,12 @@
-const burgerBtn = document.querySelectorAll('.burger_menu')
+const sidebarBtn = document.querySelectorAll('.burger_menu')
 const mainContent = document.querySelector('.main_content')
 const sidebar = document.querySelector('.sidebar')
-burgerBtn.forEach(btn=>{
+const sidebarCloseBtn = document.querySelector('.sidebar_burger')
+sidebarCloseBtn.addEventListener('click',function(){
+    sidebar.classList.toggle('active');
+    mainContent.classList.toggle('active');
+})
+sidebarBtn.forEach(btn=>{
     btn.addEventListener('click',()=>{
         mainContent.classList.toggle('active');
         sidebar.classList.toggle('active');
@@ -17,5 +22,3 @@ searchIcon.addEventListener('click',()=>{
     }
 
 })
-
-console.log(a.classList)
