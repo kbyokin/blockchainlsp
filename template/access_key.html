@@ -14,11 +14,7 @@
 <body>
     <section class="login">
         <div class="login_wrapper">
-            <div class="login_progress"> 
-                <div class="progress_step active">STEP 1</div>
-                <div class="progress_line active"></div>
-                <div class="progress_step">STEP 2</div>
-            </div>
+
             <div class="login_header">
                 <h1>login to blockchain</h1>
             </div>
@@ -35,15 +31,5 @@
 </body>
 <!-- login js -->
     <script src="./assets/js/login.js"></script>
-    <script>
-        const accessInput = document.querySelector('#access_key');
-        accessInput.addEventListener('focus',function(){
-        const progressStep = document.querySelectorAll('.progress_step');
-            progressStep[1].classList.add('active');
-        })
-        accessInput.addEventListener('blur',function(){
-        const progressStep = document.querySelectorAll('.progress_step');
-            progressStep[1].classList.remove('active');
-        })
-    </script>
+
 </html>

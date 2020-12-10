@@ -116,81 +116,7 @@
     background:var(--main-color);
 }
 
-/* //progress step */
-.login_progress{
-    display:flex;
-    flex-wrap: nowrap;
 
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top:-70px;
-
-}
-.progress_step::before{
-    content:"";
-    width:300px;
-    position: absolute;
-    z-index:-1;
-    height:300px;
-    background:var(--main-color);
-    transition:0.5s;
-    transform: translateX(-100%);
-}
-
-.progress_step::before{
-    content:"";
-    width:50px;
-    position: absolute;
-    z-index:-1;
-    height:300px;
-    background:var(--main-color);
-    transition:1s;
-    transform: translateX(-100%);
-}
-.login_progress .progress_step.active{
-    color:white;
-
-}
-.progress_step.active::before{
-    transform:translateX(0%)
-}
-.login_progress .progress_step{
-    transition-delay: 0.2s;
-    overflow: hidden;
-    position: relative;
-    font-weight: 500;
-    text-align: center;
-    width:50px;
-    height:50px;
-    border-radius: 50%;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    background:rgba(128, 128, 128, 0.267);
-}
-.progress_line .progress_line_work{
-    height:5px;
-    content:"";
-    background:var(--main-color);
-    width:100%;
-    transform: translateX(-100%);
-    transition: 0.5s;
-}
-.progress_line .progress_line_work.active{
-    transform: translateX(0%);
-}
-.login_progress .progress_line{
-    overflow: hidden;
-    content:"";
-    height:5px;
-    width:100px;
-    position: relative;
-    background-color:rgba(128, 128, 128, 0.267);
-}
-.login_progress .progress_line.active{
-    background:var(--main-color);
-}
 @media screen and (max-width:1108px){
     .login_wrapper{
         width:70%;
@@ -203,6 +129,9 @@
     }
     .input_group{
         margin:15px;
+    }
+    .login_wrapper{
+        min-height: 500px;
     }
 }
 @media screen and (max-width:384px){
