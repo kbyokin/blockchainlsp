@@ -1,9 +1,9 @@
 <div class="dashboard_tab_item">
-    <table>
+    <table  class="table">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Age</th>
+                <th>data</th>
             </tr>
         </thead>
         <tbody id="data-body">
@@ -14,11 +14,11 @@
 
 <script>
     var data = [
-        {'name':'dome',
-         'age':'23'
+        {'name':'data01',
+         'data':'1111'
         },{
-         'name':'boss',
-         'age':'23'
+         'name':'data02',
+         'data':'1111'
         }
     ]
 
@@ -27,7 +27,7 @@
         for(i=0;i<data.length;i++){
             var row = `<tr>
                         <td>${data[i].name}</td>
-                        <td>${data[i].age}</td>
+                        <td>${data[i].data}</td>
                         </tr>`
         document.getElementById('data-body').innerHTML += row
         }
