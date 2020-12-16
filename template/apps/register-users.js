@@ -1,31 +1,25 @@
+const { get } = require('http');
 const https = require('https')
 
-const data = JSON.stringify({
-  todo: 'Buy the milk',
-})
+var loginBtn = document.querySelector('#sign_btn');
 
-const options = {
-  hostname: 'yourwebsite.com',
-  port: 443,
-  path: '/todos',
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Content-Length': data.length,
-  },
-}
+function RegisterUser() {
+  // TODO: Recieved 2 variable from login.html
+  var username = document.getElementById('username').value;
+  var password = document.getElementById("password").value;
 
-const req = https.request(options, (res) => {
-  console.log(`statusCode: ${res.statusCode}`)
-
-  res.on('data', (d) => {
-    process.stdout.write(d)
+  // construct information from login.html to send to server
+  const data = JSON.stringify({
+    'username': username,
+    'password': password
   })
-})
 
-req.on('error', (error) => {
-  console.error(error)
-})
+  console.log("data:", data);
 
-req.write(data)
-req.end()
+  if (res.success == true) {
+    window.location = "accesstoken.html"; // redirect user to access token page
+  } else {
+    alert("Username or Password are incorrect!")
+  }
+  return false;
+}
