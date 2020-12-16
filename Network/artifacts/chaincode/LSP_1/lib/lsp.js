@@ -10,79 +10,6 @@ const { Contract } = require('fabric-contract-api');
 
 class LSP extends Contract {
 
-    // async initLedger(ctx) {
-    //     console.info('============= START : Initialize Ledger ===========');
-    //     const cars = [
-    //         {
-    //             color: 'blue',
-    //             make: 'Toyota',
-    //             model: 'Prius',
-    //             owner: 'Tomoko',
-    //         },
-    //         {
-    //             color: 'red',
-    //             make: 'Ford',
-    //             model: 'Mustang',
-    //             owner: 'Brad',
-    //         },
-    //         {
-    //             color: 'green',
-    //             make: 'Hyundai',
-    //             model: 'Tucson',
-    //             owner: 'Jin Soo',
-    //         },
-    //         {
-    //             color: 'yellow',
-    //             make: 'Volkswagen',
-    //             model: 'Passat',
-    //             owner: 'Max',
-    //         },
-    //         {
-    //             color: 'black',
-    //             make: 'Tesla',
-    //             model: 'S',
-    //             owner: 'Adriana',
-    //         },
-    //         {
-    //             color: 'purple',
-    //             make: 'Peugeot',
-    //             model: '205',
-    //             owner: 'Michel',
-    //         },
-    //         {
-    //             color: 'white',
-    //             make: 'Chery',
-    //             model: 'S22L',
-    //             owner: 'Aarav',
-    //         },
-    //         {
-    //             color: 'violet',
-    //             make: 'Fiat',
-    //             model: 'Punto',
-    //             owner: 'Pari',
-    //         },
-    //         {
-    //             color: 'indigo',
-    //             make: 'Tata',
-    //             model: 'Nano',
-    //             owner: 'Valeria',
-    //         },
-    //         {
-    //             color: 'brown',
-    //             make: 'Holden',
-    //             model: 'Barina',
-    //             owner: 'Shotaro',
-    //         },
-    //     ];
-
-    //     for (let i = 0; i < cars.length; i++) {
-    //         cars[i].docType = 'car';
-    //         await ctx.stub.putState('CAR' + i, Buffer.from(JSON.stringify(cars[i])));
-    //         console.info('Added <--> ', cars[i]);
-    //     }
-    //     console.info('============= END : Initialize Ledger ===========');
-    // }
-
 
     async queryTransaction(ctx, orderID) {
         const orderAsBtyes = await ctx.stub.getState(orderID); // get the car from chaincode state
@@ -93,6 +20,7 @@ class LSP extends Contract {
         return orderAsBtyes.toString();
     }
 
+    // create order details (invoke by peer0 => customer services)
     async createTransaction(ctx, 
         orderID, 
         cargoOwner,
@@ -103,29 +31,34 @@ class LSP extends Contract {
         productID, 
         quantity, 
         packingDim, 
-        totalWeight) {
+        totalWeight,
+        peer) {
         console.info('============= START : Create Transaction Order Info ===========');
 
-        const order = {
-            orderID,
-            cargoOwner,
-            loadingPoint,
-            loadingDateTime,
-            deliveryPoint,
-            deliveryDateTime,
-            productID,
-            quantity,
-            packingDim,
-            totalWeight,
-            // color,
-            // docType: 'car',
-            // make,
-            // model,
-            // owner,
-        };
-
-        await ctx.stub.putState(orderID, Buffer.from(JSON.stringify(order)));
-        console.info('============= END : Create Transaction Order Info ===========');
+        let result;
+        
+        if (peer == "peer0") {
+            const order = {
+                orderID,
+                cargoOwner,
+                loadingPoint,
+                loadingDateTime,
+                deliveryPoint,
+                deliveryDateTime,
+                productID,
+                quantity,
+                packingDim,
+                totalWeight,
+            };
+    
+            await ctx.stub.putState(orderID, Buffer.from(JSON.stringify(order)));
+            console.info('============= END : Create Transaction Order Info ===========');
+            result = true;
+        } else {
+            result = false;
+        }
+        return result;
+        
     }
 
     async queryAllTransactions(ctx) {
@@ -147,7 +80,7 @@ class LSP extends Contract {
         return JSON.stringify(allResults);
     }
 
-    async changeCargoOwner(ctx, orderID, newOwner) {
+    async changeCargoOwner(ctx, orderID, newOwner, peer) {
         console.info('============= START : changeCargoOwner ===========');
 
         const orderAsBtyes = await ctx.stub.getState(orderID); // get the transaction from chaincode state

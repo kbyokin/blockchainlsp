@@ -1,3 +1,10 @@
+########################
+# peer0 => customer service
+# peer1 => transportation unit
+# peer2 => subcontract transportation providers
+# peer3 => transporters
+
+
 export CORE_PEER_TLS_ENABLED=true
 export ORDERER_CA=${PWD}/artifacts/channel/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 export PEER0_ORG1_CA=${PWD}/artifacts/channel/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
@@ -5,7 +12,7 @@ export PEER0_ORG1_CA=${PWD}/artifacts/channel/crypto-config/peerOrganizations/or
 export FABRIC_CFG_PATH=${PWD}/artifacts/channel/config/
 
 export CHANNEL_NAME=mychannel
-export CHANNEL_NAME2=mychannel2
+# export CHANNEL_NAME2=mychannel2
 
 # setGlobalsForOrderer(){
 #     export CORE_PEER_LOCALMSPID="OrdererMSP"
@@ -55,14 +62,14 @@ createChannel(){
     --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
 }
 
-createChannel2(){
-    setGlobalsForPeer1Org1
+# createChannel2(){
+#     setGlobalsForPeer1Org1
     
-    peer channel create -o localhost:7050 -c $CHANNEL_NAME2 \
-    --ordererTLSHostnameOverride orderer.example.com \
-    -f ./artifacts/channel/${CHANNEL_NAME2}.tx --outputBlock ./channel-artifacts/${CHANNEL_NAME2}.block \
-    --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
-}
+#     peer channel create -o localhost:7050 -c $CHANNEL_NAME2 \
+#     --ordererTLSHostnameOverride orderer.example.com \
+#     -f ./artifacts/channel/${CHANNEL_NAME2}.tx --outputBlock ./channel-artifacts/${CHANNEL_NAME2}.block \
+#     --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
+# }
 
 removeOldCrypto(){
     rm -rf ./api-1.4/crypto/*
@@ -79,44 +86,41 @@ joinChannel(){
     setGlobalsForPeer1Org1
     peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
     
-    # setGlobalsForPeer2Org1
-    # peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
+    setGlobalsForPeer2Org1
+    peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
     
-    # setGlobalsForPeer3Org1
-    # peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
+    setGlobalsForPeer3Org1
+    peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
     
 }
 
-joinChannel2(){
-    # setGlobalsForPeer0Org1
-    # peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
+# joinChannel2(){
+#     # setGlobalsForPeer0Org1
+#     # peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
     
-    setGlobalsForPeer1Org1
-    peer channel join -b ./channel-artifacts/$CHANNEL_NAME2.block
+#     setGlobalsForPeer1Org1
+#     peer channel join -b ./channel-artifacts/$CHANNEL_NAME2.block
     
-    setGlobalsForPeer2Org1
-    peer channel join -b ./channel-artifacts/$CHANNEL_NAME2.block
+#     setGlobalsForPeer2Org1
+#     peer channel join -b ./channel-artifacts/$CHANNEL_NAME2.block
     
-    setGlobalsForPeer3Org1
-    peer channel join -b ./channel-artifacts/$CHANNEL_NAME2.block
+#     setGlobalsForPeer3Org1
+#     peer channel join -b ./channel-artifacts/$CHANNEL_NAME2.block
     
-}
+# }
 
 updateAnchorPeers(){
     setGlobalsForPeer0Org1
     peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com -c $CHANNEL_NAME -f ./artifacts/channel/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
     
-    # setGlobalsForPeer0Org2
-    # peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com -c $CHANNEL_NAME -f ./artifacts/channel/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
-    
-   setGlobalsForPeer1Org1
-    peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com -c $CHANNEL_NAME2 -f ./artifacts/channel/${CORE_PEER_LOCALMSPID}anchors2.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
+#    setGlobalsForPeer1Org1
+#     peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com -c $CHANNEL_NAME2 -f ./artifacts/channel/${CORE_PEER_LOCALMSPID}anchors2.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
 }
 
 removeOldCrypto
 
 createChannel
-createChannel2
+# createChannel2
 joinChannel
-joinChannel2
+# joinChannel2
 updateAnchorPeers
