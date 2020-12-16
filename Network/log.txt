@@ -1,0 +1,3 @@
+Installed chaincodes on peer:
+Package ID: lsp_1:c103053a2d0e6c835970ade6555cb76e5bfec6bc2927eeea304c47b83e007869, Label: lsp_1
+Package ID: lsptwo_1:c881fa9de8789d02704001f0244d4cc48007bda24104a30121c0a62a18f345ba, Label: lsptwo_1
