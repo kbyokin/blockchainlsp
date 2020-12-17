@@ -10,7 +10,7 @@
 
 const { Contract } = require('fabric-contract-api');
 
-class LSP extends Contract {
+class Orderinfo extends Contract {
 
     // query order by ID
     async queryTransaction(ctx, orderID) {
@@ -35,7 +35,6 @@ class LSP extends Contract {
         packingDim, 
         totalWeight,
         peer) {
-        console.info('============= START : Create Transaction Order Info ===========');
 
         let orderID = 'ORDER' + Math.random().toString(36).substr(2, 9);
         let orderIDcheck;
@@ -63,7 +62,6 @@ class LSP extends Contract {
             };
     
             await ctx.stub.putState(orderID, Buffer.from(JSON.stringify(order)));
-            console.info('============= END : Create Transaction Order Info ===========');
             return [true, orderID];
         } else {
             return false;
@@ -91,7 +89,7 @@ class LSP extends Contract {
         return JSON.stringify(allResults);
     }
 
-    //change data transaction in database
+    //change transaction data in database
     async changeDataTransaction(ctx, 
         orderID, 
         cargoOwner,
@@ -104,7 +102,6 @@ class LSP extends Contract {
         packingDim, 
         totalWeight,
         peer) {
-        console.info('============= START : changeCargoOwner ===========');
 
         
         if (peer == "peer0") {
@@ -122,14 +119,14 @@ class LSP extends Contract {
             };
     
             await ctx.stub.putState(orderID, Buffer.from(JSON.stringify(order)));
-            console.info('============= END : Create Transaction Order Info ===========');
             return [true, orderID];
         } else {
-            result = false;
+            return false;
         }
 
     }
 
+    // delete transaction
     async deleteTransaction(ctx, orderID, peer) {
         if (peer == "peer0") {
             try {
@@ -147,4 +144,4 @@ class LSP extends Contract {
 
 }
 
-module.exports = LSP;
+module.exports = Orderinfo;
