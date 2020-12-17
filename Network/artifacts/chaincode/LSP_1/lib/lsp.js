@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+ // Chaincode for order transaction info
+
 'use strict';
 
 const { Contract } = require('fabric-contract-api');
@@ -35,7 +37,6 @@ class LSP extends Contract {
         peer) {
         console.info('============= START : Create Transaction Order Info ===========');
 
-        let result;
         let orderID = 'ORDER' + Math.random().toString(36).substr(2, 9);
         let orderIDcheck;
         
@@ -63,15 +64,14 @@ class LSP extends Contract {
     
             await ctx.stub.putState(orderID, Buffer.from(JSON.stringify(order)));
             console.info('============= END : Create Transaction Order Info ===========');
-            result = true;
-            return [result, orderID];
+            return [true, orderID];
         } else {
-            result = false;
-            return result;
+            return false;
         }
         
     }
 
+    //query all transactions
     async queryAllTransactions(ctx) {
         const startKey = '';
         const endKey = '';
@@ -91,54 +91,59 @@ class LSP extends Contract {
         return JSON.stringify(allResults);
     }
 
-    // async changeDataTransaction(ctx, 
-    //     orderID, 
-    //     cargoOwner,
-    //     loadingPoint, 
-    //     loadingDateTime, 
-    //     deliveryPoint,
-    //     deliveryDateTime, 
-    //     productID, 
-    //     quantity, 
-    //     packingDim, 
-    //     totalWeight,
-    //     peer) {
-    //     console.info('============= START : changeCargoOwner ===========');
+    //change data transaction in database
+    async changeDataTransaction(ctx, 
+        orderID, 
+        cargoOwner,
+        loadingPoint, 
+        loadingDateTime, 
+        deliveryPoint,
+        deliveryDateTime, 
+        productID, 
+        quantity, 
+        packingDim, 
+        totalWeight,
+        peer) {
+        console.info('============= START : changeCargoOwner ===========');
 
-    //     let result;
         
-    //     if (peer == "peer0") {
-    //         const order = {
-    //             orderID,
-    //             cargoOwner,
-    //             loadingPoint,
-    //             loadingDateTime,
-    //             deliveryPoint,
-    //             deliveryDateTime,
-    //             productID,
-    //             quantity,
-    //             packingDim,
-    //             totalWeight,
-    //         };
+        if (peer == "peer0") {
+            const order = {
+                orderID,
+                cargoOwner,
+                loadingPoint,
+                loadingDateTime,
+                deliveryPoint,
+                deliveryDateTime,
+                productID,
+                quantity,
+                packingDim,
+                totalWeight,
+            };
     
-    //         await ctx.stub.putState(orderID, Buffer.from(JSON.stringify(order)));
-    //         console.info('============= END : Create Transaction Order Info ===========');
-    //         result = true;
-    //     } else {
-    //         result = false;
-    //     }
-    //     return result;
+            await ctx.stub.putState(orderID, Buffer.from(JSON.stringify(order)));
+            console.info('============= END : Create Transaction Order Info ===========');
+            return [true, orderID];
+        } else {
+            result = false;
+        }
 
-    //     // const orderAsBtyes = await ctx.stub.getState(orderID); // get the transaction from chaincode state
-    //     // if (!orderAsBtyes || orderAsBtyes.length === 0) {
-    //     //     throw new Error(`${orderID} does not exist`);
-    //     // }
-    //     // const order = JSON.parse(orderAsBtyes.toString());
-    //     // order.cargoOwner = newOwner;
+    }
 
-    //     // await ctx.stub.putState(orderID, Buffer.from(JSON.stringify(order)));
-    //     // console.info('============= END : changeCargoOwner ===========');
-    // }
+    async deleteTransaction(ctx, orderID, peer) {
+        if (peer == "peer0") {
+            try {
+                ctx.stub.deleteState(orderID);
+                return true;
+            } catch (error) {
+                console.log(error);
+                return false;
+            }
+            
+        } else {
+            return false;
+        }
+    }
 
 }
 
