@@ -14,7 +14,7 @@ function RegisterUser() {
 
   // config to our server
   const options = {
-    hostname: 'localhost',
+    hostname: '139.59.114.7',
     port: 4000,
     path: '/users',
     header: {
