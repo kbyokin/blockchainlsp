@@ -3,7 +3,7 @@ const https = require('https')
 function RegisterUser() {
   // TODO: Recieved 2 variable from login.html
   var username = document.getElementById('username').value;
-  var orgName = document.getElementById('orgName').value;
+  var password = document.getElementById('password').value;
 
   // construct information from login.html to send to server
   const data = JSON.stringify({
@@ -12,6 +12,7 @@ function RegisterUser() {
   })
   console.log("data:", data);
 
+  // config to our server
   const options = {
     hostname: 'localhost',
     port: 4000,
