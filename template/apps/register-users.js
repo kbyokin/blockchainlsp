@@ -8,7 +8,7 @@ function RegisterUser() {
   // construct information from login.html to send to server
   const data = JSON.stringify({
     'username': username,
-    'orgName': orgName
+    'password': password
   })
   console.log("data:", data);
 
