@@ -5,6 +5,7 @@
     width:100vw;
 }
 .login_wrapper{
+    background:white;
     position: absolute;
     width:550px;
     border-radius: 30px;

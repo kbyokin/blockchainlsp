@@ -2,7 +2,7 @@
 .sidebar{
     max-width:0px;
     overflow: hidden;
-    background:#7386D5;
+    background:rgb(173, 173, 173);
     height:100%;
     position:fixed;
     transition:0.2s ease-in-out;
@@ -13,15 +13,17 @@
     flex-direction: column;
 }
 .sidebar_header{
-    background:#6d7fcc;
-    padding:20px;
+    background:gray;
+    padding:40px 20px;
     color:White;
+    text-align: center;
 }
 .sidebar_items{
     padding:20px 0;
-    border-bottom:1px solid #47748b;
+    border-bottom:1px solid white;
 }
 .sidebar_item li{
+    font-weight: 700;
     cursor: pointer;
     padding:10px;
     transition:background 0.2s ease-in;

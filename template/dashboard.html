@@ -22,7 +22,7 @@
         </div>
         <div class="sidebar_wrapper">
             <div class="sidebar_header">
-                <h3>Logistics Service Supply Chain</h3>
+                <img src="./assets/image/logo.png" alt="">
             </div>
             <ul class="sidebar_items">
                 <a href="./index.html" class="sidebar_item"><li >Home</li></a>
@@ -42,7 +42,7 @@
                     <form action="#" class="search_form">
                         <div class="form-group">
                             <div class="input-group">
-                                <input class="search_bar" type="text" name="search" id="search" pattern="[a-zA-Z0-9]{1,10}" oninvalid="setCustomValidity('Language detect (English and Number only), no special character and maximum 10 character')"  oninput="setCustomValidity('')" placeholder="Track&trace" autocomplete="off" class="form-control">
+                                <input class="search_bar" type="text" name="search" id="search" pattern="[a-zA-Z0-9]{1,10}" maxlength="10" oninvalid="setCustomValidity('Language detect (English and Number only), no special character and maximum 10 character')"  oninput="setCustomValidity('')" placeholder="Track&trace" autocomplete="off" class="form-control">
                                 <div class="input-group-prepend">
                                     <i class="fas fa-search"></i>
                                 </div>
@@ -50,8 +50,7 @@
                         </div>
                     </form>
                     <ul class="navbar_items">
-                        <li class="navbar_item"><a href="./index.html">Home</a></li>
-                        <a href="./index.html" id="logout_btn">Logout</a>
+                        <a href="./index.html" id="logout_btn" class="ml-5">Logout</a>
                     </ul>
                 </div>
             </div>

@@ -3,14 +3,28 @@
 .form-group label{
     text-transform: capitalize;
 }
+.main_content_flex{
+    width:90%; 
+    margin: 0 auto;
+    display:flex;
+    justify-content: space-between;
+
+}
+.main_content_left{
+    flex:0.2;
+}
 #transaction_form_wrapper{
-    padding:30px 0;
-    width:70%;
-    margin:0 auto;
+    margin:20px;
+    flex:0.8;
+    padding:30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     transition:0.7s;
+    background:white;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+
 }
 #transaction_form_wrapper .btn_group{
     align-self: center;
@@ -24,11 +38,22 @@
 #searchtran_btn.active{
     box-shadow:0 0 0 0.2rem rgba(223, 40, 40, 0.5);
 }
-@media screen and (max-width:500px){
+@media screen and (max-width:1150px){
+    .main_content_flex{
+        flex-direction: column-reverse;
+    }
+    .main_content_left{
+        flex:1;
+        width:100%;
+        margin:0;
+    }
     #transaction_form_wrapper{
-        width:90%;
+        flex:1;
+        width:100%;
+        margin:0;
     }
 }
+
 @media screen and (max-width:374px){
     .btn_group{
         display:flex;

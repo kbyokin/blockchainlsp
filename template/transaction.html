@@ -23,7 +23,7 @@
         </div>
         <div class="sidebar_wrapper">
             <div class="sidebar_header">
-                <h3>Logistics Service Supply Chain</h3>
+                <img src="./assets/image/logo.png" alt="">
             </div>
             <ul class="sidebar_items">
                 <a href="./index.html" class="sidebar_item"><li >Home</li></a>
@@ -42,7 +42,7 @@
                     <form action="#" class="search_form">
                         <div class="form-group">
                             <div class="input-group">
-                                <input class="search_bar" type="text" name="search" id="search" pattern="[a-zA-Z0-9]{1,10}" oninvalid="setCustomValidity('Language detect (English and Number only), no special character and maximum 10 character')"  oninput="setCustomValidity('')" placeholder="Track&trace" autocomplete="off" class="form-control">
+                                <input class="search_bar" type="text" name="search" id="search" pattern="[a-zA-Z0-9]{1,10}" maxlength="10" oninvalid="setCustomValidity('Language detect (English and Number only), no special character and maximum 10 character')"  oninput="setCustomValidity('')" placeholder="Track&trace" autocomplete="off" class="form-control">
                                 <div class="input-group-prepend">
                                     <i class="fas fa-search"></i>
                                 </div>
@@ -52,66 +52,84 @@
                 </div>
             </div>
         </div>
-        <div id="transaction_form_wrapper">
-            <div class="form-group btn_group">
-                <button class="btn btn-primary active" id="addtran_btn">ADD Car transaction</button>
-                <button class="btn btn-danger " id="searchtran_btn">Seach Car transaction</button>
-            </div>
-            <hr>
-            <!-- add transaction form -->
-            <form action="#" id="add_transaction_form">
-                <div class="form-group">
-                    <label for="cargoowner" class="form-label">Cargo Owner</label>
-                    <input type="text" class="form-control" id="cargoOwner" name="cargo_owner">
+        <div class="main_content_flex">
+            <div id="transaction_form_wrapper" class="main_content_body">
+                <div class="form-group btn_group">
+                    <button class="btn btn-primary active" id="addtran_btn">ADD Car transaction</button>
+                    <button class="btn btn-danger " id="searchtran_btn">Seach Car transaction</button>
                 </div>
-                <div class="form-group row">
-                    <div class="col-sm">
-                        <label for="loadingpoint" class="form-label">Loading Point</label>
-                        <input type="text" class="form-control" id="loadingPoint" name="loading_point">
+                <hr>
+                <!-- add transaction form -->
+                <form action="#" id="add_transaction_form">
+                    <div class="form-group">
+                        <label for="cargoowner" class="form-label">Cargo Owner</label>
+                        <input type="text" class="form-control" id="cargoOwner" name="cargo_owner">
                     </div>
-                    <div class="col-sm">
-                        <label for="loadingDateTime" class="form-label">Loading Date-Time</label>
-                        <input type="datetime-local" id="loadingDateTime" class="form-control" name="loading_date_time">
+                    <div class="form-group row">
+                        <div class="col-sm">
+                            <label for="loadingpoint" class="form-label">Loading Point</label>
+                            <input type="text" class="form-control" id="loadingPoint" name="loading_point">
+                        </div>
+                        <div class="col-sm">
+                            <label for="loadingDateTime" class="form-label">Loading Date-Time</label>
+                            <input type="datetime-local" id="loadingDateTime" class="form-control" name="loading_date_time">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm">
-                        <label for="deliverypoint" class="form-label">Delivery Point</label>
-                        <input type="text" class="form-control" id="deliverygpoint">
+                    <div class="form-group row">
+                        <div class="col-sm">
+                            <label for="deliverypoint" class="form-label">Delivery Point</label>
+                            <input type="text" class="form-control" id="deliverygpoint">
+                        </div>
+                        <div class="col-sm">
+                            <label for="DeliveryDateTime" class="form-label">Delivery Date-Time</label>
+                            <input type="datetime-local" id="deliverygDateTime" class="form-control" name="delivery_date_time">
+                        </div>
                     </div>
-                    <div class="col-sm">
-                        <label for="DeliveryDateTime" class="form-label">Delivery Date-Time</label>
-                        <input type="datetime-local" id="deliverygDateTime" class="form-control" name="delivery_date_time">
+                    <div class="form-group row">
+                        <div class="col-sm">
+                            <label for="productid">Product ID</label>
+                            <input type="text" class="form-control" id="productid" name="product_id">
+                        </div>
+                        <div class="col-sm">
+                            <label for="quantity">Quantity</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-sm">
+                            <label for="totalweight">Total Weight</label>
+                            <input type="text" name="total_weignt" class="form-control" name="total_weight">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm">
-                        <label for="productid">Product ID</label>
-                        <input type="text" class="form-control" id="productid" name="product_id">
-                    </div>
-                    <div class="col-sm">
-                        <label for="quantity">Quantity</label>
+                    <div class="form-group">
+                        <label for="pakcingdim">Packing Dimension</label>
                         <input type="text" class="form-control">
                     </div>
-                    <div class="col-sm">
-                        <label for="totalweight">Total Weight</label>
-                        <input type="text" name="total_weignt" class="form-control" name="total_weight">
+                    <button type="submit" class="btn btn-primary">Add Transaction</button>
+                </form>
+                <!-- search transaction form -->
+                <form action="#" id="search_transaction_form">
+                    <div class="form-group">
+                        <label for="input_search">query car:</label>
+                        <input type="text" name="search" id="input_search" placeholder="search" class="form-control">
                     </div>
+                    <input type="submit" class="btn btn-primary" value="Search">
+                </form>
+            </div>
+            <div class="main_content_left">
+                <form action="#" class="search_form">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="search_bar" type="text" name="search" id="search" maxlength="10" pattern="[a-zA-Z0-9]{1,10}" maxlength="10" oninvalid="setCustomValidity('Language detect (English and Number only), no special character and maximum 10 character')"  oninput="setCustomValidity('')" placeholder="Track&trace" autocomplete="off" class="form-control">
+                            <div class="input-group-prepend">
+                                <i style="color:black;" class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="main_content_body">
+                    <h5>Work order Info</h5>
+                    <hr>
                 </div>
-                <div class="form-group">
-                    <label for="pakcingdim">Packing Dimension</label>
-                    <input type="text" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-primary">Add Transaction</button>
-            </form>
-            <!-- search transaction form -->
-            <form action="#" id="search_transaction_form">
-                <div class="form-group">
-                    <label for="input_search">query car:</label>
-                    <input type="text" name="search" id="input_search" placeholder="search" class="form-control">
-                </div>
-                <input type="submit" class="btn btn-primary" value="Search">
-            </form>
+            </div>
         </div>
     </section>
 </body>
