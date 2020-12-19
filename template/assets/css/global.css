@@ -155,11 +155,3 @@ a,a:hover{
     }
 
 }
-@media screen and (max-width:507px){
-    .burger_text{
-        display:none;
-    }
-    .burger_menu i{
-        margin:0;
-    }
-}
