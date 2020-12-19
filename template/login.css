@@ -156,7 +156,7 @@
     transform:translateX(0%)
 }
 .login_progress .progress_step{
-    transition-delay: 0.2s;
+    transaction-delay: 0.2s;
     overflow: hidden;
     position: relative;
     font-weight: 500;
