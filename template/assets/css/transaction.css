@@ -63,8 +63,7 @@
         margin:0;
     }
 }
-
-@media screen and (max-width:374px){
+@media screen and (max-width:485px){
     .btn_group{
         display:flex;
         flex-direction: column;
