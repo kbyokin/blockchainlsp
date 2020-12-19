@@ -1,0 +1,40 @@
+@import './global.css';
+
+.form-group label{
+    text-transform: capitalize;
+}
+#transaction_form_wrapper{
+    padding:30px 0;
+    width:70%;
+    margin:0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition:0.7s;
+}
+#transaction_form_wrapper .btn_group{
+    align-self: center;
+}
+#search_transaction_form{
+    display:none;
+}
+#addtran_btn.active{
+   box-shadow:  0 0 0 0.2rem rgba(38,143,255,.5);
+}
+#searchtran_btn.active{
+    box-shadow:0 0 0 0.2rem rgba(223, 40, 40, 0.5);
+}
+@media screen and (max-width:500px){
+    #transaction_form_wrapper{
+        width:90%;
+    }
+}
+@media screen and (max-width:374px){
+    .btn_group{
+        display:flex;
+        flex-direction: column;
+    }
+    .btn_group button{
+        margin:10px;
+    }
+}
