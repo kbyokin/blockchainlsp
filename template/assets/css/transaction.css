@@ -4,18 +4,21 @@
     text-transform: capitalize;
 }
 .main_content_flex{
-    width:90%; 
+ 
     margin: 0 auto;
     display:flex;
     justify-content: space-between;
 
 }
 .main_content_left{
-    flex:0.2;
+    flex:0.25;
+}
+.work_order_mobile{
+    display:none;
 }
 #transaction_form_wrapper{
-    margin:20px;
-    flex:0.8;
+    margin-right:20px;
+    flex:0.75;
     padding:30px;
     display: flex;
     flex-direction: column;
@@ -39,6 +42,12 @@
     box-shadow:0 0 0 0.2rem rgba(223, 40, 40, 0.5);
 }
 @media screen and (max-width:1150px){
+    .work_order_mobile{
+        display:block;
+    }
+    .work_order_desktop{
+        display:none;
+    }
     .main_content_flex{
         flex-direction: column-reverse;
     }

@@ -26,13 +26,13 @@
     font-weight: 700;
     cursor: pointer;
     padding:10px;
-    transition:background 0.2s ease-in;
+
 }
 .sidebar_item:hover li{
     background:white;
 }
 .sidebar_item:hover{
-    color:#7386D5;
+    color:black;
 }
 .sidebar_item{
     color:white;
@@ -43,14 +43,17 @@
     background:white;
     margin:20px 20px;
     text-align: center;
-    color: #7386d5;
+    color:black;
     border-radius: 5px;
-    font-size:13px;
-    transition: 0.3s;
+    font-size:18px;
+    transition: 0.1s;
     font-weight: 700;
 }
 .login_btn:hover{
-    background:rgb(235, 235, 235);
+    background:none;
+    border:2px solid white;
+    color:white;
+
 
 }
 .sidebar.active{

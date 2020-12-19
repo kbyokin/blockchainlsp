@@ -1,2 +1,6 @@
 @import './global.css';
 
+.clickabled_row tr:hover{
+    background:rgb(218, 218, 218) !important;
+    cursor:pointer
+}

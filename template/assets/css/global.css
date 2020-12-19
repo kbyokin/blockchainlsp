@@ -46,26 +46,51 @@ a,a:hover{
     padding:0 25px;
     align-items: center;
     overflow: hidden;
+    height:75px;
 }
 .nav_group{
     display:flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     min-width:250px;
     color:white;
-
+}
+.nav_group .nav_item{
+    color:white;
+    font-weight:600;
+    margin-right:20px;
+    font-size:22px;
+    padding:7px 25px;
+    border-radius:10px; 
+}
+.nav_group .nav_item_btn{
+    padding:7px 25px;
+    border-radius:10px;
+    background:white;
+    font-weight: 700;
+    font-size:22px;
+    transition: 0.2s;
+}
+.nav_group .nav_item:hover{
+    border:1px solid white;
+}
+.nav_group .nav_item_btn:hover{
+    border:1px solid white;
+    background:none;
+    color:White;
 }
 .burger_menu{
     background:white;
     border:none;
     border-radius: 5px;
-    padding:5px 15px;
+    padding:10px 20px;
     font-size:18px;
     color:black;
-    font-weight:800;
+    font-weight:700;
 }
 .burger_menu i{
-    margin-right:5px;
+    margin-right:15px;
+    font-size:20px;
 }
 .input-group{
     display:Flex;

@@ -36,23 +36,19 @@
     <!-- main_content -->
     <section class="transaction main_content">
         <div class="header">
-            <div class="header_menu">
-                <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">menu</span></button>
+            <div class="header_menu pt-3 pb-3">
+                <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
                 <div class="nav_group">
-                    <form action="#" class="search_form">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input class="search_bar" type="text" name="search" id="search" pattern="[a-zA-Z0-9]{1,10}" maxlength="10" oninvalid="setCustomValidity('Language detect (English and Number only), no special character and maximum 10 character')"  oninput="setCustomValidity('')" placeholder="Track&trace" autocomplete="off" class="form-control">
-                                <div class="input-group-prepend">
-                                    <i class="fas fa-search"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    <a href="#" class="nav_item">HOME</a>
+                    <a href="#" class="nav_item_btn">Logout</a>
                 </div>
             </div>
         </div>
         <div class="main_content_flex">
+            <div class="main_content_body work_order_mobile" style="width:100%">
+                <h5>Work order Info</h5>
+                <hr>
+            </div>
             <div id="transaction_form_wrapper" class="main_content_body">
                 <div class="form-group btn_group">
                     <button class="btn btn-primary active" id="addtran_btn">ADD Car transaction</button>
@@ -118,14 +114,14 @@
                 <form action="#" class="search_form">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="search_bar" type="text" name="search" id="search" maxlength="10" pattern="[a-zA-Z0-9]{1,10}" maxlength="10" oninvalid="setCustomValidity('Language detect (English and Number only), no special character and maximum 10 character')"  oninput="setCustomValidity('')" placeholder="Track&trace" autocomplete="off" class="form-control">
+                            <input class="search_bar form-control" style="border-radius:10px;" type="text" name="search" id="search" maxlength="10" pattern="[a-zA-Z0-9]{1,10}" maxlength="10" oninvalid="setCustomValidity('Language detect (English and Number only), no special character and maximum 10 character')"  oninput="setCustomValidity('')" placeholder="Track&trace" autocomplete="off">
                             <div class="input-group-prepend">
                                 <i style="color:black;" class="fas fa-search"></i>
                             </div>
                         </div>
                     </div>
                 </form>
-                <div class="main_content_body">
+                <div class="main_content_body work_order_desktop">
                     <h5>Work order Info</h5>
                     <hr>
                 </div>
