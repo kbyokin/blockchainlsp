@@ -153,5 +153,9 @@ a,a:hover{
     width:calc(100% - 0px);
     margin-left:0;
     }
-
+}
+@media screen and (max-width:503px){
+    .nav_group{
+        display:none;
+    }
 }
