@@ -12,6 +12,7 @@
 }
 .main_content_left{
     flex:0.25;
+    margin-top:6px;
 }
 .work_order_mobile{
     display:none;
