@@ -153,9 +153,13 @@ a,a:hover{
     width:calc(100% - 0px);
     margin-left:0;
     }
+
 }
-@media screen and (max-width:458px){
+@media screen and (max-width:507px){
     .burger_text{
         display:none;
+    }
+    .burger_menu i{
+        margin:0;
     }
 }
