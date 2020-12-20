@@ -10,7 +10,7 @@
 
 const { Contract } = require('fabric-contract-api');
 
-class Jobassignmentinfo extends Contract {
+class myJobassignment extends Contract {
 
 
     // query job info by id 
@@ -46,12 +46,11 @@ class Jobassignmentinfo extends Contract {
 
     // create job
     async createJobAssignmentInfo(ctx, 
-        workOrderInfo,
         transOrderInfo, 
         truckID,
         peer) {
 
-        let jobID = 'JOB' + Math.random().toString(36).substr(2, 9);
+        let jobID = 'MYJOB' + Math.random().toString(36).substr(2, 9);
         let jobIDcheck;
 
         while (true) {
@@ -59,13 +58,12 @@ class Jobassignmentinfo extends Contract {
             if (!jobIDcheck || jobIDcheck.length === 0) {
                 break;
             }
-            jobID = 'JOB' + Math.random().toString(36).substr(2, 9);
+            jobID = 'MYJOB' + Math.random().toString(36).substr(2, 9);
         }
 
-        if (peer == "peer1" || peer == "peer2") {
+        if (peer == "peer1") {
             const Job = {
                 jobID,
-                workOrderInfo,
                 transOrderInfo, 
                 truckID,
             };
@@ -81,16 +79,14 @@ class Jobassignmentinfo extends Contract {
     //change job data in database
     async changeDataJobAssignment(ctx, 
         jobID,
-        workOrderInfo,
         transOrderInfo, 
         truckID,
         peer) {
 
         
-        if (peer == "peer1" || peer == "peer2") {
+        if (peer == "peer1") {
             const Job = {
                 jobID,
-                workOrderInfo,
                 transOrderInfo, 
                 truckID,
             };
@@ -106,7 +102,7 @@ class Jobassignmentinfo extends Contract {
 
     // delete work
     async deleteJobAssignment(ctx, jobID, peer) {
-        if (peer == "peer1" || peer == "peer2") {
+        if (peer == "peer1") {
             try {
                 ctx.stub.deleteState(jobID);
                 return true;
@@ -122,4 +118,4 @@ class Jobassignmentinfo extends Contract {
 
 }
 
-module.exports = Jobassignmentinfo;
+module.exports = myJobassignment;
