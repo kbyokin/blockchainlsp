@@ -24,7 +24,7 @@ initializedPassport(
 const users = []
 
 // 
-app.use(express.static("../../template"))
+app.use(express.static("../template"))
 // tell server to use ejs
 app.set('view-engine', 'ejs')
 // since we are going to get information from form
@@ -47,7 +47,7 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/temp', (req, res) => {
-    res.sendFile(path.join(__dirname, '../login.html'))
+    res.sendFile(path.join(__dirname, '../template/login.html'))
 })
 
 app.get('/', checkAuthenticated, (req, res) => {
@@ -57,7 +57,7 @@ app.get('/', checkAuthenticated, (req, res) => {
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
     // res.render('login.ejs')
-    res.sendFile(path.join(__dirname, '../login.html'))
+    res.sendFile(path.join(__dirname, '../template/login.html'))
 })
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
