@@ -23,19 +23,21 @@
                 <img src="./assets/image/logo.png" id="login_logo" alt="">
                 <h1>LSP</h1>
             </div>
-            <form class="login_form" autocomplete="off">
+            <form class="login_form" autocomplete="off" action="/login" method="POST">
                 <div class="input_group">
                     <i class="fas fa-user-circle"></i>
-                    <input class="login_input user_input" type="text" placeholder="Username" name="username"
-                        id="username">
+                    <input class="login_input user_input" type="email" placeholder="Email" name="email"
+                        id="email">
                 </div>
                 <div class="input_group">
                     <i class="fas fa-unlock-alt"></i>
-                    <input class="login_input pass_input" type="text" placeholder="Password" name="password"
+                    <input class="login_input pass_input" type="password" placeholder="Password" name="password"
                         id="password">
                 </div>
-                <input class="login_btn" type="button" id="submit" value="Login" onclick="RegisterUser()">
+                <button class="login_btn" type="submit">Login</button>
+                <!-- <input class="login_btn" type="button" id="submit" value="Login" onclick="RegisterUser()"> -->
             </form>
+            <a href="/register">Register</a>
         </div>
     </section>
     <script src="./apps/register-users.js"></script>
