@@ -24,7 +24,7 @@ initializedPassport(
 const users = []
 
 // 
-app.use(express.static("../../templates"))
+app.use(express.static("../../template"))
 // tell server to use ejs
 app.set('view-engine', 'ejs')
 // since we are going to get information from form
