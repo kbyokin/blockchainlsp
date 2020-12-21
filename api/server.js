@@ -4,7 +4,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express')
 const app = express()
-
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 const flash = require('express-flash')
@@ -47,7 +46,8 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/temp', (req, res) => {
-    res.sendFile(path.join(__dirname, '../template/login.html'))
+    // console.log(__dirname)
+    res.sendFile(path.join(__dirname, '../template/login.html'));
 })
 
 app.get('/', checkAuthenticated, (req, res) => {
@@ -57,7 +57,8 @@ app.get('/', checkAuthenticated, (req, res) => {
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
     // res.render('login.ejs')
-    res.sendFile(path.join(__dirname, '../template/login.html'))
+    console.log(__dirname)
+    res.sendFile(path.join(__dirname, '../template/login.html'));
 })
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
@@ -82,8 +83,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
             id: Date.now().toString(),
             name: req.body.name,
             email: req.body.email,
-            password: hashedPassword,
-            peer: req.body.peer
+            password: hashedPassword
         })
         // then redirect to login page
         res.redirect('/login')
