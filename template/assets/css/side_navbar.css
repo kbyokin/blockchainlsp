@@ -47,6 +47,8 @@
     border-radius: 5px;
     font-size:18px;
     transition: 0.1s;
+    border:none;
+    width:80%;
     font-weight: 700;
 }
 .login_btn:hover{
