@@ -1,0 +1,35 @@
+<div class="dashboard_tab_item">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>data</th>
+            </tr>
+        </thead>
+        <tbody id="data-body">
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var data = [
+        {'name':'data03',
+         'data':'3333333'
+        },{
+         'name':'data03',
+         'data':'3333333'
+        }
+    ]
+
+    getData(data);
+    function getData(data){
+        for(i=0;i<data.length;i++){
+            var row = `<tr>
+                        <td>${data[i].name}</td>
+                        <td>${data[i].data}</td>
+                        </tr>`
+        document.getElementById('data-body').innerHTML += row
+        }
+    }
+</script>
