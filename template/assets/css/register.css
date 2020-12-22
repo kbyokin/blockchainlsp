@@ -71,6 +71,35 @@ input:focus{
     color:white;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
+.pattern_xix{
+    align-self: flex-start;
+    padding:10px;
+}
+.pattern_xix span{
+    color:red;
+}
+.pattern_xix span::after{
+    margin-left:5px;
+    font-family: "Font Awesome 5 Free"; 
+    content: "\f057";
+
+}
+.pattern_xix span.valid{
+    color:rgb(14, 209, 14);
+
+}
+.pattern_xix span.valid::after{
+    content:"\f058";
+    animation:zoom 0.3s;
+}
+@keyframes zoom {
+    0%{
+        font-size:20px;
+    }100%{
+        font-size:14px
+
+    }
+}
 @media screen and (max-width:396px){
     .register_btn_group{
         flex-direction: column;
