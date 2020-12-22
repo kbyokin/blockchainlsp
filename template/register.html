@@ -24,7 +24,7 @@
            <div class="form-group register_group">
                <input type="text" name="name" id="name" placeholder="Name">
                 <input type="email" name="email" id="email" placeholder="Email">
-                <input type="password" name="password" id="password" placeholder="Password">
+                <input type="password" name="password" id="password" placeholder="Password" pattern="(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}"  onInvalid="setCustomValidity('ต้องประกอบด้วยตัวเลขและตัวอักษรและมี 6 ตัวขึ้นไป')" oninput="setCustomValidity('')">
                 <div class="pattern_xix">
                     <span class="min6char">มีตั้งแต่ 6 ตัวอักษรขึ้นไป</span><br>
                     <span class="checkchar">ต้องประกอบด้วยตัวเลขและตัวอักษร</span>

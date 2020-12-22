@@ -15,7 +15,7 @@ $(document).ready(function(){
     })
 
     function check_validate_password(value){
-        var regEx = /^(?=.+[0-9])(?=.+[a-zA-Z])[a-zA-Z0-9]+$/;
+        var regEx = /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]+$/;
         var regTest = regEx.test(value);
         return regTest;
     }
