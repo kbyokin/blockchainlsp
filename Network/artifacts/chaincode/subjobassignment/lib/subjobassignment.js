@@ -23,7 +23,7 @@ class Subjobassignment extends Contract {
     }
 
     // create order details (invoke by peer0 => customer services)
-    async createTransaction(ctx, 
+    async createsubjobassignment(ctx, 
         // subjobID, 
         workOrderInfo,
         transOrderInfo, 
