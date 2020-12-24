@@ -340,16 +340,32 @@ app.delete('/logout', (req, res) => {
 app.post('/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
     try {
         logger.debug('==================== INVOKE ON CHAINCODE ==================');
-        // var peer = req.user.peer;
-        // var name = req.user.name;
-        var name = req.body.name;
-        var peer = req.body.peer;
+        var peer = req.user.peer;
+        var name = req.user.name;
+        // var name = req.body.name;
+        // var peer = req.body.peer;
         var chaincodeName = req.params.chaincodeName;
         var channelName = req.params.channelName;
-        var fcn = req.body.fcn;
-        var args = req.body.args;
-        // var transient = req.body.transient;
-        // console.log(`Transient data is ;${transient}`)
+        // var fcn = req.body.fcn;
+        var fcn = "createTransaction";
+        // var args = req.body.args;
+        var args = [req.body.cargoOwner,
+            req.body.loadingPoint,
+            req.body.loadingDateTime,
+            req.body.deliverygpoint,
+            req.body.deliverygDateTime,
+            req.body.productid,
+            req.body.quantity,
+            req.body.total_weight,
+            req.body.pakcingdim,
+        ]
+
+        console.log(args);
+        console.log(typeof(req.body.loadingDateTime));
+
+
+        logger.debug('name  : ' + name);
+        logger.debug('peer : ' + peer);
         logger.debug('channelName  : ' + channelName);
         logger.debug('chaincodeName : ' + chaincodeName);
         logger.debug('fcn  : ' + fcn);
@@ -390,6 +406,14 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName', async function (req
         res.send(response_payload)
     }
 });
+
+
+app.get('/channels/mychannel/chaincodes/orderinfo', checkAuthenticated, async (req, res) => {   
+    res.sendFile(path.join(__dirname, '../template/transaction.html'));
+    console.log("name = " + req.user.name);
+    console.log("password = " + req.user.password);
+    console.log("peer = " + req.user.peer);
+})
 
 // app.get('/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
 //     try {
