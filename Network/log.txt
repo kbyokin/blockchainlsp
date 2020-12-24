@@ -1,3 +1,7 @@
 Installed chaincodes on peer:
-Package ID: lsp_1:c103053a2d0e6c835970ade6555cb76e5bfec6bc2927eeea304c47b83e007869, Label: lsp_1
-Package ID: lsptwo_1:c881fa9de8789d02704001f0244d4cc48007bda24104a30121c0a62a18f345ba, Label: lsptwo_1
+Package ID: myjobassignment_1:f492bd8bd08fded6cecb3d6db7387d45c3c69585ec65456001d564a34122d7d0, Label: myjobassignment_1
+Package ID: loadinginfo_1:561f046a00bf9584bca769fd49cba28546afb9e23c88c74f91e4bf76dbf8d34f, Label: loadinginfo_1
+Package ID: deliveryinfo_1:4e755c59618977e8791fe6f09726755080fe03456f750a5d26b4745066e02724, Label: deliveryinfo_1
+Package ID: subjobassignment_1:b9cf144fa7e82893775a775ee926b639b627d8dd44a473de742fb5113811bab5, Label: subjobassignment_1
+Package ID: orderinfo_1:2658531fcc405fc7420450f56061b5e527be822692a01c58886b0549cf4861b7, Label: orderinfo_1
+Package ID: workinfo_1:21e6e4bbcaca51c8eb22c2122415ba3b90b56891df1e1d076d272d0b7909d9ef, Label: workinfo_1

@@ -336,57 +336,60 @@ app.delete('/logout', (req, res) => {
 // });
 
 
-// // Invoke transaction on chaincode on target peers
-// app.post('/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
-//     try {
-//         logger.debug('==================== INVOKE ON CHAINCODE ==================');
-//         var peers = req.body.peers;
-//         var chaincodeName = req.params.chaincodeName;
-//         var channelName = req.params.channelName;
-//         var fcn = req.body.fcn;
-//         var args = req.body.args;
-//         var transient = req.body.transient;
-//         console.log(`Transient data is ;${transient}`)
-//         logger.debug('channelName  : ' + channelName);
-//         logger.debug('chaincodeName : ' + chaincodeName);
-//         logger.debug('fcn  : ' + fcn);
-//         logger.debug('args  : ' + args);
-//         if (!chaincodeName) {
-//             res.json(getErrorMessage('\'chaincodeName\''));
-//             return;
-//         }
-//         if (!channelName) {
-//             res.json(getErrorMessage('\'channelName\''));
-//             return;
-//         }
-//         if (!fcn) {
-//             res.json(getErrorMessage('\'fcn\''));
-//             return;
-//         }
-//         if (!args) {
-//             res.json(getErrorMessage('\'args\''));
-//             return;
-//         }
+// Invoke transaction on chaincode on target peers
+app.post('/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
+    try {
+        logger.debug('==================== INVOKE ON CHAINCODE ==================');
+        // var peer = req.user.peer;
+        // var name = req.user.name;
+        var name = req.body.name;
+        var peer = req.body.peer;
+        var chaincodeName = req.params.chaincodeName;
+        var channelName = req.params.channelName;
+        var fcn = req.body.fcn;
+        var args = req.body.args;
+        // var transient = req.body.transient;
+        // console.log(`Transient data is ;${transient}`)
+        logger.debug('channelName  : ' + channelName);
+        logger.debug('chaincodeName : ' + chaincodeName);
+        logger.debug('fcn  : ' + fcn);
+        logger.debug('args  : ' + args);
+        if (!chaincodeName) {
+            res.json(getErrorMessage('\'chaincodeName\''));
+            return;
+        }
+        if (!channelName) {
+            res.json(getErrorMessage('\'channelName\''));
+            return;
+        }
+        if (!fcn) {
+            res.json(getErrorMessage('\'fcn\''));
+            return;
+        }
+        if (!args) {
+            res.json(getErrorMessage('\'args\''));
+            return;
+        }
 
-//         let message = await invoke.invokeTransaction(channelName, chaincodeName, fcn, args, req.username, req.orgname, transient);
-//         console.log(`message result is : ${message}`)
+        let message = await invoke.invokeTransaction(channelName, chaincodeName, fcn, args, name, peer );
+        console.log(`message result is : ${message}`)
 
-//         const response_payload = {
-//             result: message,
-//             error: null,
-//             errorData: null
-//         }
-//         res.send(response_payload);
+        const response_payload = {
+            result: message,
+            error: null,
+            errorData: null
+        }
+        res.send(response_payload);
 
-//     } catch (error) {
-//         const response_payload = {
-//             result: null,
-//             error: error.name,
-//             errorData: error.message
-//         }
-//         res.send(response_payload)
-//     }
-// });
+    } catch (error) {
+        const response_payload = {
+            result: null,
+            error: error.name,
+            errorData: error.message
+        }
+        res.send(response_payload)
+    }
+});
 
 // app.get('/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
 //     try {
