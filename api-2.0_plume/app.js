@@ -351,15 +351,15 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
         // var args = req.body.args;
         var args;
         if (fcn === "createTransaction") {
-            args = [req.body.cargoOwner,
-                req.body.loadingPoint,
-                req.body.loadingDateTime,
+            args = [req.body.cargo_owner,
+                req.body.loading_point,
+                req.body.loading_date_time,
                 req.body.deliverygpoint,
-                req.body.deliverygDateTime,
-                req.body.productid,
+                req.body.delivery_date_time,
+                req.body.product_id,
                 req.body.quantity,
                 req.body.total_weight,
-                req.body.pakcingdim,];
+                req.body.packing_dimension,];
         } else if (fcn === "changeDataTransaction") {
             args = [req.body.transactionID,
                 req.body.cargoOwner,
@@ -374,8 +374,8 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
         } else if (fcn === "deleteTransaction") {
             args = [req.body.transactionID];
         } else if (fcn === "WorkOrderInfoCreate") {
-            args = [req.body.transactionID,
-                req.body.subcontact,
+            args = [req.body.transaction_order_info,
+                req.body.subconID,
                 ];
         } else if (fcn === "changeDataWork") {
             args = [req.body.workID,
@@ -386,13 +386,13 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
             args = [req.body.workID,
                 ];
         } else if (fcn === "createJobAssignmentInfo") {
-            args = [req.body.transactionID,
-                req.body.truckID,
+            args = [req.body.transaction_order_info,
+                req.body.work_truck_id,
                 ];
         } else if (fcn === "changeDataJobAssignment") {
             args = [req.body.myjobassignmentID,
-                req.body.transactionID,
-                req.body.truckID,
+                req.body.transaction_order_info,
+                req.body.work_truck_id,
                 ];
         } else if (fcn === "deleteJobAssignment") {
             args = [req.body.myjobassignmentID,
@@ -491,8 +491,15 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
 });
 
 
-app.get('/channels/mychannel/chaincodes/orderinfo', checkAuthenticated, async (req, res) => {   
+app.get('transaction', checkAuthenticated, async (req, res) => {   
     res.sendFile(path.join(__dirname, '../template/transaction.html'));
+    console.log("name = " + req.user.name);
+    console.log("password = " + req.user.password);
+    console.log("peer = " + req.user.peer);
+})
+
+app.get('workorder_info', checkAuthenticated, async (req, res) => {   
+    res.sendFile(path.join(__dirname, '../template/workorder_info.html'));
     console.log("name = " + req.user.name);
     console.log("password = " + req.user.password);
     console.log("peer = " + req.user.peer);

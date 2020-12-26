@@ -61,8 +61,8 @@
             <option value="contact">ให้งานคอนแทค</option>
         </select>
         <hr>
-        <form action="#" method="post">
-            <div class="work_info_form">
+        <div class="work_info_form">
+        <form action="/channels/mychannel/chaincodes/myjobassignment/fcn/createJobAssignmentInfo" method="post">
                 <div class="form-group">
                     <label for="transaction_order_info" class="form-label">Transaction Order Info</label>
                     <input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info">
@@ -71,9 +71,10 @@
                     <label for="work_truck_id" class="form-label">Work Truck ID</label>
                     <input type="text" class="form-control" id="work_truck_id" name="work_truck_id">
                 </div>
-            </div>
-            <button class="btn btn-primary">Assign Work</button>
+            
+            <button class="btn btn-primary" type="submit">Assign Work</button>
         </form>
+    </div>
     </div>
     </section>
 </body>
@@ -82,10 +83,10 @@
     $('#work_type').change(function(){
         console.log($(this).val())
         if ($(this).val() === 'own'){
-            $('.work_info_form').html('<div class="form-group"><label for="transaction_order_info" class="form-label">Transaction Order Info</label><input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info"></div><div class="form-group"><label for="work_truck_id" class="form-label">Work Truck ID</label><input type="text" class="form-control" id="work_truck_id" name="work_truck_id"></div>')
+            $('.work_info_form').html('<form action="/channels/mychannel/chaincodes/myjobassignment/fcn/createJobAssignmentInfo" method="post"><div class="form-group"><label for="transaction_order_info" class="form-label">Transaction Order Info</label><input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info"></div><div class="form-group"><label for="work_truck_id" class="form-label">Work Truck ID</label><input type="text" class="form-control" id="work_truck_id" name="work_truck_id"></div><button class="btn btn-primary" type="submit">Assign Work</button></form>')
         }
         if($(this).val() === 'contact'){
-            $('.work_info_form').html('<div class="form-group"><label for="transaction_order_info" class="form-label">Transaction Order Info</label><input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info"></div><div class="form-group"><label class="form-label">Contact ID</label><input type="text" class="form-control"></div>')
+            $('.work_info_form').html('<form action="/channels/mychannel/chaincodes/workinfo/fcn/WorkOrderInfoCreate" method="post"><div class="form-group"><label for="transaction_order_info" class="form-label">Transaction Order Info</label><input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info"></div><div class="form-group"><label class="form-label">Contact ID</label><input type="text" class="form-control" name="subconID"></div><button class="btn btn-primary" type="submit">Assign Work</button></form>')
         }
     })
 </script>
