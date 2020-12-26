@@ -65,7 +65,7 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
             message = `Successfully change Order with key ${args[0]}`
         
         } else if (fcn === "deleteTransaction") {
-            result = await contract.submitTransaction(fcn, args, peer);
+            result = await contract.submitTransaction(fcn, args[0], peer);
             message = `Successfully delete Order with key ${args}`
 
         }
@@ -79,7 +79,7 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
             message = `Successfully change Work with key ${args[0]}`
         
         } else if (fcn === "deleteWork") {
-            result = await contract.submitTransaction(fcn, args, peer);
+            result = await contract.submitTransaction(fcn, args[0], peer);
             message = `Successfully delete Work with key ${args}`
             
         }
@@ -93,7 +93,7 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
             message = `Successfully change Myjob with key ${args[0]}`
         
         } else if (fcn === "deleteJobAssignment") {
-            result = await contract.submitTransaction(fcn, args, peer);
+            result = await contract.submitTransaction(fcn, args[0], peer);
             message = `Successfully delete Myjob with key ${args}`
             
         }
@@ -107,7 +107,7 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
             message = `Successfully change Subjob with key ${args[0]}`
         
         } else if (fcn === "deletesubjobassignment") {
-            result = await contract.submitTransaction(fcn, args, peer);
+            result = await contract.submitTransaction(fcn, args[0], peer);
             message = `Successfully delete Subjob with key ${args}`
             
         }
@@ -121,7 +121,7 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
             message = `Successfully change Loading with key ${args[0]}`
         
         } else if (fcn === "deleteDataloadinginfo") {
-            result = await contract.submitTransaction(fcn, args, peer);
+            result = await contract.submitTransaction(fcn, args[0], peer);
             message = `Successfully delete Loading with key ${args}`
             
         }
@@ -135,7 +135,7 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
             message = `Successfully change Delivery with key ${args[0]}`
         
         } else if (fcn === "deleteDatadeliveryinfo") {
-            result = await contract.submitTransaction(fcn, args, peer);
+            result = await contract.submitTransaction(fcn, args[0], peer);
             message = `Successfully delete Delivery with key ${args}`
             
         }

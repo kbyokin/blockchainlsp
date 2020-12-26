@@ -337,7 +337,7 @@ app.delete('/logout', (req, res) => {
 
 
 // Invoke transaction on chaincode on target peers
-app.post('/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
+app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async function (req, res) {
     try {
         logger.debug('==================== INVOKE ON CHAINCODE ==================');
         var peer = req.user.peer;
@@ -347,18 +347,101 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName', async function (req
         var chaincodeName = req.params.chaincodeName;
         var channelName = req.params.channelName;
         // var fcn = req.body.fcn;
-        var fcn = "createTransaction";
+        var fcn = req.params._fcn;
         // var args = req.body.args;
-        var args = [req.body.cargoOwner,
-            req.body.loadingPoint,
-            req.body.loadingDateTime,
-            req.body.deliverygpoint,
-            req.body.deliverygDateTime,
-            req.body.productid,
-            req.body.quantity,
-            req.body.total_weight,
-            req.body.pakcingdim,
-        ]
+        var args;
+        if (fcn === "createTransaction") {
+            args = [req.body.cargoOwner,
+                req.body.loadingPoint,
+                req.body.loadingDateTime,
+                req.body.deliverygpoint,
+                req.body.deliverygDateTime,
+                req.body.productid,
+                req.body.quantity,
+                req.body.total_weight,
+                req.body.pakcingdim,];
+        } else if (fcn === "changeDataTransaction") {
+            args = [req.body.transactionID,
+                req.body.cargoOwner,
+                req.body.loadingPoint,
+                req.body.loadingDateTime,
+                req.body.deliverygpoint,
+                req.body.deliverygDateTime,
+                req.body.productid,
+                req.body.quantity,
+                req.body.total_weight,
+                req.body.pakcingdim,];
+        } else if (fcn === "deleteTransaction") {
+            args = [req.body.transactionID];
+        } else if (fcn === "WorkOrderInfoCreate") {
+            args = [req.body.transactionID,
+                req.body.subcontact,
+                ];
+        } else if (fcn === "changeDataWork") {
+            args = [req.body.workID,
+                req.body.transactionID,
+                req.body.cargoOwner,
+                ];
+        } else if (fcn === "deleteWork") {
+            args = [req.body.workID,
+                ];
+        } else if (fcn === "createJobAssignmentInfo") {
+            args = [req.body.transactionID,
+                req.body.truckID,
+                ];
+        } else if (fcn === "changeDataJobAssignment") {
+            args = [req.body.myjobassignmentID,
+                req.body.transactionID,
+                req.body.truckID,
+                ];
+        } else if (fcn === "deleteJobAssignment") {
+            args = [req.body.myjobassignmentID,
+                ];
+        } else if (fcn === "createsubjobassignment") {
+            args = [req.body.workID,
+                req.body.transactionID,
+                req.body.truckID,
+                ];
+        } else if (fcn === "changeDatasubjobassignment") {
+            args = [req.body.subjobassignmentID,
+                req.body.workID,
+                req.body.transactionID,
+                req.body.truckID,
+                ];
+        } else if (fcn === "deletesubjobassignment") {
+            args = [req.body.subjobassignmentID,
+                ];
+        } else if (fcn === "createloadinginfo") {
+            args = [req.body.jobassigninfo,
+                req.body.startmileageno,
+                req.body.loadingend,
+                ];
+        } else if (fcn === "changeDataloadinginfo") {
+            args = [req.body.loadingID,
+                req.body.jobassigninfo,
+                req.body.startmileageno,
+                req.body.loadingend,
+                ];
+        } else if (fcn === "deleteDataloadinginfo") {
+            args = [req.body.loadingID,
+                ];
+        } else if (fcn === "createdeliveryinfo") {
+            args = [req.body.jobassigninfo,
+                req.body.finishmileageno,
+                req.body.deliveryend,
+                ];
+        } else if (fcn === "changeDatadeliveryinfo") {
+            args = [req.body.deliveryID,
+                req.body.jobassigninfo,
+                req.body.finishmileageno,
+                req.body.deliveryend,
+                ];
+        } else if (fcn === "deleteDatadeliveryinfo") {
+            args = [req.body.deliveryID,
+                ];
+        }
+            
+        
 
         console.log(args);
         console.log(typeof(req.body.loadingDateTime));
