@@ -491,14 +491,14 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
 });
 
 
-app.get('transaction', checkAuthenticated, async (req, res) => {   
+app.get('/transaction', checkAuthenticated, async (req, res) => {   
     res.sendFile(path.join(__dirname, '../template/transaction.html'));
     console.log("name = " + req.user.name);
     console.log("password = " + req.user.password);
     console.log("peer = " + req.user.peer);
 })
 
-app.get('workorder_info', checkAuthenticated, async (req, res) => {   
+app.get('/workorder_info', checkAuthenticated, async (req, res) => {   
     res.sendFile(path.join(__dirname, '../template/workorder_info.html'));
     console.log("name = " + req.user.name);
     console.log("password = " + req.user.password);
