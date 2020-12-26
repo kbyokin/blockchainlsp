@@ -60,7 +60,7 @@
                 </div>
                 <hr>
                 <!-- add transaction form -->
-                <form action="#" id="add_transaction_form">
+                <form action="/channels/mychannel/chaincodes/orderinfo/fcn/createTransaction" id="add_transaction_form" method="POST">
                     <div class="form-group">
                         <label for="cargoowner" class="form-label">Cargo Owner</label>
                         <input type="text" class="form-control" id="cargoOwner" name="cargo_owner">
@@ -78,7 +78,7 @@
                     <div class="form-group row">
                         <div class="col-sm">
                             <label for="deliverypoint" class="form-label">Delivery Point</label>
-                            <input type="text" class="form-control" id="deliverygpoint">
+                            <input type="text" class="form-control" id="deliverygpoint" name="deliverygpoint">
                         </div>
                         <div class="col-sm">
                             <label for="DeliveryDateTime" class="form-label">Delivery Date-Time</label>
@@ -92,16 +92,16 @@
                         </div>
                         <div class="col-sm">
                             <label for="quantity">Quantity</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="quantity">
                         </div>
                         <div class="col-sm">
                             <label for="totalweight">Total Weight</label>
-                            <input type="text" name="total_weignt" class="form-control" name="total_weight">
+                            <input type="text" class="form-control" name="total_weight">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="pakcingdim">Packing Dimension</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="packing_dimension">
                     </div>
                     <button type="submit" class="btn btn-primary">Add Transaction</button>
                     <input type="reset" value="Clear Data" class="btn btn-outline-danger">
