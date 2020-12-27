@@ -243,9 +243,9 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
     // res.render('login.ejs')
-    console.log(__dirname)
     res.sendFile(path.join(__dirname, '../template/login.html'));
     console.log(users);
+    console.log(req.query);
 
 })
 
@@ -347,7 +347,7 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
         var chaincodeName = req.params.chaincodeName;
         var channelName = req.params.channelName;
         // var fcn = req.body.fcn;
-        // var fcn = req.params._fcn;
+        var fcn = req.params._fcn;
         // var args = req.body.args;
         var args;
         if (fcn === "createTransaction") {
