@@ -347,7 +347,7 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
         var chaincodeName = req.params.chaincodeName;
         var channelName = req.params.channelName;
         // var fcn = req.body.fcn;
-        var fcn = req.params._fcn;
+        // var fcn = req.params._fcn;
         // var args = req.body.args;
         var args;
         if (fcn === "createTransaction") {
@@ -505,114 +505,107 @@ app.get('workorder_info', checkAuthenticated, async (req, res) => {
     console.log("peer = " + req.user.peer);
 })
 
-// app.get('/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
-//     try {
-//         logger.debug('==================== QUERY BY CHAINCODE ==================');
+app.get('/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
+    try {
+        logger.debug('==================== QUERY BY CHAINCODE ==================');
+        // var peer = req.user.peer;
+        // var name = req.user.name;
+        var peer = 'peer0';
+        var name = 'test';
+        logger.debug('name : ' + name);
+        logger.debug('peer : ' + peer);
+        var channelName = req.params.channelName;
+        var chaincodeName = req.params.chaincodeName;
+        console.log(`chaincode name is :${chaincodeName}`)
+        // let args = req.query.args;
+        let fcn = req.query.fcn;
 
-//         var channelName = req.params.channelName;
-//         var chaincodeName = req.params.chaincodeName;
-//         console.log(`chaincode name is :${chaincodeName}`)
-//         let args = req.query.args;
-//         let fcn = req.query.fcn;
-//         let peer = req.query.peer;
+        logger.debug('channelName : ' + channelName);
+        logger.debug('chaincodeName : ' + chaincodeName);
+        // logger.debug('fcn : ' + fcn);
+        // logger.debug('args : ' + args);
 
-//         logger.debug('channelName : ' + channelName);
-//         logger.debug('chaincodeName : ' + chaincodeName);
-//         logger.debug('fcn : ' + fcn);
-//         logger.debug('args : ' + args);
+        if (!chaincodeName) {
+            res.json(getErrorMessage('\'chaincodeName\''));
+            return;
+        }
+        if (!channelName) {
+            res.json(getErrorMessage('\'channelName\''));
+            return;
+        }
 
-//         if (!chaincodeName) {
-//             res.json(getErrorMessage('\'chaincodeName\''));
-//             return;
-//         }
-//         if (!channelName) {
-//             res.json(getErrorMessage('\'channelName\''));
-//             return;
-//         }
-//         if (!fcn) {
-//             res.json(getErrorMessage('\'fcn\''));
-//             return;
-//         }
-//         if (!args) {
-//             res.json(getErrorMessage('\'args\''));
-//             return;
-//         }
-//         console.log('args==========', args);
-//         args = args.replace(/'/g, '"');
-//         args = JSON.parse(args);
-//         logger.debug(args);
+        // let message = await query.query(channelName, chaincodeName, args, fcn, req.username, req.orgname);
+        let message = await query.query(channelName, chaincodeName, fcn, name, peer);
 
-//         let message = await query.query(channelName, chaincodeName, args, fcn, req.username, req.orgname);
+        const response_payload = {
+            result: message,
+            error: null,
+            errorData: null
+        }
 
-//         const response_payload = {
-//             result: message,
-//             error: null,
-//             errorData: null
-//         }
+        res.send(response_payload);
+    } catch (error) {
+        const response_payload = {
+            result: null,
+            error: error.name,
+            errorData: error.message
+        }
+        res.send(response_payload)
+    }
+});
 
-//         res.send(response_payload);
-//     } catch (error) {
-//         const response_payload = {
-//             result: null,
-//             error: error.name,
-//             errorData: error.message
-//         }
-//         res.send(response_payload)
-//     }
-// });
+app.get('/qscc/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
+    try {
+        logger.debug('==================== QUERY BY CHAINCODE ==================');
 
-// app.get('/qscc/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
-//     try {
-//         logger.debug('==================== QUERY BY CHAINCODE ==================');
+        var channelName = req.params.channelName;
+        var chaincodeName = req.params.chaincodeName;
+        console.log(`chaincode name is :${chaincodeName}`)
+        let args = req.query.args;
+        let fcn = req.query.fcn;
+        // let peer = req.query.peer;
 
-//         var channelName = req.params.channelName;
-//         var chaincodeName = req.params.chaincodeName;
-//         console.log(`chaincode name is :${chaincodeName}`)
-//         let args = req.query.args;
-//         let fcn = req.query.fcn;
-//         // let peer = req.query.peer;
+        logger.debug('channelName : ' + channelName);
+        logger.debug('chaincodeName : ' + chaincodeName);
+        logger.debug('fcn : ' + fcn);
+        logger.debug('args : ' + args);
 
-//         logger.debug('channelName : ' + channelName);
-//         logger.debug('chaincodeName : ' + chaincodeName);
-//         logger.debug('fcn : ' + fcn);
-//         logger.debug('args : ' + args);
+        if (!chaincodeName) {
+            res.json(getErrorMessage('\'chaincodeName\''));
+            return;
+        }
+        if (!channelName) {
+            res.json(getErrorMessage('\'channelName\''));
+            return;
+        }
+        if (!fcn) {
+            res.json(getErrorMessage('\'fcn\''));
+            return;
+        }
+        if (!args) {
+            res.json(getErrorMessage('\'args\''));
+            return;
+        }
+        console.log('args==========', args);
+        args = args.replace(/'/g, '"');
+        args = JSON.parse(args);
+        logger.debug(args);
 
-//         if (!chaincodeName) {
-//             res.json(getErrorMessage('\'chaincodeName\''));
-//             return;
-//         }
-//         if (!channelName) {
-//             res.json(getErrorMessage('\'channelName\''));
-//             return;
-//         }
-//         if (!fcn) {
-//             res.json(getErrorMessage('\'fcn\''));
-//             return;
-//         }
-//         if (!args) {
-//             res.json(getErrorMessage('\'args\''));
-//             return;
-//         }
-//         console.log('args==========', args);
-//         args = args.replace(/'/g, '"');
-//         args = JSON.parse(args);
-//         logger.debug(args);
+        let response_payload = await qscc.qscc(channelName, chaincodeName, args, fcn, req.username, req.orgname);
 
-//         let response_payload = await qscc.qscc(channelName, chaincodeName, args, fcn, req.username, req.orgname);
+        // const response_payload = {
+        //     result: message,
+        //     error: null,
+        //     errorData: null
+        // }
 
-//         // const response_payload = {
-//         //     result: message,
-//         //     error: null,
-//         //     errorData: null
-//         // }
-
-//         res.send(response_payload);
-//     } catch (error) {
-//         const response_payload = {
-//             result: null,
-//             error: error.name,
-//             errorData: error.message
-//         }
-//         res.send(response_payload)
-//     }
-// });
+        res.send(response_payload);
+    } catch (error) {
+        const response_payload = {
+            result: null,
+            error: error.name,
+            errorData: error.message
+        }
+        res.send(response_payload)
+    }
+});
