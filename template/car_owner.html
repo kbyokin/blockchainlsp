@@ -71,51 +71,79 @@
             </div>
         </div>
         <div class="main_content_body">
-            <h3>All Transaction</h3>
+            <h3>Car Owner Job Info</h3>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th style="min-width:150px;">Cargo Owner</th>
-                            <th style="min-width:150px;">Loading Point</th>
-                            <th style="min-width:150px;">Loading Date</th>
-                            <th style="min-width:150px;">Delivery Point</th>
-                            <th style="min-width:150px;">Delivery Date</th>
-                            <th style="min-width:150px;">สถานะ</th>
+                            <th class="text-center" style="min-width:100px;">Cargo Owner</th>
+                            <!-- Loading Section -->
+                            <th class="text-center" style="min-width:50px;">Loading Point</th>
+                            <th style="min-width:20px;">Loading Date</th>
+                            <th class="text-center" style="min-width:50px;">Loading End</th>
+                            <!-- Delivery Section -->
+                            <th class="text-center" style="min-width:50px;">Delivery Point</th>
+                            <th class="text-center" style="min-width:20px;">Delivery Date</th>
+                            <th class="text-center" class="text-center" style="min-width:50px;">Delivery End</th>
+
+                            <th class="text-center" style="min-width:70px">Start Mileage</th>
+                            <th class="text-center" style="min-width:70px">Stop Mileage</th>
+
                         </tr>
                     </thead>
+                    <style>
+                        .check_end_btn{
+                            padding:3px 12px;
+                            width:100%;
+                            text-align: center;
+                            box-shadow:0 0 5px rgba(0,0,0,0.3);
+                            cursor:pointer;
+                            border-radius: 7px;
+                            user-select: none;
+                        }
+                        .check_end_btn_:checked ~ .check_end_btn{
+                            background:greenyellow;
+                            pointer-events: none;
+                        }
+                    </style>
                     <tbody class="clickabled_row">
-                        <tr>
+                        <tr class="text-center">
                             <td>John Doe</td>
-                            <td>Songklah</td>
-                            <td>12/19/2020 12:54</td>
-                            <td>Bankkok</td>
-                            <td>1/19/2020 12:54</td>
-                            <td>รอการจัดส่ง</td>
+                            <td>สงขลา</td>
+                            <td>12-27-2020</td>
+                            <!-- ปุ่ม Loading END  -->
+                            <td>
+                                <input hidden type="checkbox" class="check_end_btn_" name="loading_end" id="loading_end">
+                                <label class="check_end_btn end">NO</label>
+                            </td>
+                            <td>กรุงเทพ</td>
+                            <td>14-27-2020</td>
+                            <!-- ปุ่ม Delivery End -->
+                            <td>
+                                <input hidden type="checkbox" class="check_end_btn_" name="delivery_end" id="delivery_end">
+                                <label class="check_end_btn">NO</label>
+                            </td>
+                            <td>0 Miles</td>
+                            <td>0 Miles</td>
                         </tr>
-                        <tr>
+                        <tr class="text-center">
                             <td>John Doe</td>
-                            <td>Songklah</td>
-                            <td>12/19/2020 12:54</td>
-                            <td>Bankkok</td>
-                            <td>1/19/2020 12:54</td>
-                            <td>จัดส่งแล้ว</td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>Songklah</td>
-                            <td>12/19/2020 12:54</td>
-                            <td>Bankkok</td>
-                            <td>1/19/2020 12:54</td>
-                            <td>จัดส่งแล้ว</td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>Songklah</td>
-                            <td>12/19/2020 12:54</td>
-                            <td>Bankkok</td>
-                            <td>1/19/2020 12:54</td>
-                            <td>จัดส่งแล้ว</td>
+                            <td>สงขลา</td>
+                            <td>12-27-2020</td>
+                            <!-- ปุ่ม Loading END  -->
+                            <td>
+                                <input hidden type="checkbox" class="check_end_btn_" name="loading_end">
+                                <label class="check_end_btn end">NO</label>
+                            </td>
+                            <td>กรุงเทพ</td>
+                            <td>14-27-2020</td>
+                            <!-- ปุ่ม Delivery End -->
+                            <td>
+                                <input hidden type="checkbox" class="check_end_btn_" name="delivery_end" id="delivery_end">
+                                <label class="check_end_btn">NO</label>
+                            </td>
+                            <td>0 Miles</td>
+                            <td>0 Miles</td>
                         </tr>
                     </tbody>
                 </table>
@@ -124,5 +152,19 @@
     </section>
 </body>
 <script src="./assets/js/global.js"></script>
+<script>
+    const checkEndBtn = document.querySelectorAll('.check_end_btn_');
+    const checkEndBtnLabel = document.querySelectorAll('.check_end_btn');
+    checkEndBtnLabel.forEach(btn =>{
+        btn.addEventListener('click',function(){
+            this.previousElementSibling.checked = !this.previousElementSibling.checked
+            if (this.previousElementSibling.checked){
+                this.innerHTML = "YES";
+            }else{
+                this.innerHTML= "NO";
+            }
+        })
+    })
+</script>
 
 </html>
