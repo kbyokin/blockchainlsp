@@ -22,14 +22,20 @@
        <form action="/register" method="post" class="register_form">
            <h2>Register</h2>
            <div class="form-group register_group">
-               <input type="text" name="name" id="name" placeholder="Name">
-                <input type="email" name="email" id="email" placeholder="Email">
-                <input type="password" name="password" id="password" placeholder="Password" pattern="(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}"  onInvalid="setCustomValidity('ต้องประกอบด้วยตัวเลขและตัวอักษรและมี 6 ตัวขึ้นไป')" oninput="setCustomValidity('')">
+               <input type="text" name="name" id="name" placeholder="Name" required>
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <input type="password" name="password" id="password" placeholder="Password" pattern="(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}"  onInvalid="setCustomValidity('ต้องประกอบด้วยตัวเลขและตัวอักษรและมี 6 ตัวขึ้นไป')" oninput="setCustomValidity('')" required>
                 <div class="pattern_xix">
                     <span class="min6char">มีตั้งแต่ 6 ตัวอักษรขึ้นไป</span><br>
                     <span class="checkchar">ต้องประกอบด้วยตัวเลขและตัวอักษร</span>
                 </div>
-                <input type="text" name="peer" id="peer" placeholder="peer0">
+                <select name="peer" id="peer" class="form-control" required> 
+                    <option value="" disabled selected>กรุณาเลือก Peer ที่ต้องการ</option>
+                    <option value="peer0">Peer 0 (Customer Service)</option>
+                    <option value="peer1">Peer 1 (Transportation Unit)</option>
+                    <option value="peer2">Peer 2 (Subcontact)</option>
+                    <option value="peer2">Peer 3 (Transporters)</option>
+                </select>
             </div>
             <div class="form-group register_btn_group">
                 <input type="submit" value="Register" class="register_btn">
