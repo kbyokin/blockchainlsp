@@ -146,7 +146,10 @@ a,a:hover{
     pointer-events: none;
     color:white;
 }
-
+.clickabled_row tr:hover{
+    background:rgb(218, 218, 218) !important;
+    cursor:pointer
+}
 /* responsive */
 @media screen and (max-width:826px){
     .main_content.active{
