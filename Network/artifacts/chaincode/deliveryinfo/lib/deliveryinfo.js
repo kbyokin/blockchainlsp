@@ -24,6 +24,7 @@
      
     async createdeliveryinfo(ctx, 
         // deliveryID, 
+        transOrderInfo,
         jobassigninfo,
         finishmileageno, 
         deliveryend,
@@ -33,7 +34,7 @@
         let deliveryIDcheck;
         
         while (true) {
-            deliveryIDcheck = await ctx.stub.getState(orderID); 
+            deliveryIDcheck = await ctx.stub.getState(deliveryID); 
             if (!deliveryIDcheck || deliveryIDcheck.length === 0) {
                 break;
             }
@@ -43,6 +44,7 @@
         if (peer == "peer3") {
             const delivery = {
                 deliveryID,
+                transOrderInfo,
                 jobassigninfo,
                 finishmileageno, 
                 deliveryend,
@@ -77,6 +79,7 @@
      }
      async changeDatadeliveryinfo(ctx, 
          deliveryID, 
+         transOrderInfo,
          jobassigninfo,
          finishmileageno, 
          deliveryend,
@@ -86,6 +89,7 @@
          if (peer == "peer3") {
              const delivery = {
                 deliveryID, 
+                transOrderInfo,
                 jobassigninfo,
                 finishmileageno, 
                 deliveryend,

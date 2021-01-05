@@ -45,7 +45,7 @@ class Workinfo extends Contract {
 
     // create work
     async WorkOrderInfoCreate(ctx, 
-        TransOrderInfoID,
+        transOrderInfo,
         subcontractID,
         peer) {
 
@@ -63,7 +63,7 @@ class Workinfo extends Contract {
         if (peer == "peer1") {
             const Work = {
                 WorkID, 
-                TransOrderInfoID,
+                transOrderInfo,
                 subcontractID,
             };
     
@@ -78,7 +78,7 @@ class Workinfo extends Contract {
     //change work data in database
     async changeDataWork(ctx, 
         workID,
-        TransOrderInfoID,
+        transOrderInfo,
         subcontractID,
         peer) {
 
@@ -86,7 +86,7 @@ class Workinfo extends Contract {
         if (peer == "peer1") {
             const work = {
                 workID,
-                TransOrderInfoID,
+                transOrderInfo,
                 subcontractID,
             };
     

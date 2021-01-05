@@ -21,6 +21,7 @@ class Loadinginfo extends Contract {
     
     async createloadinginfo(ctx, 
         // loadingID, 
+        transOrderInfo,
         jobassigninfo,
         startmileageno, 
         loadingend,
@@ -41,6 +42,7 @@ class Loadinginfo extends Contract {
         if (peer == "peer3") {
             const loading = {
                 loadingID,
+                transOrderInfo,
                 jobassigninfo,
                 startmileageno, 
                 loadingend,
@@ -76,6 +78,7 @@ class Loadinginfo extends Contract {
     //change transaction data in database
     async changeDataloadinginfo(ctx, 
         loadingID,
+        transOrderInfo,
         jobassigninfo,
         startmileageno, 
         loadingend,
@@ -85,6 +88,7 @@ class Loadinginfo extends Contract {
         if (peer == "peer3") {
             const loading = {
                 loadingID,
+                transOrderInfo,
                 jobassigninfo,
                 startmileageno, 
                 loadingend,
