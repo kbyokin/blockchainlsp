@@ -35,7 +35,10 @@ const invoke = require('./app/invoke')
 const qscc = require('./app/qscc')
 const query = require('./app/query')
 
-app.set('view-engine', 'ejs')
+
+app.engine('html', require('ejs').renderFile)
+
+// app.set('view-engine', 'ejs')
 
 // Login
 app.use(flash())
@@ -148,7 +151,8 @@ function checkNotAuthenticated(req, res, next) {
     next()
 }
 
-app.use(express.static(path.join(__dirname, "../template"), {index: '_'}));
+app.use(express.static(path.join(__dirname, "/views"), {index: '_'}));
+// app.use(express.static(path.join(__dirname, "../template"), {index: '_'}));
 
 app.get('/register', checkNotAuthenticated, async (req, res) => {
     res.render('register.ejs')
@@ -243,22 +247,104 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
     // res.render('login.ejs')
-    res.sendFile(path.join(__dirname, '../template/login.html'));
+    res.sendFile(path.join(__dirname, '/views/login.html'));
     console.log(users);
-    console.log(req.query);
 
 })
 
-app.get('/', checkAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, '../template/index.html'));
+app.get('/', checkAuthenticated, async (req, res) => {
+    // res.sendFile(path.join(__dirname, '../template/index.html'));
     // render file
     // res.render('index.ejs', {name: req.user.name});
-    console.log("name = " + req.user.name);
-    console.log("password = " + req.user.password);
-    console.log("peer = " + req.user.peer);
+    try {
+        console.log("name = " + req.user.name);
+        console.log("password = " + req.user.password);
+        console.log("peer = " + req.user.peer);
+        var message;
+        var channelName = 'mychannel';
+        // var chaincodeName = 'orderinfo'
+        var peer = req.user.peer;
+        var name = req.user.name;
+        // var fcn = 'queryAllTransactions';
 
+        if (peer === "peer0") {
+
+            // query all database
+            message = await query.query(channelName, 'orderinfo', 'queryAllTransactions', name, peer);
+            let work = await query.query(channelName, 'workinfo', 'queryAllWork', name, peer);
+            let myassign = await query.query(channelName, 'myjobassignment', 'queryAllJobAssignmentInfo', name, peer);
+            let subassign = await query.query(channelName, 'subjobassignment', 'queryAllsubjobassignment', name, peer);
+            let loading = await query.query(channelName, 'loadinginfo', 'queryAllloadingInfo', name, peer);
+            let delivery = await query.query(channelName, 'deliveryinfo', 'queryAlldeliveryinfo', name, peer);
+
+            // check status 
+            message = await setstatusorder(message);
+            message = await checkstatus(message, delivery, 'delivery');
+            message = await checkstatus(message, loading, 'loading');
+            message = await checkstatus(message, myassign, 'my assign');
+            message = await checkstatus(message, subassign, 'contract assign');
+            message = await checkstatus(message, work, 'work to contract');
+
+        
+        } else if (peer === "peer1") {
+            message = await query.query(channelName, 'orderinfo', 'queryAllTransactions', name, peer);
+            let work = await query.query(channelName, 'workinfo', 'queryAllWork', name, peer);
+            let myassign = await query.query(channelName, 'myjobassignment', 'queryAllJobAssignmentInfo', name, peer);
+            let subassign = await query.query(channelName, 'subjobassignment', 'queryAllsubjobassignment', name, peer);
+            let loading = await query.query(channelName, 'loadinginfo', 'queryAllloadingInfo', name, peer);
+            let delivery = await query.query(channelName, 'deliveryinfo', 'queryAlldeliveryinfo', name, peer);
+
+            // check status 
+            message = await query.setstatusorder(message);
+            message = await query.checkstatus(message, delivery, 'delivery');
+            message = await query.checkstatus(message, loading, 'loading');
+            message = await query.checkstatus(message, myassign, 'my assign');
+            message = await query.checkstatus(message, subassign, 'contract assign');
+            message = await query.checkstatus(message, work, 'work to contract');
+
+
+        } else if (peer === "peer2") {
+            message = await query.query(channelName, 'orderinfo', 'queryAllTransactions', name, peer);
+            
+        } else if (peer === "peer3") {
+            message = await query.query(channelName, 'orderinfo', 'queryAllTransactions', name, peer);
+            
+        }
+ 
+         console.log("result => ", message);
+        res.render(__dirname + '/views/index.html', {name: message});
+    } catch (err) {
+        console.log('error = ', err);
+    }
+
+    
 
 });
+
+// fuction for set status 'none' to order
+function setstatusorder(message) {
+    for (let index = 0; index < message.length; index++) {
+        message[index].Record.status = 'none';
+       
+   }
+
+   return message;
+}
+
+// check status index page
+function checkstatus(message1, message2, status) {
+    for (let l = 0; l < message2.length; l++) {
+        for (let m = 0; m < message1.length; m++) {
+            if (message1[m].Key === message2[l].Record.transOrderInfo && message1[m].Record.status === 'none') {
+                message1[m].Record.status = status;
+            } 
+            
+        }
+        
+    }
+
+    return message1;
+}
 
 app.delete('/logout', (req, res) => {
     req.logOut()
@@ -441,10 +527,6 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
                 ];
         }
             
-        
-
-        console.log(args);
-        console.log(typeof(req.body.loadingDateTime));
 
 
         logger.debug('name  : ' + name);
@@ -480,6 +562,7 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
         }
         res.send(response_payload);
 
+
     } catch (error) {
         const response_payload = {
             result: null,
@@ -505,19 +588,24 @@ app.get('/workorder_info', checkAuthenticated, async (req, res) => {
     console.log("peer = " + req.user.peer);
 })
 
+app.get('/test', async (req, res) => {   
+    res.render(__dirname + '/views/transaction.html')
+    console.log(__dirname);
+})
+
 app.get('/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
     try {
         logger.debug('==================== QUERY BY CHAINCODE ==================');
-        // var peer = req.user.peer;
-        // var name = req.user.name;
-        var peer = 'peer0';
-        var name = 'test';
+        var peer = req.user.peer;
+        var name = req.user.name;
+        // var peer = 'peer0';
+        // var name = 'spizy';
         logger.debug('name : ' + name);
         logger.debug('peer : ' + peer);
         var channelName = req.params.channelName;
         var chaincodeName = req.params.chaincodeName;
         console.log(`chaincode name is :${chaincodeName}`)
-        // let args = req.query.args;
+        let args = req.query.args;
         let fcn = req.query.fcn;
 
         logger.debug('channelName : ' + channelName);
@@ -535,15 +623,17 @@ app.get('/channels/:channelName/chaincodes/:chaincodeName', async function (req,
         }
 
         // let message = await query.query(channelName, chaincodeName, args, fcn, req.username, req.orgname);
-        let message = await query.query(channelName, chaincodeName, fcn, name, peer);
+        let message = await query.query(channelName, chaincodeName, fcn, name, peer, args);
 
         const response_payload = {
             result: message,
             error: null,
             errorData: null
         }
-
-        res.send(response_payload);
+        // res.send(response_payload);
+        // res.render('index.html', {name: message})
+        res.render(__dirname + '/views/index.html', {name:response_payload});
+        console.log(__dirname);
     } catch (error) {
         const response_payload = {
             result: null,
@@ -554,58 +644,71 @@ app.get('/channels/:channelName/chaincodes/:chaincodeName', async function (req,
     }
 });
 
-app.get('/qscc/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
-    try {
-        logger.debug('==================== QUERY BY CHAINCODE ==================');
+// app.get('/qscc/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
+//     try {
+//         logger.debug('==================== QUERY BY CHAINCODE ==================');
 
-        var channelName = req.params.channelName;
-        var chaincodeName = req.params.chaincodeName;
-        console.log(`chaincode name is :${chaincodeName}`)
-        let args = req.query.args;
-        let fcn = req.query.fcn;
-        // let peer = req.query.peer;
+//         var channelName = req.params.channelName;
+//         var chaincodeName = req.params.chaincodeName;
+//         console.log(`chaincode name is :${chaincodeName}`)
+//         let args = req.query.args;
+//         let fcn = req.query.fcn;
+//         // let peer = req.query.peer;
 
-        logger.debug('channelName : ' + channelName);
-        logger.debug('chaincodeName : ' + chaincodeName);
-        logger.debug('fcn : ' + fcn);
-        logger.debug('args : ' + args);
+//         logger.debug('channelName : ' + channelName);
+//         logger.debug('chaincodeName : ' + chaincodeName);
+//         logger.debug('fcn : ' + fcn);
+//         logger.debug('args : ' + args);
 
-        if (!chaincodeName) {
-            res.json(getErrorMessage('\'chaincodeName\''));
-            return;
-        }
-        if (!channelName) {
-            res.json(getErrorMessage('\'channelName\''));
-            return;
-        }
-        if (!fcn) {
-            res.json(getErrorMessage('\'fcn\''));
-            return;
-        }
-        if (!args) {
-            res.json(getErrorMessage('\'args\''));
-            return;
-        }
-        console.log('args==========', args);
-        args = args.replace(/'/g, '"');
-        args = JSON.parse(args);
-        logger.debug(args);
+//         if (!chaincodeName) {
+//             res.json(getErrorMessage('\'chaincodeName\''));
+//             return;
+//         }
+//         if (!channelName) {
+//             res.json(getErrorMessage('\'channelName\''));
+//             return;
+//         }
+//         if (!fcn) {
+//             res.json(getErrorMessage('\'fcn\''));
+//             return;
+//         }
+//         if (!args) {
+//             res.json(getErrorMessage('\'args\''));
+//             return;
+//         }
+//         console.log('args==========', args);
+//         args = args.replace(/'/g, '"');
+//         args = JSON.parse(args);
+//         logger.debug(args);
 
-        let response_payload = await qscc.qscc(channelName, chaincodeName, args, fcn, req.username, req.orgname);
+//         let response_payload = await qscc.qscc(channelName, chaincodeName, args, fcn, req.username, req.orgname);
 
-        // const response_payload = {
-        //     result: message,
-        //     error: null,
-        //     errorData: null
-        // }
+//         // const response_payload = {
+//         //     result: message,
+//         //     error: null,
+//         //     errorData: null
+//         // }
 
-        res.send(response_payload);
-    } catch (error) {
-        const response_payload = {
-            result: null,
-            error: error.name,
-            errorData: error.message
-        }
-        res.send(response_payload)
+//         res.send(response_payload);
+//     } catch (error) {
+//         const response_payload = {
+//             result: null,
+//             error: error.name,
+//             errorData: error.message
+//         }
+//         res.send(response_payload)
+//     }
+// });
+
+
+function queryIndex(peer) {
+    if (peer === "peer0") {
+        
+    } else if (peer === "peer1")  {
+
+    } else if (peer === "peer2")  {
+
+    } else if (peer === "peer3")  {
+
     }
-});
+}

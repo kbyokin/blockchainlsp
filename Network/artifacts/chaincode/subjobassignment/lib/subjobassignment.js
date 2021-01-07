@@ -58,7 +58,7 @@ class Subjobassignment extends Contract {
     }
 
     //query all transactions
-    async querysubjobassignment(ctx) {
+    async queryAllsubjobassignment(ctx) {
         const startKey = '';
         const endKey = '';
         const allResults = [];
