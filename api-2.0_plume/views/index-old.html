@@ -38,9 +38,6 @@
                 <a href="./workorder_info.html" class="sidebar_item">
                     <li>Working Info</li>
                 </a>
-               <a href="./car_owner.html" class="sidebar_item">
-                    <li>Car Owner</li>
-                </a>
                 <a href="./register.html" class="sidebar_item">
                     <li>Register</li>
                 </a>
@@ -76,22 +73,21 @@
         </div>
         <div class="main_content_body">
             <h3>All Transaction</h3>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th style="min-width:150px;">Cargo Owner</th>
-                            <th style="min-width:150px;">Loading Point</th>
-                            <th style="min-width:100px;">Loading Date</th>
-                            <th style="min-width:150px;">Delivery Point</th>
-                            <th style="min-width:100px;">Delivery Date</th>
-                            <th style="min-width:50px;">สถานะ</th>
-                        </tr>
-                    </thead>
-                    <tbody class="clickabled_row" id="table_body">
-                    </tbody>
-                </table>
-            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Cargo Owner</th>
+                        <th>Loading Point</th>
+                        <th>Loading Date</th>
+                        <th>Delivery Point</th>
+                        <th>Delivery Date</th>
+                        <th>สถานะ</th>
+                    </tr>
+                </thead>
+                <tbody class="clickabled_row" id="table_body">
+                    
+                </tbody>
+            </table>
         </div>
     </section>
 </body>
@@ -100,42 +96,21 @@
     var obj = <%-JSON.stringify(name)%>;
  console.log(obj);
 
- result();
-
- 
+ const displayTable = document.querySelector('#table_body');// นี่คือ table body จาก html
 // ใช้ for loop ดึงข้อมูลทั้งหมดจาก response
-async function result ()  {
-    for (var i = 0;i<obj.length;i++){
-
-    const displayTable = document.querySelector('#table_body');// นี่คือ table body จาก html
-        var cago = obj[i].Record.cargoOwner;
-        var deliveryP = obj[i].Record.deliveryPoint;
-        var deliveryD = obj[i].Record.deliveryDateTime;
-        var loadingP = obj[i].Record.deliveryPoint;
-        var loadingD = obj[i].Record.loadingDateTime;
-        var status = obj[i].Record.status;
-        var classstatus = await checkstatus(status);
-        // สร้าง tr tag
-        var tr = document.createElement('tr');
-        // เขียน ข้อมูลลงบน tr tag
-        tr.innerHTML = `<th>${cago}</th><th>${loadingP}</th><th>${loadingD}</th><th>${deliveryP}</th><th>${deliveryD}</th><th><span class="${classstatus}">${status}</span></th>`
-        // ให้ append ข้อมูล tr เรื่อยๆ จนกว่าจะหมด loop
-        displayTable.append(tr)
-    }
-}
-
-async function checkstatus(status) {
-    if (status === 'none') {
-        return 'assing_sign'
-    } else if (status === 'myassign' || status === 'contractassign') {
-        return 'assing_sign'
-    } else if (status === 'worktocontract') {
-        return 'assing_sign'
-    } else if (status === 'loading') {
-        return 'loadind_sign'
-    } else if (status === 'delivery') {
-        return 'delivery_sign'
-    }
+for(var i = 0;i<obj.length;i++){
+    var cago = obj[i].Record.cargoOwner;
+    var deliveryP = obj[i].Record.deliveryPoint;
+    var deliveryD = obj[i].Record.deliveryDateTime;
+    var loadingP = obj[i].Record.deliveryPoint;
+    var loadingD = obj[i].Record.loadingDateTime;
+    var status = obj[i].Record.status;
+    // สร้าง tr tag
+    var tr = document.createElement('tr');
+    // เขียน ข้อมูลลงบน tr tag
+    tr.innerHTML = `<th>${cago}</th><th>${loadingP}</th><th>${loadingD}</th><th>${deliveryP}</th><th>${deliveryD}</th><th>${status}</th>`
+    // ให้ append ข้อมูล tr เรื่อยๆ จนกว่าจะหมด loop
+    displayTable.append(tr)
 }
 
 </script>

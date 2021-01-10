@@ -13,15 +13,14 @@
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
     <!-- login css -->
-    <base href="/">
-    <link rel="stylesheet" href="./public/css/login.css">
+    <link rel="stylesheet" href="./assets/css/login.css">
 </head>
 
 <body>
     <section class="login">
         <div class="login_wrapper">
             <div class="login_header">
-                <img src="./public/image/logo.png" id="login_logo" alt="">
+                <img src="./assets/image/logo.png" id="login_logo" alt="">
                 <h1>LSP</h1>
             </div>
             <form class="login_form" autocomplete="off" action="/login" method="POST">
@@ -38,7 +37,6 @@
                 <button class="login_btn" type="submit">Login</button>
                 <!-- <input class="login_btn" type="button" id="submit" value="Login" onclick="RegisterUser()"> -->
             </form>
-           <span class="register_group">Not Register?<a href="./register.html" class="register_btn">Register</a></span>
         </div>
     </section>
     <script src="./apps/register-users.js"></script>

@@ -224,9 +224,9 @@ const querybyid = async (channelName, chaincodeName, fcn, username, args, peer) 
 }
 
 // fuction for set status 'none' to order
-const setstatusorder = async (message) => {
+const setstatusorder = async (message, status) => {
     for (let index = 0; index < message.length; index++) {
-        message[index].Record.status = 'none';
+        message[index].Record.status = status;
        
    }
 
@@ -248,8 +248,22 @@ const checkstatus = async (message1, message2, status) => {
     return message1;
 }
 
+// check work for sub con (peer2)
+const checksubowner = async (id, message1) => {
+    let message = [];
+    for (let index = 0; index < message1.length; index++) {
+        if (message1[index].Record.subcontractID === id) {
+            message.push(message1[index]);
+
+        }
+        
+    }
+    return message;
+}
+
 
 exports.query = query;
 exports.querybyid = querybyid;
 exports.setstatusorder = setstatusorder;
 exports.checkstatus = checkstatus;
+exports.checksubowner = checksubowner;
