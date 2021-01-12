@@ -261,9 +261,70 @@ const checksubowner = async (id, message1) => {
     return message;
 }
 
+// check work for transpoter (peer3)
+const assignment = async (transporter, truckid, myassign, subassign) => {
+    let message = [];
+    if (transporter === '') {
+        for (let index = 0; index < myassign.length; index++) {
+            if (truckid === myassign[index].Record.truckID) {
+                message.push(myassign[index]);
+            }
+            
+        }
+    } else {
+        for (let index = 0; index < subassign.length; index++) {
+            if (truckid === subassign[index].Record.truckID) {
+                message.push(subassign[index]);
+            }
+            
+        }
+    }
+    return message;
+}
+
+// data transport
+const statustransport = async (message, loading, delivery) => {
+    for (let i1 = 0; i1 < message.length; i1++) {
+        if (loading.length > 0) {
+            for (let i2 = 0; i2 < loading.length; i2++) {
+                if (loading[i2].Record.transOrderInfo === message[i1].Key) {
+                 message[i1].Record.startmileageno = loading[i2].Record.startmileageno;
+                 message[i1].Record.loadingend = true;
+                } else {
+                    message[i1].Record.loadingend = false;
+                }
+                
+            }
+        } else {
+            message[i1].Record.loadingend = false;
+        }
+
+        if (delivery.length > 0) {
+            for (let i3 = 0; i3 < delivery.length; i3++) {
+                if (delivery[i3].Record.transOrderInfo === message[i1].Key) {
+                message[i1].Record.startmileageno = delivery[i3].Record.finishmileageno;
+                message[i1].Record.deliveryend = true;
+            } else {
+                message[i1].Record.deliveryend = false;
+            }
+            
+        }
+        } else {
+            message[i1].Record.deliveryend = false;
+        }
+        
+        
+         
+     }
+     return message;
+}
+
 
 exports.query = query;
 exports.querybyid = querybyid;
 exports.setstatusorder = setstatusorder;
 exports.checkstatus = checkstatus;
 exports.checksubowner = checksubowner;
+exports.checkstatus = checkstatus;
+exports.assignment = assignment;
+exports.statustransport = statustransport;

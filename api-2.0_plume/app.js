@@ -259,7 +259,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
             message = await query.checkstatus(message, subassign, 'contractassign');
             message = await query.checkstatus(message, work, 'worktocontract');
 
-        
+            res.render(__dirname + '/views/index.html', {name: message});
         } else if (peer === "peer1") {
             message = await query.query(channelName, 'orderinfo', 'queryAllTransactions', name, peer);
             let work = await query.query(channelName, 'workinfo', 'queryAllWork', name, peer);
@@ -276,7 +276,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
             message = await query.checkstatus(message, subassign, 'contractassign');
             message = await query.checkstatus(message, work, 'worktocontract');
 
-
+            res.render(__dirname + '/views/index.html', {name: message});
         } else if (peer === "peer2") {
             message = [];
             let subconID =  req.user.subconID;
@@ -298,21 +298,57 @@ app.get('/', checkAuthenticated, async (req, res) => {
             message = await query.checkstatus(message, delivery, 'delivery');
             message = await query.checkstatus(message, loading, 'loading');
             
-            
+            res.render(__dirname + '/views/index.html', {name: message});
         } else if (peer === "peer3") {
-             
-            var truckid =  req.user.truckid;
+            res.redirect('/transporter');
             
         }
  
          console.log("result => ", message);
-        res.render(__dirname + '/views/index.html', {name: message});
+        
     } catch (err) {
         console.log('error = ', err);
     }
 
     
 
+});
+
+app.get('/transporter', checkAuthenticated, async (req, res) => {
+    try {
+        var message = [];
+        var channelName = 'mychannel';
+        // var chaincodeName = 'orderinfo'
+        var peer = req.user.peer;
+        var name = req.user.name;
+        
+        var truckid =  req.user.truckid;
+        var transporter = req.user.contrackID;
+
+        // message = await query.query(channelName, 'orderinfo', 'queryAllTransactions', name, peer);
+        var myassign = await query.query(channelName, 'myjobassignment', 'queryAllJobAssignmentInfo', name, peer);
+        var subassign = await query.query(channelName, 'subjobassignment', 'queryAllsubjobassignment', name, peer);
+
+        var assign = await query.assignment(transporter, truckid, myassign, subassign);
+
+        var record;
+            
+        for (let index = 0; index < assign.length; index++) {
+            record = await query.querybyid(channelName, 'orderinfo', 'queryTransaction', name, assign[index].Record.transOrderInfo ,peer);
+            message.push({ Key: assign[index].Record.transOrderInfo, Record: record});
+                
+        }
+
+        let loading = await query.query(channelName, 'loadinginfo', 'queryAllloadingInfo', name, peer);
+        let delivery = await query.query(channelName, 'deliveryinfo', 'queryAlldeliveryinfo', name, peer);
+
+        message = await query.statustransport(message, loading, delivery);
+
+        res.send(message);
+
+    } catch (error) {
+        console.log('error = ', error);
+    }
 });
 
 // Invoke transaction on chaincode on target peers
