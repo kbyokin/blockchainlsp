@@ -3,17 +3,7 @@
 .form-group label{
     text-transform: capitalize;
 }
-.main_content_flex{
- 
-    margin: 0 auto;
-    display:flex;
-    justify-content: space-between;
 
-}
-.main_content_left{
-    flex:0.25;
-    margin-top:6px;
-}
 .work_order_mobile{
     display:none;
 }

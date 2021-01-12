@@ -16,32 +16,45 @@
     <link rel="stylesheet" href="./assets/css/global.css">
 </head>
 <body>
-      <!-- sidebar -->
-      <section class="sidebar">
+    <!-- =====================================================================sidebar===================================================================== -->
+    <section class="sidebar">
         <div class="sidebar_burger">
             <i class="fas fa-arrow-alt-circle-left"></i>close
         </div>
         <div class="sidebar_wrapper">
             <div class="sidebar_header">
-                <img src="./assets/image/logo.png" alt="">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
             <ul class="sidebar_items">
-                <a href="./index.html" class="sidebar_item"><li >Home</li></a>
-                <a href="./transaction.html" class="sidebar_item"><li >Transaction</li></a>
-                <a href="./workorder_info.html" class="sidebar_item"><li>Working Info</li></a>
+                <a href="./index.html" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="./transaction.html" class="sidebar_item">
+                    <li>Transaction</li>
+                </a>
+                <a href="./workorder_info.html" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+               <a href="./car_owner.html" class="sidebar_item">
+                    <li>Car Owner</li>
+                </a>
+                <a href="./register.html" class="sidebar_item">
+                    <li>Register</li>
+                </a>
             </ul>
             <form action="/logout?_method=DELETE" method="POST">
                 <button type="submit" class="login_btn">Logout</button>
             </form>
         </div>
     </section>
-    <!-- main_content -->
+    <!--======================================================================= main_content =======================================================================-->
     <section class="transaction main_content">
+        <!-- header bar -->
         <div class="header">
             <div class="header_menu pt-3 pb-3">
                 <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
                 <div class="nav_group">
-                    <a href="#" class="nav_item">HOME</a>
+                    <a href="./index.html" class="nav_item">HOME</a>
                     <form action="/logout?_method=DELETE" method="POST">
                         <button type="submit" class="login_btn">Logout</button>
                     </form>
@@ -49,9 +62,17 @@
             </div>
         </div>
         <div class="main_content_flex">
+            <!-- work order on mobile -->
             <div class="main_content_body work_order_mobile" style="width:100%">
                 <h5>Work Order Info</h5>
                 <hr>
+                <div> 
+                    <!-- content work order here  -->
+                    <!-- content work order here  -->
+                    <!-- content work order here  -->
+                    <!-- content work order here  -->
+                    <!-- content work order here  -->
+                </div>
             </div>
             <div id="transaction_form_wrapper" class="main_content_body">
                 <div class="form-group btn_group">
@@ -115,7 +136,7 @@
                     <input type="submit" class="btn btn-primary" value="Search">
                 </form>
             </div>
-            <div class="main_content_left">
+            <div class="main_content_right">
                 <form action="#" class="search_form">
                     <div class="form-group">
                         <div class="input-group">
@@ -129,6 +150,13 @@
                 <div class="main_content_body work_order_desktop">
                     <h5>Work Order Info</h5>
                     <hr>
+                    <div>
+                        <!-- content work order here  -->
+                        <!-- content work order here  -->
+                        <!-- content work order here  -->
+                        <!-- content work order here  -->
+                        <!-- content work order here  -->
+                    </div>
                 </div>
             </div>
         </div>

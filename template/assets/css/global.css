@@ -26,6 +26,21 @@ a,a:hover{
 }
 
 /* main-content */
+.main_content_flex{
+    margin: 0 auto;
+    display:flex;
+    justify-content: space-between;
+
+}
+.main_content_right{
+    flex:0.25;
+    margin-top:6px;
+}
+.main_content_left{
+    margin-right: 20px !important;
+    flex: 0.75;
+    margin-top:23px !important;
+}
 /* main content */
 .main_content{
     width:calc(100% - 0px);
@@ -106,6 +121,10 @@ a,a:hover{
     padding:10px;
     border-radius: 10px;
     outline:none;
+}
+.logo{
+    width:150px;
+    object-fit: contain;
 }
 #logout_btn{
     padding:9px 20px;
