@@ -21,8 +21,8 @@
    <section class="register">
        <form action="/register" method="post" class="register_form">
            <h2>Register</h2>
-           <div class="form-group register_group">
-               <input type="text" name="name" id="name" placeholder="Name" required>
+           <div class="form-group register_group" id="register_wrapper">
+                <input type="text" name="name" id="name" placeholder="Name" required>
                 <input type="email" name="email" id="email" placeholder="Email" required>
                 <input type="password" name="password" id="password" placeholder="Password" pattern="(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}"  onInvalid="setCustomValidity('ต้องประกอบด้วยตัวเลขและตัวอักษรและมี 6 ตัวขึ้นไป')" oninput="setCustomValidity('')" required>
                 <div class="pattern_xix">
@@ -36,6 +36,7 @@
                     <option value="peer2">Peer 2 (Subcontact)</option>
                     <option value="peer2">Peer 3 (Transporters)</option>
                 </select>
+                <div id="special_input"></div>
             </div>
             <div class="form-group register_btn_group">
                 <input type="submit" value="Register" class="register_btn">
@@ -45,4 +46,21 @@
    </section>
 </body>
 <script src="./assets/js/register.js"></script>
+<script>
+    $(document).ready(function(){
+        $(document).on('change','#peer',function(){
+            switch (this.value){
+                case 'peer2':
+                    $('#special_input').html('<input style="width:100%" class="form-control" type="text" placeholder="ID บริษัท" required>');
+                    break;
+                case 'peer3':
+                    $('#special_input').html('<input style="width:100%" class="form-control" type="text" placeholder="Truck ID" required>');
+                    break;
+                default:
+                    $('#special_input').html('');
+                    break;
+            }
+        })
+    })
+</script>
 </html>
