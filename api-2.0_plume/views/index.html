@@ -83,38 +83,6 @@
                         </tr>
                     </thead>
                     <tbody class="clickabled_row" id="transaction_data_body">
-                        <tr>
-                            <th>John Doe</th>
-                            <th>Songklah</th>
-                            <th>12/19/2020 12:54</th>
-                            <th>Bankkok</th>
-                            <th>1/19/2020 12:54</th>
-                            <th><span class="assing_sign">Assign</span></th>
-                        </tr>
-                        <tr>
-                            <th>John Doe</th>
-                            <th>Songklah</th>
-                            <th>12/19/2020 12:54</th>
-                            <th>Bankkok</th>
-                            <th>1/19/2020 12:54</th>
-                            <th><span class="loading_sign">Loading</span></th>
-                        </tr>
-                        <tr>
-                            <th>John Doe</th>
-                            <th>Songklah</th>
-                            <th>12/19/2020 12:54</th>
-                            <th>Bankkok</th>
-                            <th>1/19/2020 12:54</th>
-                            <th><span class="delivery_sign">Delivery</span></th>
-                        </tr>
-                        <tr>
-                            <th>John Doe</th>
-                            <th>Songklah</th>
-                            <th>12/19/2020 12:54</th>
-                            <th>Bankkok</th>
-                            <th>1/19/2020 12:54</th>
-                            <th><span class="loading_sign">Loading</span></th>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -127,23 +95,20 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
 <script>
     $(document).ready(function(){
-        $('#transaction_table').DataTable();
-    })
-</script>
-<script>
-    $(document).ready(function(){
         var result = <%-JSON.stringify(name)%> ;
+        console.log(result);
         for(var item of result){
-            $('#transaction_data_body').html(` 
+            $('#transaction_data_body').append(` 
                         <tr data-link="somewebsite.com?key=${item.Key}">
                             <th>${item.Record.cargoOwner}</th>
                             <th>${item.Record.loadingPoint}</th>
                             <th>${item.Record.loadingDateTime}</th>
-                            <th>${item.Record.deliveryDateTime}</th>
+                            <th>${item.Record.deliveryPoint}</th>
                             <th>${item.Record.deliveryDateTime}</th>
                             <th><span class="loading_sign">${item.Record.status}</span></th>
                         </tr>`)
         }
+        $('#transaction_table').DataTable();
     })
 </script>
 </html>
