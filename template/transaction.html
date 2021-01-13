@@ -51,29 +51,16 @@
     <section class="transaction main_content">
         <!-- header bar -->
         <div class="header">
-            <div class="header_menu pt-3 pb-3">
+            <div class="header_menu">
                 <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
                 <div class="nav_group">
                     <a href="./index.html" class="nav_item">HOME</a>
                     <form action="/logout?_method=DELETE" method="POST">
-                        <button type="submit" class="login_btn">Logout</button>
+                        <button type="submit" class="logout_btn">Logout</button>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="main_content_flex">
-            <!-- work order on mobile -->
-            <div class="main_content_body work_order_mobile" style="width:100%">
-                <h5>Work Order Info</h5>
-                <hr>
-                <div> 
-                    <!-- content work order here  -->
-                    <!-- content work order here  -->
-                    <!-- content work order here  -->
-                    <!-- content work order here  -->
-                    <!-- content work order here  -->
-                </div>
-            </div>
             <div id="transaction_form_wrapper" class="main_content_body">
                 <div class="form-group btn_group">
                     <button class="btn btn-primary active" id="addtran_btn">ADD Car Transaction</button>
@@ -84,12 +71,14 @@
                 <form action="/channels/mychannel/chaincodes/orderinfo/fcn/createTransaction" id="add_transaction_form" method="POST">
                     <div class="form-group">
                         <label for="cargoowner" class="form-label">Cargo Owner</label>
-                        <input type="text" class="form-control" id="cargoOwner" name="cargo_owner">
+                        <input type="text" placeholder="John Doe" class="form-control input-check-text-only" pattern="^[a-zA-Zก-๙0-9 ]+$" oninput="setCustomValidity('')" id="cargoOwner" name="cargo_owner">
+                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm">
                             <label for="loadingpoint" class="form-label">Loading Point</label>
-                            <input type="text" class="form-control" id="loadingPoint" name="loading_point">
+                            <input type="text" placeholder="Bangkok" class="form-control input-check-text-only" pattern="^[a-zA-Zก-๙0-9 ]+$" oninput="setCustomValidity('')" id="loadingPoint" name="loading_point">
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-sm">
                             <label for="loadingDateTime" class="form-label">Loading Date-Time</label>
@@ -99,30 +88,36 @@
                     <div class="form-group row">
                         <div class="col-sm">
                             <label for="deliverypoint" class="form-label">Delivery Point</label>
-                            <input type="text" class="form-control" id="deliverygpoint" name="deliverygpoint">
+                            <input type="text" placeholder="Chiang Mai" class="form-control input-check-text-only" pattern="^[a-zA-Zก-๙0-9 ]+$" oninput="setCustomValidity('')" id="deliverygpoint" name="deliverygpoint">
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-sm">
                             <label for="DeliveryDateTime" class="form-label">Delivery Date-Time</label>
                             <input type="datetime-local" id="deliverygDateTime" class="form-control" name="delivery_date_time">
+                            
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm">
                             <label for="productid">Product ID</label>
-                            <input type="text" class="form-control" id="productid" name="product_id">
+                            <input type="text" placeholder="99" class="form-control input-check-number-only" pattern="^[0-9]+$" oninput="setCustomValidity('')" id="productid" name="product_id">
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-sm">
                             <label for="quantity">Quantity</label>
-                            <input type="text" class="form-control" name="quantity">
+                            <input type="text" placeholder="10" class="form-control input-check-number-only" pattern="^[0-9]+$" oninput="setCustomValidity('')" name="quantity">
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-sm">
                             <label for="totalweight">Total Weight</label>
-                            <input type="text" class="form-control" name="total_weight">
+                            <input type="text" placeholder="150" class="form-control input-check-number-only" pattern="^[0-9]+$" oninput="setCustomValidity('')" name="total_weight">
+                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="pakcingdim">Packing Dimension</label>
                         <input type="text" class="form-control" name="packing_dimension">
+                        <div class="invalid-feedback"></div>
                     </div>
                     <button type="submit" class="btn btn-primary">Add Transaction</button>
                     <input type="reset" value="Clear Data" class="btn btn-outline-danger">
@@ -136,30 +131,6 @@
                     <input type="submit" class="btn btn-primary" value="Search">
                 </form>
             </div>
-            <div class="main_content_right">
-                <form action="#" class="search_form">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input class="search_bar form-control" style="border-radius:10px;padding:23px 20px;" type="text" name="search" id="search" maxlength="10" pattern="[a-zA-Z0-9]{1,10}" maxlength="10" oninvalid="setCustomValidity('Language detect (English and Number only), no special character and maximum 10 character')"  oninput="setCustomValidity('')" placeholder="Track & Trace" autocomplete="off">
-                            <div class="input-group-prepend">
-                                <i style="color:black;" class="fas fa-search"></i>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <div class="main_content_body work_order_desktop">
-                    <h5>Work Order Info</h5>
-                    <hr>
-                    <div>
-                        <!-- content work order here  -->
-                        <!-- content work order here  -->
-                        <!-- content work order here  -->
-                        <!-- content work order here  -->
-                        <!-- content work order here  -->
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
 </body>
 <script>
@@ -181,4 +152,5 @@
     })
 </script>
 <script src="./assets/js/global.js"></script>
+<script src="./assets/js/input_pattern.js"></script>
 </html>

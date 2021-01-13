@@ -49,33 +49,19 @@
     </section>
     <!-- main_content -->
     <section class="transaction main_content">
-        <!-- header bar -->
        <!-- header bar -->
        <div class="header">
-        <div class="header_menu pt-3 pb-3">
-            <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
-            <div class="nav_group">
-                <a href="./index.html" class="nav_item">HOME</a>
-                <form action="/logout?_method=DELETE" method="POST">
-                    <button type="submit" class="login_btn">Logout</button>
-                </form>
-            </div>
-        </div>
-    </div>
-        <div class="main_content_flex">
-            <!-- work order on mobile -->
-            <div class="main_content_body work_order_mobile" style="width:100%">
-                <h5>Work Order Info</h5>
-                <hr>
-                <div> 
-                    <!-- content work order here  -->
-                    <!-- content work order here  -->
-                    <!-- content work order here  -->
-                    <!-- content work order here  -->
-                    <!-- content work order here  -->
+            <div class="header_menu pt-3 pb-3">
+                <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
+                <div class="nav_group">
+                    <a href="./index.html" class="nav_item">HOME</a>
+                    <form action="/logout?_method=DELETE" method="POST">
+                        <button type="submit" class="logout_btn">Logout</button>
+                    </form>
                 </div>
             </div>
-            <div class="mt-5 main_content_body main_content_left">
+        </div>
+            <div class="mt-5 main_content_body">
                 <h4>Working Info</h4>
                 <select name="" id="work_type" class="form-control">
                     <option value="own">ให้งานเรา</option>
@@ -90,35 +76,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="work_truck_id" class="form-label">Work Truck ID</label>
-                                <input type="text" class="form-control" id="work_truck_id" name="work_truck_id">
+                                <input type="text" placeholder="20" class="form-control input-check-number-only" pattern="^[0-9]+$" oninput="setCustomValidity('')" id="work_truck_id" name="work_truck_id">
+                                <div class="invalid-feedback"></div>
                             </div>
                         
                         <button class="btn btn-primary" type="submit">Assign Work</button>
                     </form>
-                </div>
-            </div>
-            <!-- main content left -->
-            <div class="main_content_right">
-                <form action="#" class="search_form">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input class="search_bar form-control" style="border-radius:10px;padding:23px 20px;" type="text" name="search" id="search" maxlength="10" pattern="[a-zA-Z0-9]{1,10}" maxlength="10" oninvalid="setCustomValidity('Language detect (English and Number only), no special character and maximum 10 character')"  oninput="setCustomValidity('')" placeholder="Track & Trace" autocomplete="off">
-                            <div class="input-group-prepend">
-                                <i style="color:black;" class="fas fa-search"></i>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <div class="main_content_body work_order_desktop">
-                    <h5>Work Order Info</h5>
-                    <hr>
-                    <div>
-                        <!-- content work order here  -->
-                        <!-- content work order here  -->
-                        <!-- content work order here  -->
-                        <!-- content work order here  -->
-                        <!-- content work order here  -->
-                    </div>
                 </div>
             </div>
         </div>
@@ -129,11 +92,40 @@
     $('#work_type').change(function(){
         console.log($(this).val())
         if ($(this).val() === 'own'){
-            $('.work_info_form').html('<form action="/channels/mychannel/chaincodes/myjobassignment/fcn/createJobAssignmentInfo" method="post"><div class="form-group"><label for="transaction_order_info" class="form-label">Transaction Order Info</label><input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info"></div><div class="form-group"><label for="work_truck_id" class="form-label">Work Truck ID</label><input type="text" class="form-control" id="work_truck_id" name="work_truck_id"></div><button class="btn btn-primary" type="submit">Assign Work</button></form>')
+            $('.work_info_form').html(`<form action="/channels/mychannel/chaincodes/myjobassignment/fcn/createJobAssignmentInfo" method="post">
+                <div class="form-group">
+                    <label for="transaction_order_info" class="form-label">
+                        Transaction Order Info
+                    </label>
+                    <input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info">
+                </div>
+                <div class="form-group">
+                    <label for="work_truck_id" class="form-label">
+                        Work Truck ID
+                    </label>
+                    <input type="text" pattern="^[0-9 ]+$" oninput="setCustomValidity('')" class="form-control input-check-number-only" placeholder="20"  id="work_truck_id" name="work_truck_id"><div class="invalid-feedback"></div>
+                </div>
+                <button class="btn btn-primary" type="submit">Assign Work</button>
+                </form>`)
         }
         if($(this).val() === 'contact'){
-            $('.work_info_form').html('<form action="/channels/mychannel/chaincodes/workinfo/fcn/WorkOrderInfoCreate" method="post"><div class="form-group"><label for="transaction_order_info" class="form-label">Transaction Order Info</label><input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info"></div><div class="form-group"><label class="form-label">Contact ID</label><input type="text" class="form-control" name="subconID"></div><button class="btn btn-primary" type="submit">Assign Work</button></form>')
+            $('.work_info_form').html(`<form action="/channels/mychannel/chaincodes/workinfo/fcn/WorkOrderInfoCreate" method="post">
+                <div class="form-group">
+                    <label for="transaction_order_info" class="form-label">
+                        Transaction Order Info
+                    </label>
+                    <input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        Contact ID
+                    </label>
+                    <input type="text" pattern="^[0-9 ]+$" oninput="setCustomValidity('')" class="form-control input-check-number-only"  placeholder="20" name="subconID"><div class="invalid-feedback"></div>
+                </div>
+                    <button class="btn btn-primary" type="submit">Assign Work</button>
+                </form>`)
         }
     })
 </script>
+<script src="./assets/js/input_pattern.js"></script>
 </html>

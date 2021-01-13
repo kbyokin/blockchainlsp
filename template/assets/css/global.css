@@ -5,8 +5,11 @@
 }
 :root{
     --main-color:#7386D5;
-    --header-color:#6d7fcc;
+    --header-color:white;
+    --header-btn-bg-color:black;
+    --header-btn-color:white;
     --btn-color:#5bc0de;
+
 }
 body{
     background:#EDEDED;
@@ -45,14 +48,13 @@ a,a:hover{
 .main_content{
     width:calc(100% - 0px);
     margin-left:0;
-    padding:30px;
+
     transition: 0.2s ease-in-out;
 }
 
 /* HEADER MENU  */
 .header{
-    background: black;
-    border-radius: 20px;
+    background: var(--header-color);
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 .header_menu{
@@ -68,20 +70,19 @@ a,a:hover{
     align-items: center;
     justify-content: flex-end;
     min-width:250px;
-    color:white;
 }
 .nav_group .nav_item{
-    color:white;
+    color:black;
     font-weight:600;
     margin-right:20px;
     font-size:22px;
     padding:7px 25px;
-    border-radius:10px; 
+    border-radius:10px;
 }
 .nav_group .nav_item_btn{
     padding:7px 25px;
     border-radius:10px;
-    background:white;
+    background:var(--header-btn-bg-color);
     font-weight: 700;
     font-size:22px;
     transition: 0.2s;
@@ -95,12 +96,12 @@ a,a:hover{
     color:White;
 }
 .burger_menu{
-    background:white;
+    background:var(--header-btn-bg-color);
     border:none;
     border-radius: 5px;
     padding:10px 20px;
     font-size:18px;
-    color:black;
+    color:var(--header-btn-color);
     font-weight:700;
 }
 .burger_menu i{
@@ -126,6 +127,22 @@ a,a:hover{
     width:150px;
     object-fit: contain;
 }
+.logout_btn{
+    background:var(--header-btn-bg-color);
+    color:var(--header-btn-color);
+    padding:9px 20px;
+    border:none;
+    font-weight:700;
+    border-radius: 5px;
+    font-size:18px;
+    transition:.3s;
+    font-weight: 500;
+}
+.logout_btn:hover{
+    border:1px solid black;
+    background:var(--header-btn-color);
+    color:var(--header-btn-bg-color);
+}
 #logout_btn{
     padding:9px 20px;
     background:white;
@@ -144,7 +161,7 @@ a,a:hover{
     padding:30px;
     border-radius: 10px;
     background:white;
-    margin:20px auto;
+    margin:20px;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 .main_content_body p{

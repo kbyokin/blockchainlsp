@@ -15,8 +15,26 @@
     <!-- style css -->
     <link rel="stylesheet" href="./assets/css/side_navbar.css">
     <link rel="stylesheet" href="./assets/css/global.css">
+    <!-- DATA TABLE CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
 </head>
-
+<style>
+    .check_end_btn{
+        padding:3px 12px;
+        width:100%;
+        text-align: center;
+        box-shadow:0 0 5px rgba(0,0,0,0.3);
+        cursor:pointer;
+        border-radius: 7px;
+        user-select: none;
+    }
+    .check_end_btn_:checked ~ .check_end_btn{
+        background:greenyellow;
+        pointer-events: none;
+    }
+</style>
 <body>
     <!-- =====================================================================sidebar===================================================================== -->
     <section class="sidebar">
@@ -52,31 +70,23 @@
     </section>
     <!-- main content -->
     <section class="main_content">
-        <div class="header">
-            <div class="header_menu">
+         <!-- header bar -->
+         <div class="header">
+            <div class="header_menu pt-3 pb-3">
                 <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
                 <div class="nav_group">
-                    <form action="#" class="search_form">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input class="search_bar" type="text" name="search" id="search"
-                                    pattern="[a-zA-Z0-9]{1,10}" maxlength="10"
-                                    oninvalid="setCustomValidity('Language detect (English and Number only), no special character and maximum 10 character')"
-                                    oninput="setCustomValidity('')" placeholder="Track & Trace" autocomplete="off"
-                                    class="form-control">
-                                <div class="input-group-prepend">
-                                    <i class="fas fa-search"></i>
-                                </div>
-                            </div>
-                        </div>
+                    <a href="./index.html" class="nav_item">HOME</a>
+                    <form action="/logout?_method=DELETE" method="POST">
+                        <button type="submit" class="logout_btn">Logout</button>
                     </form>
                 </div>
             </div>
         </div>
+        </div>
         <div class="main_content_body">
             <h3>Car Owner Job Info</h3>
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped" id="carOwner_table">
                     <thead>
                         <tr>
                             <th class="text-center" style="min-width:100px;">Cargo Owner</th>
@@ -94,21 +104,7 @@
 
                         </tr>
                     </thead>
-                    <style>
-                        .check_end_btn{
-                            padding:3px 12px;
-                            width:100%;
-                            text-align: center;
-                            box-shadow:0 0 5px rgba(0,0,0,0.3);
-                            cursor:pointer;
-                            border-radius: 7px;
-                            user-select: none;
-                        }
-                        .check_end_btn_:checked ~ .check_end_btn{
-                            background:greenyellow;
-                            pointer-events: none;
-                        }
-                    </style>
+
                     <tbody class="clickabled_row">
                         <tr class="text-center">
                             <td>John Doe</td>
@@ -155,6 +151,14 @@
     </section>
 </body>
 <script src="./assets/js/global.js"></script>
+<!-- datatable.js -->
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#carOwner_table').DataTable();
+    })
+</script>
 <script>
     const checkEndBtn = document.querySelectorAll('.check_end_btn_');
     const checkEndBtnLabel = document.querySelectorAll('.check_end_btn');
