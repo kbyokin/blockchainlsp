@@ -152,11 +152,129 @@ app.post('/register', checkNotAuthenticated, async function (req, res) {
         return;
     }
 
-    // var token = jwt.sign({
-    //     exp: Math.floor(Date.now() / 1000) + parseInt(constants.jwt_expiretime),
-    //     username: username,
-    //     orgName: orgName
-    // }, app.get('secret'));
+    if (peer === 'peer2') {
+        var subconID = req.body.subconID;
+
+        let response = await helper.getRegisteredUser(username, peer, true);
+
+    
+
+    logger.debug('-- returned from registering the username %s for organization %s', username, peer);
+    if (response && typeof response !== 'string') {
+        logger.debug('Successfully registered the username %s for organization %s', username, peer);
+        // response.token = token;
+        // after req.body correspond to what we put in name=
+        try {
+            // create hash for password 10 is how long hash we generate
+            // await will return after wating for it
+            const hashedPassword = await bcrypt.hash(password, 10);
+            // now let's psuh these to users variable for store user's data
+            let _id =  Date.now().toString();
+            await users.push({
+                id: _id,
+                name: username,
+                email: email,
+                password: hashedPassword,
+                peer: peer,
+                subconID: subconID
+            });
+            // then redirect to login page
+            await fs.readFile('user/userData.json', 'utf-8', (err, data) => {
+                if (err) {
+                    throw err;
+                }
+            
+                var json = JSON.parse(data);
+                json.push({ "id": _id,
+                            "name": username,
+                            "email": email,
+                            "password": hashedPassword,
+                        "peer" : peer,
+                        "subconID": subconID});
+                console.log(json);
+            
+                fs.writeFile("user/userData.json", JSON.stringify(json), (err) => {
+                        if (err) {
+                            throw err;
+                        }
+                        console.log("JSON data is saved.");
+                    });
+            
+            });
+            res.redirect('/login')
+        } catch (e) {
+            res.redirect('/register')
+        }
+            res.json(response);
+    } else {
+        logger.debug('Failed to register the username %s for organization %s with::%s', username, peer, response);
+        res.json({ success: false, message: response });
+    }
+        
+    } else if (peer === 'peer3') {
+        var subconID = req.body.subconID;
+        var truckid = req.body.truckid;
+        var newtruckid = subconID + '-' + truckid;
+
+        let response = await helper.getRegisteredUser(username, peer, true);
+
+    
+
+    logger.debug('-- returned from registering the username %s for organization %s', username, peer);
+    if (response && typeof response !== 'string') {
+        logger.debug('Successfully registered the username %s for organization %s', username, peer);
+        // response.token = token;
+        // after req.body correspond to what we put in name=
+        try {
+            // create hash for password 10 is how long hash we generate
+            // await will return after wating for it
+            const hashedPassword = await bcrypt.hash(password, 10);
+            // now let's psuh these to users variable for store user's data
+            let _id =  Date.now().toString();
+            await users.push({
+                id: _id,
+                name: username,
+                email: email,
+                password: hashedPassword,
+                peer: peer,
+                subconID: subconID,
+                truckid: newtruckid
+            });
+            // then redirect to login page
+            await fs.readFile('user/userData.json', 'utf-8', (err, data) => {
+                if (err) {
+                    throw err;
+                }
+            
+                var json = JSON.parse(data);
+                json.push({ "id": _id,
+                            "name": username,
+                            "email": email,
+                            "password": hashedPassword,
+                        "peer" : peer,
+                        "subconID": subconID,
+                        "truckid": newtruckid});
+                console.log(json);
+            
+                fs.writeFile("user/userData.json", JSON.stringify(json), (err) => {
+                        if (err) {
+                            throw err;
+                        }
+                        console.log("JSON data is saved.");
+                    });
+            
+            });
+            res.redirect('/login')
+        } catch (e) {
+            res.redirect('/register')
+        }
+            res.json(response);
+    } else {
+        logger.debug('Failed to register the username %s for organization %s with::%s', username, peer, response);
+        res.json({ success: false, message: response });
+    }
+
+    } else {
 
     let response = await helper.getRegisteredUser(username, peer, true);
 
@@ -211,6 +329,8 @@ app.post('/register', checkNotAuthenticated, async function (req, res) {
         logger.debug('Failed to register the username %s for organization %s with::%s', username, peer, response);
         res.json({ success: false, message: response });
     }
+
+}
 
 });
 
