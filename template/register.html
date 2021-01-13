@@ -34,7 +34,7 @@
                     <option value="peer0">Peer 0 (Customer Service)</option>
                     <option value="peer1">Peer 1 (Transportation Unit)</option>
                     <option value="peer2">Peer 2 (Subcontact)</option>
-                    <option value="peer2">Peer 3 (Transporters)</option>
+                    <option value="peer3">Peer 3 (Transporters)</option>
                 </select>
                 <div id="special_input"></div>
             </div>
@@ -51,10 +51,10 @@
         $(document).on('change','#peer',function(){
             switch (this.value){
                 case 'peer2':
-                    $('#special_input').html('<input style="width:100%" class="form-control" type="text" placeholder="ID บริษัท" required>');
+                    $('#special_input').html('<input style="width:100%" class="form-control" type="text" name="subconID" id="subconID" placeholder="ID บริษัท" required>');
                     break;
                 case 'peer3':
-                    $('#special_input').html('<input style="width:100%" class="form-control" type="text" placeholder="Truck ID" required>');
+                    $('#special_input').html('<input style="width:100%" class="form-control" type="text" name="subconID" id="subconID" placeholder="ID บริษัท" required><input style="width:100%" class="form-control" type="text" name="truckid" id="truckid" placeholder="Truck ID" required>');
                     break;
                 default:
                     $('#special_input').html('');
