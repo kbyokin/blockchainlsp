@@ -214,7 +214,7 @@ app.post('/register', checkNotAuthenticated, async function (req, res) {
     } else if (peer === 'peer3') {
         var subconID = req.body.subconID;
         var truckid = req.body.truckid;
-        var newtruckid = subconID + '-' + truckid;
+        var newtruckid = subconID + truckid;
 
         let response = await helper.getRegisteredUser(username, peer, true);
 
