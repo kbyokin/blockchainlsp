@@ -82,7 +82,7 @@
                             <th style="min-width:50px;">สถานะ</th>
                         </tr>
                     </thead>
-                    <tbody class="clickabled_row">
+                    <tbody class="clickabled_row" id="transaction_data_body">
                         <tr>
                             <th>John Doe</th>
                             <th>Songklah</th>
@@ -130,5 +130,20 @@
         $('#transaction_table').DataTable();
     })
 </script>
-
+<script>
+    $(document).ready(function(){
+        var result = <%-JSON.stringify(name)%> ;
+        for(var item of result){
+            $('#transaction_data_body').html(` 
+                        <tr data-link="somewebsite.com?key=${item.Key}">
+                            <th>${item.Record.cargoOwner}</th>
+                            <th>${item.Record.loadingPoint}</th>
+                            <th>${item.Record.loadingDateTime}</th>
+                            <th>${item.Record.deliveryDateTime}</th>
+                            <th>${item.Record.deliveryDateTime}</th>
+                            <th><span class="loading_sign">${item.Record.status}</span></th>
+                        </tr>`)
+        }
+    })
+</script>
 </html>
