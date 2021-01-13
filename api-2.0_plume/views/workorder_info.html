@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working Info</title>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <!-- CSS -->
+    <base href="/">
+    <link rel="stylesheet" href="./assets/css/transaction.css">
+    <link rel="stylesheet" href="./assets/css/side_navbar.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+</head>
+<body>
+    <!-- =====================================================================sidebar===================================================================== -->
+    <section class="sidebar">
+        <div class="sidebar_burger">
+            <i class="fas fa-arrow-alt-circle-left"></i>close
+        </div>
+        <div class="sidebar_wrapper">
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/transaction" class="sidebar_item">
+                    <li>Transaction</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+               <a href="/car_owner" class="sidebar_item">
+                    <li>Car Owner</li>
+                </a>
+                <a href="/register" class="sidebar_item">
+                    <li>Register</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+        </div>
+    </section>
+    <!-- main_content -->
+    <section class="transaction main_content">
+       <!-- header bar -->
+       <div class="header">
+            <div class="header_menu pt-3 pb-3">
+                <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
+                <div class="nav_group">
+                    <a href="/" class="nav_item">HOME</a>
+                    <form action="/logout?_method=DELETE" method="POST">
+                        <button type="submit" class="logout_btn">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+            <div class="mt-5 main_content_body">
+                <h4>Working Info</h4>
+                <select name="" id="work_type" class="form-control">
+                    <option value="own">ให้งานเรา</option>
+                    <option value="contact">ให้งานคอนแทค</option>
+                </select>
+                <hr>
+                <div class="work_info_form">
+                    <form action="/channels/mychannel/chaincodes/myjobassignment/fcn/createJobAssignmentInfo" method="post">
+                            <div class="form-group">
+                                <label for="transaction_order_info" class="form-label">Transaction Order Info</label>
+                                <input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info">
+                            </div>
+                            <div class="form-group">
+                                <label for="work_truck_id" class="form-label">Work Truck ID</label>
+                                <input type="text" placeholder="20" class="form-control input-check-number-only" pattern="^[0-9]+$" oninput="setCustomValidity('')" id="work_truck_id" name="work_truck_id">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        
+                        <button class="btn btn-primary" type="submit">Assign Work</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script src="./assets/js/global.js"></script>
+<script>
+    $('#work_type').change(function(){
+        console.log($(this).val())
+        if ($(this).val() === 'own'){
+            $('.work_info_form').html(`<form action="/channels/mychannel/chaincodes/myjobassignment/fcn/createJobAssignmentInfo" method="post">
+                <div class="form-group">
+                    <label for="transaction_order_info" class="form-label">
+                        Transaction Order Info
+                    </label>
+                    <input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info">
+                </div>
+                <div class="form-group">
+                    <label for="work_truck_id" class="form-label">
+                        Work Truck ID
+                    </label>
+                    <input type="text" pattern="^[0-9 ]+$" oninput="setCustomValidity('')" class="form-control input-check-number-only" placeholder="20"  id="work_truck_id" name="work_truck_id"><div class="invalid-feedback"></div>
+                </div>
+                <button class="btn btn-primary" type="submit">Assign Work</button>
+                </form>`)
+        }
+        if($(this).val() === 'contact'){
+            $('.work_info_form').html(`<form action="/channels/mychannel/chaincodes/workinfo/fcn/WorkOrderInfoCreate" method="post">
+                <div class="form-group">
+                    <label for="transaction_order_info" class="form-label">
+                        Transaction Order Info
+                    </label>
+                    <input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        Contact ID
+                    </label>
+                    <input type="text" pattern="^[0-9 ]+$" oninput="setCustomValidity('')" class="form-control input-check-number-only"  placeholder="20" name="subconID"><div class="invalid-feedback"></div>
+                </div>
+                    <button class="btn btn-primary" type="submit">Assign Work</button>
+                </form>`)
+        }
+    })
+</script>
+<script src="./assets/js/input_pattern.js"></script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <!-- jquery  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <!-- login css -->
+    <base href="/">
+    <link rel="stylesheet" href="./assets/css/register.css">
+</head>
+
+<body>
+   <section class="register">
+       <form action="/register" method="post" class="register_form">
+           <h2>Register</h2>
+           <div class="form-group register_group" id="register_wrapper">
+                <input type="text" name="name" id="name" placeholder="Name" required>
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <input type="password" name="password" id="password" placeholder="Password" pattern="(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}"  onInvalid="setCustomValidity('ต้องประกอบด้วยตัวเลขและตัวอักษรและมี 6 ตัวขึ้นไป')" oninput="setCustomValidity('')" required>
+                <div class="pattern_xix">
+                    <span class="min6char">มีตั้งแต่ 6 ตัวอักษรขึ้นไป</span><br>
+                    <span class="checkchar">ต้องประกอบด้วยตัวเลขและตัวอักษร</span>
+                </div>
+                <select name="peer" id="peer" class="form-control" required> 
+                    <option value="" disabled selected>กรุณาเลือก Peer ที่ต้องการ</option>
+                    <option value="peer0">Peer 0 (Customer Service)</option>
+                    <option value="peer1">Peer 1 (Transportation Unit)</option>
+                    <option value="peer2">Peer 2 (Subcontact)</option>
+                    <option value="peer3">Peer 3 (Transporters)</option>
+                </select>
+                <div id="special_input"></div>
+            </div>
+            <div class="form-group register_btn_group">
+                <input type="submit" value="Register" class="register_btn">
+                <span class="login_group">Already has an account? <a href="/login" class="login_btn">Login</a></span>
+            </div>
+       </form>
+   </section>
+</body>
+<script src="./assets/js/register.js"></script>
+<script>
+    $(document).ready(function(){
+        $(document).on('change','#peer',function(){
+            switch (this.value){
+                case 'peer2':
+                    $('#special_input').html('<input style="width:100%" class="form-control" type="text" name="subconID" id="subconID" placeholder="ID บริษัท" required>');
+                    break;
+                case 'peer3':
+                    $('#special_input').html('<input style="width:100%" class="form-control" type="text" name="subconID" id="subconID" placeholder="ID บริษัท" required><input style="width:100%" class="form-control" type="text" name="truckid" id="truckid" placeholder="Truck ID" required>');
+                    break;
+                default:
+                    $('#special_input').html('');
+                    break;
+            }
+        })
+    })
+</script>
+</html>

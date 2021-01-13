@@ -420,7 +420,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
             
             res.render(__dirname + '/views/index.html', {name: message});
         } else if (peer === "peer3") {
-            res.redirect('/transporter');
+            res.redirect('/car_owner');
             
         }
  
@@ -434,7 +434,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
 
 });
 
-app.get('/transporter', checkAuthenticated, async (req, res) => {
+app.get('/car_owner', checkAuthenticated, async (req, res) => {
     try {
         var message = [];
         var channelName = 'mychannel';
@@ -624,14 +624,14 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
 
 
 app.get('/transaction', checkAuthenticated, async (req, res) => {   
-    res.sendFile(path.join(__dirname, '../template/transaction.html'));
+    res.sendFile(path.join(__dirname, '/views/transaction.html'));
     console.log("name = " + req.user.name);
     console.log("password = " + req.user.password);
     console.log("peer = " + req.user.peer);
 })
 
 app.get('/workorder_info', checkAuthenticated, async (req, res) => {   
-    res.sendFile(path.join(__dirname, '../template/workorder_info.html'));
+    res.sendFile(path.join(__dirname, '/views/workorder_info.html'));
     console.log("name = " + req.user.name);
     console.log("password = " + req.user.password);
     console.log("peer = " + req.user.peer);
