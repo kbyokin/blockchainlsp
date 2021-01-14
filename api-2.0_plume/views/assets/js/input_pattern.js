@@ -23,7 +23,7 @@ $(document).on('input keyup','.input-check-number-math',function(){
     var val = $(this).val();
     if(!RegCheckMath(val) && val !== ''){
         $(this).addClass('is-invalid');
-        $(this).next().html('Numbers only');
+        $(this).next().html('Numbers And Math symbols Only (+-*/%x)');
     }else{
         $(this).removeClass('is-invalid');
         $(this).next().html('');
@@ -39,8 +39,8 @@ function RegCheckNumberOnly(val){
     var check_pattern = pattern.test(val);
     return check_pattern;
 }
-function RegCheckMath(Val){
-    var pattern = /^[0-9+\-*\/%x]+$/;
+function RegCheckMath(val){
+    var pattern = /^[0-9+\-*\/.%x]+$/;
     var check_pattern= pattern.test(val);
     return check_pattern
 }
