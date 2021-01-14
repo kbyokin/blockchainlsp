@@ -93,8 +93,7 @@
                         </div>
                         <div class="col-sm">
                             <label for="DeliveryDateTime" class="form-label">Delivery Date-Time</label>
-                            <input type="datetime-local" id="deliverygDateTime" class="form-control" name="delivery_date_time">
-                            
+                            <input type="datetime-local" id="deliveryDateTime" class="form-control" name="delivery_date_time">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -116,7 +115,7 @@
                     </div>
                     <div class="form-group">
                         <label for="pakcingdim">Packing Dimension</label>
-                        <input type="text" class="form-control" name="packing_dimension">
+                        <input type="text" class="form-control input-check-number-math" placeholder="12x15x20" pattern="^[0-9+\-*\/%x]+$" oninput="setCustomValidity('')" name="packing_dimension">
                         <div class="invalid-feedback"></div>
                     </div>
                     <button type="submit" class="btn btn-primary">Add Transaction</button>
