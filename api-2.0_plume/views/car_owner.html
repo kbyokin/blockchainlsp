@@ -13,7 +13,6 @@
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
     <!-- style css -->
-    <base href="/">
     <link rel="stylesheet" href="./assets/css/side_navbar.css">
     <link rel="stylesheet" href="./assets/css/global.css">
     <!-- DATA TABLE CSS -->
@@ -47,19 +46,19 @@
                 <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
             <ul class="sidebar_items">
-                <a href="/" class="sidebar_item">
+                <a href="./index.html" class="sidebar_item">
                     <li>Home</li>
                 </a>
-                <a href="/transaction" class="sidebar_item">
+                <a href="./transaction.html" class="sidebar_item">
                     <li>Transaction</li>
                 </a>
-                <a href="/workorder_info" class="sidebar_item">
+                <a href="./workorder_info.html" class="sidebar_item">
                     <li>Working Info</li>
                 </a>
-               <a href="/car_owner" class="sidebar_item">
+               <a href="./car_owner.html" class="sidebar_item">
                     <li>Car Owner</li>
                 </a>
-                <a href="/register" class="sidebar_item">
+                <a href="./register.html" class="sidebar_item">
                     <li>Register</li>
                 </a>
             </ul>
@@ -76,7 +75,7 @@
             <div class="header_menu pt-3 pb-3">
                 <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
                 <div class="nav_group">
-                    <a href="/" class="nav_item">HOME</a>
+                    <a href="./index.html" class="nav_item">HOME</a>
                     <form action="/logout?_method=DELETE" method="POST">
                         <button type="submit" class="logout_btn">Logout</button>
                     </form>
@@ -84,95 +83,30 @@
             </div>
         </div>
         </div>
-        <div class="main_content_body">
-            <h3>Car Owner Job Info</h3>
-            <div class="table-responsive">
-                <table class="table table-striped" id="carOwner_table">
-                    <thead>
-                        <tr>
-                            <th class="text-center" style="min-width:100px;">Cargo Owner</th>
-                            <!-- Loading Section -->
-                            <th class="text-center" style="min-width:50px;">Loading Point</th>
-                            <th style="min-width:20px;">Loading Date</th>
-                            <th class="text-center" style="min-width:50px;">Loading End</th>
-                            <!-- Delivery Section -->
-                            <th class="text-center" style="min-width:50px;">Delivery Point</th>
-                            <th class="text-center" style="min-width:20px;">Delivery Date</th>
-                            <th class="text-center" class="text-center" style="min-width:50px;">Delivery End</th>
-
-                            <th class="text-center" style="min-width:70px">Start Mileage</th>
-                            <th class="text-center" style="min-width:70px">Stop Mileage</th>
-
-                        </tr>
-                    </thead>
-
-                    <tbody class="clickabled_row">
-                        <tr class="text-center">
-                            <td>John Doe</td>
-                            <td>สงขลา</td>
-                            <td>12-27-2020</td>
-                            <!-- ปุ่ม Loading END  -->
-                            <td>
-                                <input hidden type="checkbox" class="check_end_btn_" name="loading_end" id="loading_end">
-                                <label class="check_end_btn end">NO</label>
-                            </td>
-                            <td>กรุงเทพ</td>
-                            <td>14-27-2020</td>
-                            <!-- ปุ่ม Delivery End -->
-                            <td>
-                                <input hidden type="checkbox" class="check_end_btn_" name="delivery_end" id="delivery_end">
-                                <label class="check_end_btn">NO</label>
-                            </td>
-                            <td>0 Miles</td>
-                            <td>0 Miles</td>
-                        </tr>
-                        <tr class="text-center">
-                            <td>John Doe</td>
-                            <td>สงขลา</td>
-                            <td>12-27-2020</td>
-                            <!-- ปุ่ม Loading END  -->
-                            <td>
-                                <input hidden type="checkbox" class="check_end_btn_" name="loading_end">
-                                <label class="check_end_btn end">NO</label>
-                            </td>
-                            <td>กรุงเทพ</td>
-                            <td>14-27-2020</td>
-                            <!-- ปุ่ม Delivery End -->
-                            <td>
-                                <input hidden type="checkbox" class="check_end_btn_" name="delivery_end" id="delivery_end">
-                                <label class="check_end_btn">NO</label>
-                            </td>
-                            <td>0 Miles</td>
-                            <td>0 Miles</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="main_content_flex">
+            <div class="main_content_body  main_content_left">
+                <h5>Hi John Doe</h5>
+                <hr>
+                <div class="">
+                      <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                </div>
+            </div>
+            <div class="main_content_body main_content_right">
+                <h5>History</h5>
+                <hr>
+                <div class="">
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                </div>
             </div>
         </div>
     </section>
 </body>
 <script src="./assets/js/global.js"></script>
-<!-- datatable.js -->
- 
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $('#carOwner_table').DataTable();
-    })
-</script>
-<script>
-    const checkEndBtn = document.querySelectorAll('.check_end_btn_');
-    const checkEndBtnLabel = document.querySelectorAll('.check_end_btn');
-    checkEndBtnLabel.forEach(btn =>{
-        btn.addEventListener('click',function(){
-            this.previousElementSibling.checked = !this.previousElementSibling.checked
-            if (this.previousElementSibling.checked){
-                this.innerHTML = "YES";
-            }else{
-                this.innerHTML= "NO";
-            }
-        })
-    })
-</script>
 
 </html>

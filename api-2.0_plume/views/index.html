@@ -99,7 +99,7 @@
         console.log(result);
         for(var item of result){
             $('#transaction_data_body').append(` 
-                        <tr data-link="somewebsite.com?key=${item.Key}">
+                        <tr class="table_row_link" data-link="./car_owner.html?key=${item.Key}">
                             <th>${item.Record.cargoOwner}</th>
                             <th>${item.Record.loadingPoint}</th>
                             <th>${item.Record.loadingDateTime}</th>
@@ -109,6 +109,10 @@
                         </tr>`)
         }
         $('#transaction_table').DataTable();
+        $(document).on('click','.table_row_link',function(){
+            var url = $(this).data('link');
+            window.location.href = url;
+        })
     })
 </script>
 </html>
