@@ -11,7 +11,6 @@
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <!-- CSS -->
-    <base href="/">
     <link rel="stylesheet" href="./assets/css/transaction.css">
     <link rel="stylesheet" href="./assets/css/side_navbar.css">
     <link rel="stylesheet" href="./assets/css/global.css">
@@ -27,19 +26,19 @@
                 <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
             <ul class="sidebar_items">
-                <a href="/" class="sidebar_item">
+                <a href="./index.html" class="sidebar_item">
                     <li>Home</li>
                 </a>
-                <a href="/transaction" class="sidebar_item">
+                <a href="./transaction.html" class="sidebar_item">
                     <li>Transaction</li>
                 </a>
-                <a href="/workorder_info" class="sidebar_item">
+                <a href="./workorder_info.html" class="sidebar_item">
                     <li>Working Info</li>
                 </a>
-               <a href="/car_owner" class="sidebar_item">
+               <a href="./car_owner.html" class="sidebar_item">
                     <li>Car Owner</li>
                 </a>
-                <a href="/register" class="sidebar_item">
+                <a href="./register.html" class="sidebar_item">
                     <li>Register</li>
                 </a>
             </ul>
@@ -55,7 +54,7 @@
             <div class="header_menu">
                 <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
                 <div class="nav_group">
-                    <a href="/" class="nav_item">HOME</a>
+                    <a href="./index.html" class="nav_item">HOME</a>
                     <form action="/logout?_method=DELETE" method="POST">
                         <button type="submit" class="logout_btn">Logout</button>
                     </form>
@@ -94,8 +93,7 @@
                         </div>
                         <div class="col-sm">
                             <label for="DeliveryDateTime" class="form-label">Delivery Date-Time</label>
-                            <input type="datetime-local" id="deliverygDateTime" class="form-control" name="delivery_date_time">
-                            
+                            <input type="datetime-local" id="deliveryDateTime" class="form-control" name="delivery_date_time">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -117,7 +115,7 @@
                     </div>
                     <div class="form-group">
                         <label for="pakcingdim">Packing Dimension</label>
-                        <input type="text" class="form-control" name="packing_dimension">
+                        <input type="text" class="form-control input-check-number-math" placeholder="12x15x20" pattern="^[0-9+\-*\/%x]+$" oninput="setCustomValidity('')" name="packing_dimension">
                         <div class="invalid-feedback"></div>
                     </div>
                     <button type="submit" class="btn btn-primary">Add Transaction</button>
