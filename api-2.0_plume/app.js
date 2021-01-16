@@ -496,10 +496,10 @@ app.get('/car_owner_onepage', checkAuthenticated, async (req, res) => {
 app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async function (req, res) {
     try {
         logger.debug('==================== INVOKE ON CHAINCODE ==================');
-        // var peer = req.user.peer;
-        // var name = req.user.name;
-        var name = req.body.name;
-        var peer = req.body.peer;
+        var peer = req.user.peer;
+        var name = req.user.name;
+        // var name = req.body.name;
+        // var peer = req.body.peer;
         var chaincodeName = req.params.chaincodeName;
         var channelName = req.params.channelName;
         // var fcn = req.body.fcn;
