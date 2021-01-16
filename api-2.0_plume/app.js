@@ -443,7 +443,7 @@ app.get('/car_owner', checkAuthenticated, async (req, res) => {
         var name = req.user.name;
         
         var truckid =  req.user.truckid;
-        var transporter = req.user.contrackID;
+        var transporter = req.user.subconID;
 
         // message = await query.query(channelName, 'orderinfo', 'queryAllTransactions', name, peer);
         var myassign = await query.query(channelName, 'myjobassignment', 'queryAllJobAssignmentInfo', name, peer);
