@@ -434,6 +434,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
 
 });
 
+// car owner (peer3)
 app.get('/car_owner', checkAuthenticated, async (req, res) => {
     try {
         var message = [];
@@ -471,14 +472,34 @@ app.get('/car_owner', checkAuthenticated, async (req, res) => {
     }
 });
 
+
+// test for one page data
+app.get('/car_owner_onepage', checkAuthenticated, async (req, res) => {
+    try {
+        var message;
+        var channelName = 'mychannel';
+        var peer = req.user.peer;
+        var name = req.user.name;
+        var key = req.query.key;
+        console.log("Key => ", key);
+
+        message = await query.querybyid(channelName, 'orderinfo', 'queryTransaction', name, key ,peer);
+        console.log("message => ", message);
+        res.send(message);
+
+    } catch (error) {
+        console.log('error = ', error);
+    }
+});
+
 // Invoke transaction on chaincode on target peers
 app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async function (req, res) {
     try {
         logger.debug('==================== INVOKE ON CHAINCODE ==================');
-        var peer = req.user.peer;
-        var name = req.user.name;
-        // var name = req.body.name;
-        // var peer = req.body.peer;
+        // var peer = req.user.peer;
+        // var name = req.user.name;
+        var name = req.body.name;
+        var peer = req.body.peer;
         var chaincodeName = req.params.chaincodeName;
         var channelName = req.params.channelName;
         // var fcn = req.body.fcn;
@@ -547,12 +568,14 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
             args = [req.body.subjobassignmentID,
                 ];
         } else if (fcn === "createloadinginfo") {
-            args = [req.body.jobassigninfo,
+            args = [req.body.transOrderInfo,
+                req.body.jobassigninfo,
                 req.body.startmileageno,
                 req.body.loadingend,
                 ];
         } else if (fcn === "changeDataloadinginfo") {
             args = [req.body.loadingID,
+                req.body.transOrderInfo,
                 req.body.jobassigninfo,
                 req.body.startmileageno,
                 req.body.loadingend,
@@ -561,12 +584,14 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
             args = [req.body.loadingID,
                 ];
         } else if (fcn === "createdeliveryinfo") {
-            args = [req.body.jobassigninfo,
+            args = [req.body.transOrderInfo,
+                req.body.jobassigninfo,
                 req.body.finishmileageno,
                 req.body.deliveryend,
                 ];
         } else if (fcn === "changeDatadeliveryinfo") {
             args = [req.body.deliveryID,
+                req.body.transOrderInfo,
                 req.body.jobassigninfo,
                 req.body.finishmileageno,
                 req.body.deliveryend,

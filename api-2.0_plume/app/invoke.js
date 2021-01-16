@@ -113,11 +113,11 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
         }
         // loading 
         else if (fcn == "createloadinginfo") {
-            result = await contract.submitTransaction(fcn, args[0], args[1], args[2], peer);
+            result = await contract.submitTransaction(fcn, args[0], args[1], args[2], args[3], peer);
             message = `Successfully added Loading with key ${args[0]}`
             
         } else if (fcn === "changeDataloadinginfo") {
-            result = await contract.submitTransaction(fcn, args[0], args[1], args[2], args[3], peer);
+            result = await contract.submitTransaction(fcn, args[0], args[1], args[2], args[3], args[4], peer);
             message = `Successfully change Loading with key ${args[0]}`
         
         } else if (fcn === "deleteDataloadinginfo") {
@@ -127,11 +127,11 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
         }
         // delivery
         else if (fcn == "createdeliveryinfo") {
-            result = await contract.submitTransaction(fcn, args[0], args[1], args[2], peer);
+            result = await contract.submitTransaction(fcn, args[0], args[1], args[2], args[3], peer);
             message = `Successfully added Delivery with key ${args[0]}`
 
         } else if (fcn === "changeDatadeliveryinfo") {
-            result = await contract.submitTransaction(fcn, args[0], args[1], args[2], args[3], peer);
+            result = await contract.submitTransaction(fcn, args[0], args[1], args[2], args[3], args[4], peer);
             message = `Successfully change Delivery with key ${args[0]}`
         
         } else if (fcn === "deleteDatadeliveryinfo") {
