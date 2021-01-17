@@ -319,6 +319,18 @@ const statustransport = async (message, loading, delivery) => {
      return message;
 }
 
+// check current work to do (peer3)
+const cerrentdelivery = async (message) => {
+    var current = {};
+    for (let index = 0; index < message.length; index++) {
+        if (message[index].Record.deliveryend === false) {
+            current = message[index];
+        }
+        
+    }
+    return current;
+}
+
 
 exports.query = query;
 exports.querybyid = querybyid;
@@ -328,3 +340,4 @@ exports.checksubowner = checksubowner;
 exports.checkstatus = checkstatus;
 exports.assignment = assignment;
 exports.statustransport = statustransport;
+exports.cerrentdelivery = cerrentdelivery;

@@ -438,6 +438,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
 app.get('/car_owner', checkAuthenticated, async (req, res) => {
     try {
         var message = [];
+        var current = {};
         var channelName = 'mychannel';
         // var chaincodeName = 'orderinfo'
         var peer = req.user.peer;
@@ -464,33 +465,19 @@ app.get('/car_owner', checkAuthenticated, async (req, res) => {
         let delivery = await query.query(channelName, 'deliveryinfo', 'queryAlldeliveryinfo', name, peer);
 
         message = await query.statustransport(message, loading, delivery);
+        
+        // current work
+        current = await query.cerrentdelivery(message);
 
-        res.send(message);
+        // res.send(message);
+        res.render(__dirname + '/views/car_owner.html', {all: message, current: current});
 
-    } catch (error) {
-        console.log('error = ', error);
-    }
-});
-
-
-// test for one page data
-app.get('/car_owner_onepage', checkAuthenticated, async (req, res) => {
-    try {
-        var message;
-        var channelName = 'mychannel';
-        var peer = req.user.peer;
-        var name = req.user.name;
-        var key = req.query.key;
-        console.log("Key => ", key);
-
-        message = await query.querybyid(channelName, 'orderinfo', 'queryTransaction', name, key ,peer);
-        console.log("message => ", message);
-        res.send(message);
 
     } catch (error) {
         console.log('error = ', error);
     }
 });
+
 
 // Invoke transaction on chaincode on target peers
 app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async function (req, res) {
@@ -627,14 +614,40 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
         }
 
         let message = await invoke.invokeTransaction(channelName, chaincodeName, fcn, args, name, peer );
-        console.log(`message result is : ${message}`)
+        
 
         const response_payload = {
             result: message,
             error: null,
             errorData: null
         }
-        res.send(response_payload);
+
+        // for redirect
+        if (fcn === "createTransaction") {
+           if (message.result[0] === true) {
+            res.redirect('/transaction?status=' + message.result[0].toString());
+           } else {
+            res.redirect('/transaction?status=' + message.result.toString());
+           }
+        } else if (fcn === "WorkOrderInfoCreate") {
+            if (message.result[0] === true) {
+                res.redirect('/workorder_info?status=' + message.result[0].toString());
+               } else {
+                res.redirect('/workorder_info?status=' + message.result.toString());
+               }
+        } else if (fcn === "createJobAssignmentInfo") {
+            if (message.result[0] === true) {
+                res.redirect('/workorder_info?status=' + message.result[0].toString());
+               } else {
+                res.redirect('/workorder_info?status=' + message.result.toString());
+               }
+        } else if (fcn === "createsubjobassignment") {
+            res.send(response_payload);
+        } else if (fcn === "createloadinginfo") {
+            res.send(response_payload);
+        } else if (fcn === "createdeliveryinfo") {
+            res.send(response_payload);
+        }
 
 
     } catch (error) {
@@ -648,19 +661,33 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
 });
 
 
-app.get('/transaction', checkAuthenticated, async (req, res) => {   
-    res.sendFile(path.join(__dirname, '/views/transaction.html'));
-    console.log("name = " + req.user.name);
-    console.log("password = " + req.user.password);
-    console.log("peer = " + req.user.peer);
+app.get('/transaction', checkAuthenticated, async (req, res) => { 
+    var status = "";
+    if (req.query.status != undefined) {
+        status = req.query.status;
+        console.log("un");
+    }
+    
+    console.log(status);
+    res.render(__dirname + '/views/transaction.html', {status: status});
 })
 
-app.get('/workorder_info', checkAuthenticated, async (req, res) => {   
-    res.sendFile(path.join(__dirname, '/views/workorder_info.html'));
-    console.log("name = " + req.user.name);
-    console.log("password = " + req.user.password);
-    console.log("peer = " + req.user.peer);
+app.get('/workorder_info', checkAuthenticated, async (req, res) => {
+    var key = "";
+    var status = "";
+    if (req.query.key != undefined) {
+        key = req.query.key;
+        console.log("un");
+    }
+    if (req.query.status != undefined) {
+        status = req.query.status;
+        console.log("un");
+    }
+    
+    console.log("key => ", key);
+    res.render(__dirname + '/views/workorder_info.html', {key: key, status: status});
 })
+
 
 
 app.get('/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
