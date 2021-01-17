@@ -39,19 +39,7 @@
     .work_order_desktop{
         display:none;
     }
-    .main_content_flex{
-        flex-direction: column-reverse;
-    }
-    .main_content_left{
-        flex:1;
-        width:100%;
-        margin:0;
-    }
-    #transaction_form_wrapper{
-        flex:1;
-        width:100%;
-        margin:0;
-    }
+
 }
 @media screen and (max-width:485px){
     .btn_group{
