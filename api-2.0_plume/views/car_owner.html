@@ -15,6 +15,7 @@
     <!-- style css -->
     <link rel="stylesheet" href="./assets/css/side_navbar.css">
     <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/car_owner.css">
     <!-- DATA TABLE CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
     <!-- jquery -->
@@ -46,19 +47,19 @@
                 <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
             <ul class="sidebar_items">
-                <a href="/" class="sidebar_item">
+                <a href="./index.html" class="sidebar_item">
                     <li>Home</li>
                 </a>
-                <a href="/transaction" class="sidebar_item">
+                <a href="./transaction.html" class="sidebar_item">
                     <li>Transaction</li>
                 </a>
-                <a href="/workorder_info" class="sidebar_item">
+                <a href="./workorder_info.html" class="sidebar_item">
                     <li>Working Info</li>
                 </a>
-               <a href="/car_owner" class="sidebar_item">
+               <a href="./car_owner.html" class="sidebar_item">
                     <li>Car Owner</li>
                 </a>
-                <a href="/register" class="sidebar_item">
+                <a href="./register.html" class="sidebar_item">
                     <li>Register</li>
                 </a>
             </ul>
@@ -75,7 +76,7 @@
             <div class="header_menu pt-3 pb-3">
                 <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
                 <div class="nav_group">
-                    <a href="/" class="nav_item">HOME</a>
+                    <a href="./index.html" class="nav_item">HOME</a>
                     <form action="/logout?_method=DELETE" method="POST">
                         <button type="submit" class="logout_btn">Logout</button>
                     </form>
@@ -84,14 +85,35 @@
         </div>
         </div>
         <div class="main_content_flex">
+            <!-- main section -->
             <div class="main_content_body  main_content_left">
-                <h5>Hi John Doe</h5>
+                <h2>Hi John Doe</h2>
                 <hr>
-                <div class="">
-                      <!-- CONTENT HERE -->
-                    <!-- CONTENT HERE -->
-                    <!-- CONTENT HERE -->
-                    <!-- CONTENT HERE -->
+                <div class="car_owner_loading_section p-3 rounded mb-3 border">
+                    <h3 class="text-center mb-4">-LOADING SECTION-</h3>
+                    <p class="mb-3">Loading Time: <span id="loading_time_">1-17-2021</span></p>
+                    <!-- form loading section -->
+                    <form action="#" id="loading_section_form" class="car_owner_form">
+                        <div class="form-group">
+                            <input type="text" placeholder="ใส่ค่าไมล์เริ่มต้นก่อน Loading" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn car_owner_btn btn-primary" value="Start">
+                        </div>
+                    </form>
+                </div>
+                <div class="car_owner_delivery_section section_close p-3 rounded border">
+                    <h3 class="text-center mb-4">-DELIVERY SECTION-</h3>
+                    <p class="mb-3">delivery Time: <span id="loading_time_">0000000</span></p>
+                      <!-- form delivery section -->
+                      <form action="#" id="delivery_section_form" class="car_owner_form">
+                        <div class="form-group ">
+                            <input type="text" placeholder="ใส่ค่าไมล์เริ่มต้นหลัง Delivery(รอการ loading...)" disabled class="form-control">
+                        </div>
+                        <div class="form-group ">
+                            <input type="submit" class="btn car_owner_btn btn-secondary"  value="รอการ loading..." disabled>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="main_content_body main_content_right">
@@ -108,5 +130,6 @@
     </section>
 </body>
 <script src="./assets/js/global.js"></script>
+
 
 </html>
