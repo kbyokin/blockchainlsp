@@ -19,12 +19,7 @@
     min-width:150px;
     margin-left:20px;
 }
-@media screen and (max-width:900px){
-    .main_content_flex{
-        flex-direction: column;
-    }
 
-}
 @media screen and (max-width:609px){
     .car_owner_form input[type="text"]{
         min-width:100%;
