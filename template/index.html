@@ -82,7 +82,7 @@
                         </tr>
                     </thead>
                     <tbody class="clickabled_row">
-                        <tr>
+                        <tr  class="table_row_link" data-link="./workorder_info.html?key=asdasd">
                             <th>John Doe</th>
                             <th>Songklah</th>
                             <th>12/19/2020 12:54</th>
@@ -127,6 +127,10 @@
 <script>
     $(document).ready(function(){
         $('#transaction_table').DataTable();
+        $(document).on('click','.table_row_link',function(){
+            var url = $(this).data('link');
+            window.location.href = url;
+        })
     })
 </script>
 
