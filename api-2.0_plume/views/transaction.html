@@ -26,19 +26,19 @@
                 <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
             <ul class="sidebar_items">
-                <a href="/" class="sidebar_item">
+                <a href="./index.html" class="sidebar_item">
                     <li>Home</li>
                 </a>
-                <a href="/transaction" class="sidebar_item">
+                <a href="./transaction.html" class="sidebar_item">
                     <li>Transaction</li>
                 </a>
-                <a href="/workorder_info" class="sidebar_item">
+                <a href="./workorder_info.html" class="sidebar_item">
                     <li>Working Info</li>
                 </a>
-               <a href="/car_owner" class="sidebar_item">
+               <a href="./car_owner.html" class="sidebar_item">
                     <li>Car Owner</li>
                 </a>
-                <a href="/register" class="sidebar_item">
+                <a href="./register.html" class="sidebar_item">
                     <li>Register</li>
                 </a>
             </ul>
@@ -54,18 +54,16 @@
             <div class="header_menu">
                 <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
                 <div class="nav_group">
-                    <a href="/" class="nav_item">HOME</a>
+                    <a href="./index.html" class="nav_item">HOME</a>
                     <form action="/logout?_method=DELETE" method="POST">
                         <button type="submit" class="logout_btn">Logout</button>
                     </form>
                 </div>
             </div>
         </div>
-            <div id="transaction_form_wrapper" class="main_content_body">
-                <div class="form-group btn_group">
-                    <button class="btn btn-primary active" id="addtran_btn">ADD Car Transaction</button>
-                    <button class="btn btn-danger " id="searchtran_btn">Seach Car Transaction</button>
-                </div>
+        <div class="main_content_flex">
+            <div id="transaction_form_wrapper" class="main_content_body main_content_left">
+               <h2>Add Transactions</h2>
                 <hr>
                 <!-- add transaction form -->
                 <form action="/channels/mychannel/chaincodes/orderinfo/fcn/createTransaction" id="add_transaction_form" method="POST">
@@ -121,35 +119,21 @@
                     <button type="submit" class="btn btn-primary">Add Transaction</button>
                     <input type="reset" value="Clear Data" class="btn btn-outline-danger">
                 </form>
-                <!-- search transaction form -->
-                <form action="#" id="search_transaction_form">
-                    <div class="form-group">
-                        <label for="input_search">query car:</label>
-                        <input type="text" name="search" id="input_search" placeholder="search" class="form-control">
-                    </div>
-                    <input type="submit" class="btn btn-primary" value="Search">
-                </form>
             </div>
+            <div class="main_content_body main_content_right">
+                <h2>Car Available</h2>
+                <hr>
+                <div class="">
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                </div>
+            </div>    
+        </div>
     </section>
 </body>
-<script>
-    $(document).ready(function(){
-        var addtransactionForm = $('#add_transaction_form');
-        var searchtransactionForm = $('#search_transaction_form');
-        $('#addtran_btn').click(function(){
-            $('#searchtran_btn').removeClass('active');
-            $(this).addClass('active');
-            searchtransactionForm.fadeOut(300);
-            addtransactionForm.fadeIn(300);
-        })
-        $('#searchtran_btn').click(function(){
-            $('#addtran_btn').removeClass('active');
-            $(this).addClass('active');
-            addtransactionForm.fadeOut(300);
-            searchtransactionForm.fadeIn(300);
-        })
-    })
-</script>
+
 <script src="./assets/js/global.js"></script>
 <script src="./assets/js/input_pattern.js"></script>
 </html>
