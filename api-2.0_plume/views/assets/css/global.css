@@ -187,6 +187,12 @@ a,a:hover{
     cursor:pointer
 }
 /* responsive */
+@media screen and (max-width:900px){
+    .main_content_flex{
+        flex-direction: column;
+    }
+
+}
 @media screen and (max-width:826px){
     .main_content.active{
     width:calc(100% - 0px);
