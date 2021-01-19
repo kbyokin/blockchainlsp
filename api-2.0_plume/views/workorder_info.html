@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./assets/css/global.css">
 </head>
 <body>
+    <div id="alert-wrapper"></div>
     <!-- =====================================================================sidebar===================================================================== -->
     <section class="sidebar">
         <div class="sidebar_burger">
@@ -134,6 +135,25 @@
             $('#transaction_order_info').val(transactionId)
         }else{
             $('#transaction_order_info').val('กรุณากรอกข้อมูล')
+        }
+        // get alert status
+        var sendDataRequest = <%-JSON.stringify(status)%>;
+        // var sendDataRequest = false;
+        if(sendDataRequest){
+            $('#alert-wrapper').html(`<div class="alert alert-success" role="alert">
+                ส่งข้อมูลสำเร็จ<i class="far fa-check-circle ml-2"></i>
+            </div>`)
+            setTimeout(() => {
+                $('#alert-wrapper').fadeOut(2000);
+            }, 1000);
+        }
+        if(!sendDataRequest){
+            $('#alert-wrapper').html(`<div class="alert alert-danger" role="alert">
+                ส่งข้อมูลผิดพลาด<i class="far fa-check-circle ml-2"></i>
+            </div>`)
+            setTimeout(() => {
+                $('#alert-wrapper').fadeOut(2000);
+            }, 1000);
         }
     })
 </script>
