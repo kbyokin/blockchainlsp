@@ -457,6 +457,7 @@ app.get('/car_owner', checkAuthenticated, async (req, res) => {
             
         for (let index = 0; index < assign.length; index++) {
             record = await query.querybyid(channelName, 'orderinfo', 'queryTransaction', name, assign[index].Record.transOrderInfo ,peer);
+            record.jobassigninfo = assign[index].Key;
             message.push({ Key: assign[index].Record.transOrderInfo, Record: record});
                 
         }

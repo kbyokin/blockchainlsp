@@ -302,7 +302,7 @@ const statustransport = async (message, loading, delivery) => {
         if (delivery.length > 0) {
             for (let i3 = 0; i3 < delivery.length; i3++) {
                 if (delivery[i3].Record.transOrderInfo === message[i1].Key) {
-                message[i1].Record.startmileageno = delivery[i3].Record.finishmileageno;
+                message[i1].Record.finishmileageno = delivery[i3].Record.finishmileageno;
                 message[i1].Record.deliveryend = true;
             } else {
                 message[i1].Record.deliveryend = false;

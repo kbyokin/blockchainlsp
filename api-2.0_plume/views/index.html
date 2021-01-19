@@ -99,7 +99,7 @@
         console.log(result);
         for(var item of result){
             $('#transaction_data_body').append(` 
-                        <tr class="table_row_link" data-link="./car_owner.html?key=${item.Key}">
+                        <tr class="table_row_link" data-link="/workorder_info?key=${item.Key}">
                             <th>${item.Record.cargoOwner}</th>
                             <th>${item.Record.loadingPoint}</th>
                             <th>${item.Record.loadingDateTime}</th>
