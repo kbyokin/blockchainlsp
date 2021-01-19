@@ -11,7 +11,6 @@
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <!-- CSS -->
-    <base href="/">
     <link rel="stylesheet" href="./assets/css/transaction.css">
     <link rel="stylesheet" href="./assets/css/side_navbar.css">
     <link rel="stylesheet" href="./assets/css/global.css">
@@ -27,19 +26,19 @@
                 <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
             <ul class="sidebar_items">
-                <a href="/" class="sidebar_item">
+                <a href="./index.html" class="sidebar_item">
                     <li>Home</li>
                 </a>
-                <a href="/transaction" class="sidebar_item">
+                <a href="./transaction.html" class="sidebar_item">
                     <li>Transaction</li>
                 </a>
-                <a href="/workorder_info" class="sidebar_item">
+                <a href="./workorder_info.html" class="sidebar_item">
                     <li>Working Info</li>
                 </a>
-               <a href="/car_owner" class="sidebar_item">
+               <a href="./car_owner.html" class="sidebar_item">
                     <li>Car Owner</li>
                 </a>
-                <a href="/register" class="sidebar_item">
+                <a href="./register.html" class="sidebar_item">
                     <li>Register</li>
                 </a>
             </ul>
@@ -55,7 +54,7 @@
             <div class="header_menu pt-3 pb-3">
                 <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
                 <div class="nav_group">
-                    <a href="/" class="nav_item">HOME</a>
+                    <a href="./index.html" class="nav_item">HOME</a>
                     <form action="/logout?_method=DELETE" method="POST">
                         <button type="submit" class="logout_btn">Logout</button>
                     </form>
@@ -90,41 +89,51 @@
 </body>
 <script src="./assets/js/global.js"></script>
 <script>
-    $('#work_type').change(function(){
-        console.log($(this).val())
-        if ($(this).val() === 'own'){
-            $('.work_info_form').html(`<form action="/channels/mychannel/chaincodes/myjobassignment/fcn/createJobAssignmentInfo" method="post">
-                <div class="form-group">
-                    <label for="transaction_order_info" class="form-label">
-                        Transaction Order Info
-                    </label>
-                    <input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info">
-                </div>
-                <div class="form-group">
-                    <label for="work_truck_id" class="form-label">
-                        Work Truck ID
-                    </label>
-                    <input type="text" pattern="^[0-9 ]+$" oninput="setCustomValidity('')" class="form-control input-check-number-only" placeholder="20"  id="work_truck_id" name="work_truck_id"><div class="invalid-feedback"></div>
-                </div>
-                <button class="btn btn-primary" type="submit">Assign Work</button>
-                </form>`)
-        }
-        if($(this).val() === 'contact'){
-            $('.work_info_form').html(`<form action="/channels/mychannel/chaincodes/workinfo/fcn/WorkOrderInfoCreate" method="post">
-                <div class="form-group">
-                    <label for="transaction_order_info" class="form-label">
-                        Transaction Order Info
-                    </label>
-                    <input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">
-                        Contact ID
-                    </label>
-                    <input type="text" pattern="^[0-9 ]+$" oninput="setCustomValidity('')" class="form-control input-check-number-only"  placeholder="20" name="subconID"><div class="invalid-feedback"></div>
-                </div>
+    $(document).ready(function(){
+        //change assign work type
+        $('#work_type').change(function(){
+            console.log($(this).val())
+            if ($(this).val() === 'own'){
+                $('.work_info_form').html(`<form action="/channels/mychannel/chaincodes/myjobassignment/fcn/createJobAssignmentInfo" method="post">
+                    <div class="form-group">
+                        <label for="transaction_order_info" class="form-label">
+                            Transaction Order Info
+                        </label>
+                        <input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info">
+                    </div>
+                    <div class="form-group">
+                        <label for="work_truck_id" class="form-label">
+                            Work Truck ID
+                        </label>
+                        <input type="text" pattern="^[0-9 ]+$" oninput="setCustomValidity('')" class="form-control input-check-number-only" placeholder="20"  id="work_truck_id" name="work_truck_id"><div class="invalid-feedback"></div>
+                    </div>
                     <button class="btn btn-primary" type="submit">Assign Work</button>
-                </form>`)
+                    </form>`)
+            }
+            if($(this).val() === 'contact'){
+                $('.work_info_form').html(`<form action="/channels/mychannel/chaincodes/workinfo/fcn/WorkOrderInfoCreate" method="post">
+                    <div class="form-group">
+                        <label for="transaction_order_info" class="form-label">
+                            Transaction Order Info
+                        </label>
+                        <input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            Contact ID
+                        </label>
+                        <input type="text" pattern="^[0-9 ]+$" oninput="setCustomValidity('')" class="form-control input-check-number-only"  placeholder="20" name="subconID"><div class="invalid-feedback"></div>
+                    </div>
+                        <button class="btn btn-primary" type="submit">Assign Work</button>
+                    </form>`)
+            }
+        })
+        //get transaction id
+        var transactionId = <%-JSON.stringify(key)%>;
+        if(transactionId !== ''){
+            $('#transaction_order_info').val(transactionId)
+        }else{
+            $('#transaction_order_info').val('กรุณากรอกข้อมูล')
         }
     })
 </script>
