@@ -19,8 +19,3 @@
     padding:7px 10px;
     border-radius:10px;
 }
-
-.table_row_link:hover{
-    cursor:pointer;
-    background:#fafafa;
-}

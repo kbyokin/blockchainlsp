@@ -3,6 +3,16 @@
     padding:0;
     box-sizing: border-box;
 }
+#alert-wrapper{
+    position:absolute;
+    z-index:99;
+    right:10px;
+    top:10px;
+    width:300px;
+}
+.alert{
+    box-shadow:0 0 5px rgba(0,0,0,0.5);
+}
 :root{
     --main-color:#7386D5;
     --header-color:white;
