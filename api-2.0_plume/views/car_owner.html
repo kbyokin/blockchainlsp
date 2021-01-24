@@ -37,6 +37,21 @@
         background:greenyellow;
         pointer-events: none;
     }
+    .car_owner_information_table tr{
+        height:50px;    
+    }
+    .car_owner_information{
+        background:rgb(238, 238, 238);
+        box-shadow:0 0 5px rgba(0,0,0,0.5);
+        margin-bottom:30px
+    }
+    .car_owner_information_header{
+        width:200px;
+        min-width:150px;
+    }
+    .section_close input{
+        pointer-events: none;
+    }
 </style>
 <body>
     <!-- =====================================================================sidebar===================================================================== -->
@@ -49,19 +64,19 @@
                 <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
             <ul class="sidebar_items">
-                <a href="./index.html" class="sidebar_item">
+                <a href="/" class="sidebar_item">
                     <li>Home</li>
                 </a>
-                <a href="./transaction.html" class="sidebar_item">
+                <a href="/transaction" class="sidebar_item">
                     <li>Transaction</li>
                 </a>
-                <a href="./workorder_info.html" class="sidebar_item">
+                <a href="/workorder_info" class="sidebar_item">
                     <li>Working Info</li>
                 </a>
-               <a href="./car_owner.html" class="sidebar_item">
+               <a href="/car_owner" class="sidebar_item">
                     <li>Car Owner</li>
                 </a>
-                <a href="./register.html" class="sidebar_item">
+                <a href="/register" class="sidebar_item">
                     <li>Register</li>
                 </a>
             </ul>
@@ -78,7 +93,7 @@
             <div class="header_menu pt-3 pb-3">
                 <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
                 <div class="nav_group">
-                    <a href="./index.html" class="nav_item">HOME</a>
+                    <a href="/" class="nav_item">HOME</a>
                     <form action="/logout?_method=DELETE" method="POST">
                         <button type="submit" class="logout_btn">Logout</button>
                     </form>
@@ -88,32 +103,46 @@
         </div>
         <div class="main_content_flex">
             <!-- main section -->
-            <div class="main_content_body  main_content_left">
-                <h2>Hi John Doe</h2>
-                <hr>
-                <div class="car_owner_loading_section p-3 rounded mb-3 border">
+            <div class="main_content_body  main_content_left" id="noti">
+                <h3>Car Owner Information:</h3>
+                <div class="car_owner_information p-3 rounded">
+                    <div class="table-responsive">
+                        <table class="car_owner_information_table" >
+                            <tbody id="car_owner_information_table_body">
+                                <!-- content here -->
+                                <!-- content here -->
+                                <!-- content here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- car owner loading section -->
+                <div id="car_owner_loading_section" class="car_owner_loading_section p-3 rounded mb-3 border">
                     <h3 class="text-center mb-4">-LOADING SECTION-</h3>
                     <p class="mb-3">Loading Time: <span id="loading_time_">1-17-2021</span></p>
                     <!-- form loading section -->
-                    <form action="index.html" id="loading_section_form" class="car_owner_form">
+                    <form action="/channels/mychannel/chaincodes/loadinginfo/fcn/createloadinginfo" id="loading_section_form" class="car_owner_form" method="post">
                         <div class="form-group">
-                            <input type="text"  placeholder="ใส่ค่าไมล์เริ่มต้นก่อน Loading" class="mile form-control" required>
+                            <input type="text"  placeholder="ใส่ค่าไมล์เริ่มต้นก่อน Loading" name="startmileageno" id="startmileageno_input" class="startmileageno_input mile form-control" required>
                         </div>
+                        <div id="details_load"></div>
                         <div class="form-group">
-                            <input type="submit" class="btn car_owner_btn btn-primary" value="Start">
+                            <input type="submit" id="startmileageno_btn" class="btn car_owner_btn btn-primary" value="Start">
                         </div>
                     </form>
                 </div>
-                <div class="car_owner_delivery_section section_close p-3 rounded border">
+                <!-- car owner delivery section -->
+                <div  id="car_owner_delivery_section" class="car_owner_delivery_section section_close p-3 rounded border">
                     <h3 class="text-center mb-4">-DELIVERY SECTION-</h3>
-                    <p class="mb-3">delivery Time: <span id="loading_time_">0000000</span></p>
+                    <p class="mb-3">delivery Time: <span id="delivery_time_">0000000</span></p>
                       <!-- form delivery section -->
-                      <form action="#" id="delivery_section_form" class="car_owner_form">
+                      <form action="/channels/mychannel/chaincodes/deliveryinfo/fcn/createdeliveryinfo" id="delivery_section_form" class="car_owner_form" method="post">
                         <div class="form-group ">
-                            <input type="text" placeholder="ใส่ค่าไมล์เริ่มต้นหลัง Delivery(รอการ loading...)" class="mile form-control" required disabled>
+                            <input type="text" id="finishmileageno_input" name="finishmileageno" placeholder="ใส่ค่าไมล์เริ่มต้นหลัง Delivery(รอการ loading...)" class="mile form-control" required disabled>
                         </div>
+                        <div id="details_delivery"></div>
                         <div class="form-group ">
-                            <input type="submit" class="btn car_owner_btn btn-secondary"  value="รอการ loading..."  disabled>
+                            <input type="submit" id="finishmileageno_btn" class="btn car_owner_btn btn-secondary"  value="รอการ loading..."  disabled>
                         </div>
                     </form>
                 </div>
@@ -153,7 +182,15 @@
 </body>
 <script src="./assets/js/global.js"></script>
 <script>
+    // get currnt work
+    var result = <%-JSON.stringify(current)%>; 
+
     $(document).ready(function(){
+
+        if (Object.keys(result).length === 0) {
+            $('#noti').html('<h2>ไม่มีงาน</h2>')
+        } else {
+            // click open confirm modal================================
         $(document).on('click','.car_owner_btn',function(e){
             var inputValue = $(this).parents('form').children().eq(0).children();
             console.log(inputValue.val())
@@ -170,6 +207,90 @@
                 form.submit();
             })
         })
+        // result car owner=========================================
+          // คอมเม้นออกเมื่อใช้จริง***************************************
+        // คอมเม้นเมื่อใช้จริง อันนี้ไว้ทดสอบ*******************************
+        // var result = [{"Key": "as54d5as4d",
+        // "Record": {
+        //         "cargoOwner" : "John Doe",
+        //         "loadingPoint" : "Bangkok", 
+        //         "loadingDateTime" : "12-1-2012", 
+        //         "deliveryPoint" : "Hatyai",
+        //         "deliveryDateTime" : "13-1-2012", 
+        //         "productID" : "521as5d15", 
+        //         "quantity" : "10", 
+        //         "packingDim" : "11", 
+        //         "totalWeight" : "13",
+        //         "startmileageno" : "1230",
+        //         "loadingend" : "true",
+        //         "finishmileageno" : "55",
+        //         "deliveryend" : "false",
+        //         "jobassigninfo" : "JOBxxxxxxxxxx"
+
+        //     }
+        // }]
+        console.log(result); 
+
+        
+        //loading
+            $('#details_load').html(` <input type="hidden" name="transOrderInfo" id="transOrderInfo" value="${result.Key}">
+            <input type="hidden" name="jobassigninfo" id="jobassigninfo" value="${result.Record.jobassigninfo}">
+            <input type="hidden" name="loadingend" id="loadingend" value="true">
+            `);
+
+        // delivery
+            $('#details_delivery').html(` <input type="hidden" name="transOrderInfo" id="transOrderInfo" value="${result.Key}">
+            <input type="hidden" name="jobassigninfo" id="jobassigninfo" value="${result.Record.jobassigninfo}">
+            <input type="hidden" name="deliveryend" id="deliveryend" value="true">
+            `);
+            $('#car_owner_information_table_body').html(`  <tr>
+                                    <th class="car_owner_information_header">Product ID:</th>
+                                    <td><input type="text" name="" value="${result.Record.productID}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">Loading Point:</th>
+                                    <td><input type="text" name="" value="${result.Record.loadingPoint}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">Delivery Point:</th>
+                                    <td><input type="text" name="" value="${result.Record.deliveryPoint}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">Quantity:</th>
+                                    <td><input type="text" name="" value="${result.Record.quantity}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">PackingDim:</th>
+                                    <td><input type="text" name="" value="${result.Record.packingDim}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">Total Weight:</th>
+                                    <td><input type="text" name="" value="${result.Record.totalWeight}" class="form-control" disabled></td>
+                                </tr>`)
+            var loadingTime = result.Record.loadingDateTime?result.Record.loadingDateTime:'ยังไม่มี Loading Time';
+            var deliveryTime = result.Record.deliveryDateTime?result.Record.deliveryDateTime:'ยังไม่มี Delivery Time';
+            $('#loading_time_').html(loadingTime);
+            $('#delivery_time_').html(deliveryTime);
+            if(result.Record.loadingend == true){
+                $('#car_owner_loading_section').addClass('section_close');
+                $('#car_owner_delivery_section').removeClass('section_close')
+                $('#startmileageno_input').attr('disabled',true).val(result.Record.startmileageno);
+                $('#startmileageno_btn').attr('disabled',true).val('Loading Success')
+                $('#finishmileageno_input').removeAttr('disabled').attr('placeholder','ใส่ค่าไมล์ที่สิ้นสุด');
+                $('#finishmileageno_btn').removeAttr('disabled').val('Finish');
+            }
+            if(result.Record.loadingend == true && result.Record.deliveryend == true){
+                $('#finishmileageno_input').val(result.Record.finishmileageno).attr('disabled',true)
+                $('#car_owner_delivery_section').addClass('section_close');
+                $('#finishmileageno_btn').attr('disabled',true).val('Finish Success');
+
+                
+            }
+        }
+
+        
+            
+        
     })
 </script>
 

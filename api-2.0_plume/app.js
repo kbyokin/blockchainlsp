@@ -502,8 +502,9 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
                 req.body.delivery_date_time,
                 req.body.product_id,
                 req.body.quantity,
+                req.body.packing_dimension,
                 req.body.total_weight,
-                req.body.packing_dimension,];
+                ];
         } else if (fcn === "changeDataTransaction") {
             args = [req.body.transactionID,
                 req.body.cargoOwner,
@@ -513,8 +514,9 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
                 req.body.deliverygDateTime,
                 req.body.productid,
                 req.body.quantity,
+                req.body.pakcingdim,
                 req.body.total_weight,
-                req.body.pakcingdim,];
+                ];
         } else if (fcn === "deleteTransaction") {
             args = [req.body.transactionID];
         } else if (fcn === "WorkOrderInfoCreate") {

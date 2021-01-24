@@ -290,6 +290,7 @@ const statustransport = async (message, loading, delivery) => {
                 if (loading[i2].Record.transOrderInfo === message[i1].Key) {
                  message[i1].Record.startmileageno = loading[i2].Record.startmileageno;
                  message[i1].Record.loadingend = true;
+                 break;
                 } else {
                     message[i1].Record.loadingend = false;
                 }
@@ -304,6 +305,7 @@ const statustransport = async (message, loading, delivery) => {
                 if (delivery[i3].Record.transOrderInfo === message[i1].Key) {
                 message[i1].Record.finishmileageno = delivery[i3].Record.finishmileageno;
                 message[i1].Record.deliveryend = true;
+                break;
             } else {
                 message[i1].Record.deliveryend = false;
             }
