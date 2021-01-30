@@ -6,7 +6,7 @@
         "connection": {
             "timeout": {
                 "peer": {
-                    "endorser": "5000"
+                    "endorser": "500000"
                 }
             }
         }
