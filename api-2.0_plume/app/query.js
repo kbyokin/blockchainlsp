@@ -137,7 +137,7 @@ const query = async (channelName, chaincodeName, fcn, username, peer) => {
         }
         console.log(result)
         console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
-
+        await gateway.disconnect();
         result = JSON.parse(result.toString());
         return result
     } catch (error) {
@@ -212,6 +212,9 @@ const querybyid = async (channelName, chaincodeName, fcn, username, args, peer) 
         }
         console.log(result)
         console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
+        
+        // Disconnect from the gateway
+        await gateway.disconnect();
 
         result = JSON.parse(result.toString());
 
