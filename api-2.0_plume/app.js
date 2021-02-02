@@ -647,9 +647,11 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
         } else if (fcn === "createsubjobassignment") {
             res.send(response_payload);
         } else if (fcn === "createloadinginfo") {
-            res.send(response_payload);
+            res.redirect('/car_owner');
+            // res.send(response_payload);
         } else if (fcn === "createdeliveryinfo") {
-            res.send(response_payload);
+            res.redirect('/car_owner');
+            // res.send(response_payload);
         }
 
 
@@ -678,6 +680,7 @@ app.get('/transaction', checkAuthenticated, async (req, res) => {
 app.get('/workorder_info', checkAuthenticated, async (req, res) => {
     var key = "";
     var status = "";
+    var truckid = [];
     if (req.query.key != undefined) {
         key = req.query.key;
         console.log("un");
@@ -686,9 +689,35 @@ app.get('/workorder_info', checkAuthenticated, async (req, res) => {
         status = req.query.status;
         console.log("un");
     }
+
+    // search all truck id
+    fs.readFile('user/userData.json', 'utf-8', (err, data) => {
+        if (err) {
+            throw err;
+        }
+
+        let Data = JSON.parse(data)
+        for (let index = 0; index < Data.length; index++) {
+            if (req.user.peer === 'peer1') {
+                if (Data[index].peer === 'peer3' && Data[index].subconID === '') {
+                    truckid.push(Data[index].truckid);
+                }
+            } else if (req.user.peer === 'peer2') {
+                if (Data[index].peer === 'peer3' && Data[index].subconID === req.user.subconID) {
+                    truckid.push(Data[index].truckid);
+                }
+            }
+            
+            
+        }
+        console.log("data => ", Data);
+        console.log("truckid => ", truckid);
+    });
     
     console.log("key => ", key);
-    res.render(__dirname + '/views/workorder_info.html', {key: key, status: status});
+    
+    
+    res.render(__dirname + '/views/workorder_info.html', {key: key, status: status, truckid: truckid});
 })
 
 
