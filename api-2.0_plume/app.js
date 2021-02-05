@@ -691,12 +691,13 @@ app.get('/workorder_info', checkAuthenticated, async (req, res) => {
     }
 
     // search all truck id
-    fs.readFile('user/userData.json', 'utf-8', (err, data) => {
+    fs.readFile('user/userData.json', 'utf-8', async (err, data) => {
         if (err) {
             throw err;
         }
 
         let Data = JSON.parse(data)
+        // truckid = await query.querytruckid(Data, req.user.peer, req.user.subconID)
         for (let index = 0; index < Data.length; index++) {
             if (req.user.peer === 'peer1') {
                 if (Data[index].peer === 'peer3' && Data[index].subconID === '') {
@@ -712,12 +713,13 @@ app.get('/workorder_info', checkAuthenticated, async (req, res) => {
         }
         console.log("data => ", Data);
         console.log("truckid => ", truckid);
+        res.render(__dirname + '/views/workorder_info.html', {key: key, status: status, truckid: truckid});
     });
     
     console.log("key => ", key);
     
     
-    res.render(__dirname + '/views/workorder_info.html', {key: key, status: status, truckid: truckid});
+    
 })
 
 

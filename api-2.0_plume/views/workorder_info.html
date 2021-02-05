@@ -77,8 +77,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="work_truck_id" class="form-label">Work Truck ID</label>
-                                <input type="text" placeholder="20" class="form-control input-check-number-only" pattern="^[0-9]+$" oninput="setCustomValidity('')" id="work_truck_id" name="work_truck_id">
-                                <div class="invalid-feedback"></div>
+                                <!-- <input type="text" placeholder="20" class="form-control input-check-number-only" pattern="^[0-9]+$" oninput="setCustomValidity('')" id="work_truck_id" name="work_truck_id"> -->
+                                <!-- <div class="invalid-feedback"></div> -->
+                                <select name="work_truck_id" class="form-control" id="carID_select"> <option value="">Car ID</option></select>
                             </div>
                         
                         <button class="btn btn-primary" type="submit">Assign Work</button>
@@ -92,11 +93,19 @@
 <script>
     //get transaction id
     var transactionId = <%-JSON.stringify(key)%>;
+
+    // get truck id
+    var carID = <%-JSON.stringify(truckid)%>;
+    console.log('truckid => ', carID);
+    for(var i=0;i<carID.length;i++){
+        $('#carID_select').append(`<option value="${carID[i]}">${carID[i]}</option>`);
+    }
     $(document).ready(function(){
         //change assign work type
         $('#work_type').change(function(){
             console.log($(this).val())
             if ($(this).val() === 'own'){
+                
                 $('.work_info_form').html(`<form action="/channels/mychannel/chaincodes/myjobassignment/fcn/createJobAssignmentInfo" method="post">
                     <div class="form-group">
                         <label for="transaction_order_info" class="form-label">
@@ -105,13 +114,14 @@
                         <input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info" value="${transactionId}">
                     </div>
                     <div class="form-group">
-                        <label for="work_truck_id" class="form-label">
-                            Work Truck ID
-                        </label>
-                        <input type="text" pattern="^[0-9 ]+$" oninput="setCustomValidity('')" class="form-control input-check-number-only" placeholder="20"  id="work_truck_id" name="work_truck_id"><div class="invalid-feedback"></div>
+                                <label for="work_truck_id" class="form-label">Work Truck ID</label>
+                                <select name="work_truck_id" class="form-control" id="carID_select""> <option value="">Car ID</option></select>
                     </div>
                     <button class="btn btn-primary" type="submit">Assign Work</button>
-                    </form>`)
+                    </form>`);
+                    for(var i=0;i<carID.length;i++){
+                        $('#carID_select').append(`<option value="${carID[i]}">${carID[i]}</option>`);
+                    }
             }
             if($(this).val() === 'contact'){
                 $('.work_info_form').html(`<form action="/channels/mychannel/chaincodes/workinfo/fcn/WorkOrderInfoCreate" method="post">
@@ -125,7 +135,7 @@
                         <label class="form-label">
                             Contact ID
                         </label>
-                        <input type="text" pattern="^[0-9 ]+$" oninput="setCustomValidity('')" class="form-control input-check-number-only"  placeholder="20" name="subconID"><div class="invalid-feedback"></div>
+                        <input type="text" oninput="setCustomValidity('')" class="form-control"  placeholder="20" name="subconID"><div class="invalid-feedback"></div>
                     </div>
                         <button class="btn btn-primary" type="submit">Assign Work</button>
                     </form>`)
