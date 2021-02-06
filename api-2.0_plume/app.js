@@ -379,7 +379,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
             message = await query.checkstatus(message, subassign, 'contractassign');
             message = await query.checkstatus(message, work, 'worktocontract');
 
-            res.render(__dirname + '/views/index.html', {name: message});
+            res.render(__dirname + '/views/index.html', {data: message, name: req.user.name, peer: req.user.peer});
         } else if (peer === "peer1") {
             message = await query.query(channelName, 'orderinfo', 'queryAllTransactions', name, peer);
             let work = await query.query(channelName, 'workinfo', 'queryAllWork', name, peer);
@@ -396,7 +396,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
             message = await query.checkstatus(message, subassign, 'contractassign');
             message = await query.checkstatus(message, work, 'worktocontract');
 
-            res.render(__dirname + '/views/index.html', {name: message});
+            res.render(__dirname + '/views/index.html', {data: message, name: req.user.name, peer: req.user.peer});
         } else if (peer === "peer2") {
             message = [];
             let subconID =  req.user.subconID;
@@ -418,7 +418,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
             message = await query.checkstatus(message, delivery, 'delivery');
             message = await query.checkstatus(message, loading, 'loading');
             
-            res.render(__dirname + '/views/index.html', {name: message});
+            res.render(__dirname + '/views/index.html', {data: message, name: req.user.name, peer: req.user.peer});
         } else if (peer === "peer3") {
             res.redirect('/car_owner');
             
@@ -471,7 +471,7 @@ app.get('/car_owner', checkAuthenticated, async (req, res) => {
         current = await query.cerrentdelivery(message);
 
         // res.send(message);
-        res.render(__dirname + '/views/car_owner.html', {all: message, current: current});
+        res.render(__dirname + '/views/car_owner.html', {all: message, current: current, name: req.user.name, peer: req.user.peer});
 
 
     } catch (error) {
@@ -674,7 +674,7 @@ app.get('/transaction', checkAuthenticated, async (req, res) => {
     }
     
     console.log(status);
-    res.render(__dirname + '/views/transaction.html', {status: status});
+    res.render(__dirname + '/views/transaction.html', {status: status, name: req.user.name, peer: req.user.peer});
 })
 
 app.get('/workorder_info', checkAuthenticated, async (req, res) => {
@@ -713,7 +713,7 @@ app.get('/workorder_info', checkAuthenticated, async (req, res) => {
         }
         console.log("data => ", Data);
         console.log("truckid => ", truckid);
-        res.render(__dirname + '/views/workorder_info.html', {key: key, status: status, truckid: truckid});
+        res.render(__dirname + '/views/workorder_info.html', {key: key, status: status, truckid: truckid, name: req.user.name, peer: req.user.peer});
     });
     
     console.log("key => ", key);

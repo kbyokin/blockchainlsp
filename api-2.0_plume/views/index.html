@@ -95,7 +95,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
 <script>
     $(document).ready(function(){
-        var result = <%-JSON.stringify(name)%> ;
+        var result = <%-JSON.stringify(data)%> ;
         console.log(result);
         for(var item of result){
             $('#transaction_data_body').append(` 
