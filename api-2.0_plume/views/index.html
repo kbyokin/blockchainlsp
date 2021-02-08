@@ -96,9 +96,22 @@
 <script>
     $(document).ready(function(){
         var result = <%-JSON.stringify(data)%> ;
+        var peer = <%-JSON.stringify(peer)%>;
         console.log(result);
         for(var item of result){
-            $('#transaction_data_body').append(` 
+            // if peer2
+            if (peer === "peer2") {
+                $('#transaction_data_body').append(` 
+                        <tr class="table_row_link" data-link="/workorder_info?key=${item.Key}&workid=${item.Record.workID}">
+                            <th>${item.Record.cargoOwner}</th>
+                            <th>${item.Record.loadingPoint}</th>
+                            <th>${item.Record.loadingDateTime}</th>
+                            <th>${item.Record.deliveryPoint}</th>
+                            <th>${item.Record.deliveryDateTime}</th>
+                            <th><span class="loading_sign">${item.Record.status}</span></th>
+                        </tr>`)
+            } else {
+                $('#transaction_data_body').append(` 
                         <tr class="table_row_link" data-link="/workorder_info?key=${item.Key}">
                             <th>${item.Record.cargoOwner}</th>
                             <th>${item.Record.loadingPoint}</th>
@@ -107,6 +120,8 @@
                             <th>${item.Record.deliveryDateTime}</th>
                             <th><span class="loading_sign">${item.Record.status}</span></th>
                         </tr>`)
+            }
+            
         }
         $('#transaction_table').DataTable();
         $(document).on('click','.table_row_link',function(){

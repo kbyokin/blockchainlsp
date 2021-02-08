@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-            <div class="mt-5 main_content_body">
+            <div class="mt-5 main_content_body" id="subcon">
                 <h4>Working Info</h4>
                 <select name="" id="work_type" class="form-control">
                     <option value="own">In-house Assign</option>
@@ -93,10 +93,13 @@
 <script>
     //get transaction id
     var transactionId = <%-JSON.stringify(key)%>;
+    var peer = <%-JSON.stringify(peer)%>;
+    var workid = <%-JSON.stringify(workid)%>;
 
     // get truck id
     var carID = <%-JSON.stringify(truckid)%>;
     console.log('truckid => ', carID);
+
     for(var i=0;i<carID.length;i++){
         $('#carID_select').append(`<option value="${carID[i]}">${carID[i]}</option>`);
     }
@@ -140,7 +143,37 @@
                         <button class="btn btn-primary" type="submit">Assign Work</button>
                     </form>`)
             }
-        })
+        });
+
+        // if subcontract
+        if (peer === 'peer2') {
+            $('#subcon').html(`
+            <h4>Working Info</h4>
+            <div class="work_info_form">
+                <form action="/channels/mychannel/chaincodes/subjobassignment/fcn/createsubjobassignment" method="post">
+                    <div class="form-group">
+                        <label for="transaction_order_info" class="form-label">
+                            Transaction Order Info
+                        </label>
+                        <input type="text" class="form-control" id="transaction_order_info" name="transaction_order_info" value="${transactionId}">
+                        <br>
+                        <label for="workID" class="form-label">
+                            Work Order Info
+                        </label>
+                        <input type="text" class="form-control" id="workID" name="workID" value="${workid}">
+                    </div>
+                    <div class="form-group">
+                                <label for="work_truck_id" class="form-label">Work Truck ID</label>
+                                <select name="work_truck_id" class="form-control" id="carID_select""> <option value="">Car ID</option></select>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Assign Work</button>
+                    </form>
+                </div>
+            `);
+                    for(var i=0;i<carID.length;i++){
+                        $('#carID_select').append(`<option value="${carID[i]}">${carID[i]}</option>`);
+                    }
+        }
 
         // key
         if(transactionId !== ''){
