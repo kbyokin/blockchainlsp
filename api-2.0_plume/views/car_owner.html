@@ -104,7 +104,7 @@
         <div class="main_content_flex">
             <!-- main section -->
             <div class="main_content_body  main_content_left" id="noti">
-                <h3>Car Owner Information:</h3>
+                <h3>Truck Info:</h3>
                 <div class="car_owner_information p-3 rounded">
                     <div class="table-responsive">
                         <table class="car_owner_information_table" >
@@ -123,7 +123,7 @@
                     <!-- form loading section -->
                     <form action="/channels/mychannel/chaincodes/loadinginfo/fcn/createloadinginfo" id="loading_section_form" class="car_owner_form" method="post">
                         <div class="form-group">
-                            <input type="text"  placeholder="ใส่ค่าไมล์เริ่มต้นก่อน Loading" name="startmileageno" id="startmileageno_input" class="startmileageno_input mile form-control" required>
+                            <input type="text"  placeholder="Please key starting mileage number" name="startmileageno" id="startmileageno_input" class="startmileageno_input mile form-control" required>
                         </div>
                         <div id="details_load"></div>
                         <div class="form-group">
@@ -138,11 +138,11 @@
                       <!-- form delivery section -->
                       <form action="/channels/mychannel/chaincodes/deliveryinfo/fcn/createdeliveryinfo" id="delivery_section_form" class="car_owner_form" method="post">
                         <div class="form-group ">
-                            <input type="text" id="finishmileageno_input" name="finishmileageno" placeholder="ใส่ค่าไมล์เริ่มต้นหลัง Delivery(รอการ loading...)" class="mile form-control" required disabled>
+                            <input type="text" id="finishmileageno_input" name="finishmileageno" placeholder="Please key ending mileage number" class="mile form-control" required disabled>
                         </div>
                         <div id="details_delivery"></div>
                         <div class="form-group ">
-                            <input type="submit" id="finishmileageno_btn" class="btn car_owner_btn btn-secondary"  value="รอการ loading..."  disabled>
+                            <input type="submit" id="finishmileageno_btn" class="btn car_owner_btn btn-secondary"  value="wait for loading..."  disabled>
                         </div>
                     </form>
                 </div>
@@ -200,8 +200,8 @@
             e.preventDefault()
             var form = $(this).parents('form');
             var miles = $(inputValue).val()
-            $('#carOwner-modal-body').html(`<p>ยืนยันค่าไมล์ <h3 style="color:red;">${miles}</h3> คือค่าที่ถูกต้อง?</p>`)
-            $('#carOwner-modal-title').html('ยืนยันค่าไมล์')
+            $('#carOwner-modal-body').html(`<p>Please confirm <h3 style="color:red;">${miles} miles</h3> is correct?</p>`)
+            $('#carOwner-modal-title').html('Confirm Value')
             $('#carOwner-modal').modal('show');
             $('#confirm_form').on('click',function(){
                 form.submit();
@@ -244,15 +244,15 @@
             <input type="hidden" name="deliveryend" id="deliveryend" value="true">
             `);
             $('#car_owner_information_table_body').html(`  <tr>
-                                    <th class="car_owner_information_header">Product ID:</th>
+                                    <th class="car_owner_information_header">Job ID:</th>
                                     <td><input type="text" name="" value="${result.Record.productID}" class="form-control" disabled></td>
                                 </tr>
                                 <tr>
-                                    <th class="car_owner_information_header">Loading Point:</th>
+                                    <th class="car_owner_information_header">Loading Place:</th>
                                     <td><input type="text" name="" value="${result.Record.loadingPoint}" class="form-control" disabled></td>
                                 </tr>
                                 <tr>
-                                    <th class="car_owner_information_header">Delivery Point:</th>
+                                    <th class="car_owner_information_header">Delivery Place:</th>
                                     <td><input type="text" name="" value="${result.Record.deliveryPoint}" class="form-control" disabled></td>
                                 </tr>
                                 <tr>
@@ -267,8 +267,8 @@
                                     <th class="car_owner_information_header">Total Weight:</th>
                                     <td><input type="text" name="" value="${result.Record.totalWeight}" class="form-control" disabled></td>
                                 </tr>`)
-            var loadingTime = result.Record.loadingDateTime?result.Record.loadingDateTime:'ยังไม่มี Loading Time';
-            var deliveryTime = result.Record.deliveryDateTime?result.Record.deliveryDateTime:'ยังไม่มี Delivery Time';
+            var loadingTime = result.Record.loadingDateTime?result.Record.loadingDateTime:'Wait For Loading Time';
+            var deliveryTime = result.Record.deliveryDateTime?result.Record.deliveryDateTime:'Wait For Delivery Time';
             $('#loading_time_').html(loadingTime);
             $('#delivery_time_').html(deliveryTime);
             if(result.Record.loadingend == true){
@@ -276,7 +276,7 @@
                 $('#car_owner_delivery_section').removeClass('section_close')
                 $('#startmileageno_input').attr('disabled',true).val(result.Record.startmileageno);
                 $('#startmileageno_btn').attr('disabled',true).val('Loading Success')
-                $('#finishmileageno_input').removeAttr('disabled').attr('placeholder','ใส่ค่าไมล์ที่สิ้นสุด');
+                $('#finishmileageno_input').removeAttr('disabled').attr('placeholder','Key ending mileage numver');
                 $('#finishmileageno_btn').removeAttr('disabled').val('Finish');
             }
             if(result.Record.loadingend == true && result.Record.deliveryend == true){
