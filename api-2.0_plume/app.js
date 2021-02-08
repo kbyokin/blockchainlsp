@@ -401,6 +401,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
             message = [];
             let subconID =  req.user.subconID;
             let work  = await query.query(channelName, 'workinfo', 'queryAllWork', name, peer);
+            let subassign = await query.query(channelName, 'subjobassignment', 'queryAllsubjobassignment', name, peer);
             let loading = await query.query(channelName, 'loadinginfo', 'queryAllloadingInfo', name, peer);
             let delivery = await query.query(channelName, 'deliveryinfo', 'queryAlldeliveryinfo', name, peer);
 
@@ -409,6 +410,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
             
             for (let index = 0; index < subwork.length; index++) {
                 record = await query.querybyid(channelName, 'orderinfo', 'queryTransaction', name, subwork[index].Record.transOrderInfo ,peer);
+                record.workID = subwork[index].Key;
                 message.push({ Key: subwork[index].Record.transOrderInfo, Record: record});
                 
             }
@@ -417,6 +419,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
             message = await query.setstatusorder(message, 'none');
             message = await query.checkstatus(message, delivery, 'delivery');
             message = await query.checkstatus(message, loading, 'loading');
+            message = await query.checkstatus(message, subassign, 'assign');
             
             res.render(__dirname + '/views/index.html', {data: message, name: req.user.name, peer: req.user.peer});
         } else if (peer === "peer3") {
@@ -545,8 +548,8 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
                 ];
         } else if (fcn === "createsubjobassignment") {
             args = [req.body.workID,
-                req.body.transactionID,
-                req.body.truckID,
+                req.body.transaction_order_info,
+                req.body.work_truck_id,
                 ];
         } else if (fcn === "changeDatasubjobassignment") {
             args = [req.body.subjobassignmentID,
@@ -645,7 +648,11 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
                 res.redirect('/workorder_info?status=' + message.result.toString());
                }
         } else if (fcn === "createsubjobassignment") {
-            res.send(response_payload);
+            if (message.result[0] === true) {
+                res.redirect('/workorder_info?status=' + message.result[0].toString());
+               } else {
+                res.redirect('/workorder_info?status=' + message.result.toString());
+               }
         } else if (fcn === "createloadinginfo") {
             res.redirect('/car_owner');
             // res.send(response_payload);
@@ -681,12 +688,17 @@ app.get('/workorder_info', checkAuthenticated, async (req, res) => {
     var key = "";
     var status = "";
     var truckid = [];
+    var workid = "";
     if (req.query.key != undefined) {
         key = req.query.key;
         console.log("un");
     }
     if (req.query.status != undefined) {
         status = req.query.status;
+        console.log("un");
+    }
+    if (req.query.workid != undefined) {
+        workid = req.query.workid;
         console.log("un");
     }
 
@@ -713,7 +725,7 @@ app.get('/workorder_info', checkAuthenticated, async (req, res) => {
         }
         console.log("data => ", Data);
         console.log("truckid => ", truckid);
-        res.render(__dirname + '/views/workorder_info.html', {key: key, status: status, truckid: truckid, name: req.user.name, peer: req.user.peer});
+        res.render(__dirname + '/views/workorder_info.html', {key: key, status: status, truckid: truckid, name: req.user.name, peer: req.user.peer, workid: workid});
     });
     
     console.log("key => ", key);
