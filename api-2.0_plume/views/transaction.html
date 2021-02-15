@@ -24,8 +24,8 @@
         <div class="sidebar_burger">
             <i class="fas fa-arrow-alt-circle-left"></i>close
         </div>
-        <div class="sidebar_wrapper">
-            <div class="sidebar_header">
+        <div class="sidebar_wrapper" id="sidebarmenu">
+            <!-- <div class="sidebar_header">
                 <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
             <ul class="sidebar_items">
@@ -47,7 +47,7 @@
             </ul>
             <form action="/logout?_method=DELETE" method="POST">
                 <button type="submit" class="login_btn">Logout</button>
-            </form>
+            </form> -->
         </div>
     </section>
     <!--======================================================================= main_content =======================================================================-->
@@ -140,6 +140,8 @@
 <script src="./assets/js/global.js"></script>
 <script src="./assets/js/input_pattern.js"></script>
 <script>
+    var peer = <%-JSON.stringify(peer)%>;
+
     $(document).ready(function(){
         var sendDataRequest = <%-JSON.stringify(status)%>; 
         // var sendDataRequest = false;
@@ -158,6 +160,80 @@
             setTimeout(() => {
                 $('#alert-wrapper').fadeOut(2000);
             }, 1000);
+        }
+
+        // sidebar
+        if (peer == "peer0") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/transaction" class="sidebar_item">
+                    <li>Transaction</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+
+        if (peer == "peer1") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        } 
+
+        if (peer == "peer2") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+
+        if (peer == "peer3") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
         }
     })
 

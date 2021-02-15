@@ -28,8 +28,8 @@
         <div class="sidebar_burger">
             <i class="fas fa-arrow-alt-circle-left"></i>close
         </div>
-        <div class="sidebar_wrapper">
-            <div class="sidebar_header">
+        <div class="sidebar_wrapper" id="sidebarmenu">
+            <!-- <div class="sidebar_header">
                 <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
             <ul class="sidebar_items">
@@ -51,7 +51,7 @@
             </ul>
             <form action="/logout?_method=DELETE" method="POST">
                 <button type="submit" class="login_btn">Logout</button>
-            </form>
+            </form> -->
             <!-- <a href="./login.html" class="login_btn">Login</a> -->
         </div>
     </section>
@@ -101,7 +101,8 @@
         for(var item of result){
             // if peer2
             if (peer === "peer2") {
-                $('#transaction_data_body').append(` 
+                if (item.Record.status == "none") {
+                    $('#transaction_data_body').append(` 
                         <tr class="table_row_link" data-link="/workorder_info?key=${item.Key}&workid=${item.Record.workID}">
                             <th>${item.Record.cargoOwner}</th>
                             <th>${item.Record.loadingPoint}</th>
@@ -110,9 +111,44 @@
                             <th>${item.Record.deliveryDateTime}</th>
                             <th><span class="loading_sign">${item.Record.status}</span></th>
                         </tr>`)
+                } else {
+                    $('#transaction_data_body').append(` 
+                        <tr class="table_row_link" data-link="#">
+                            <th>${item.Record.cargoOwner}</th>
+                            <th>${item.Record.loadingPoint}</th>
+                            <th>${item.Record.loadingDateTime}</th>
+                            <th>${item.Record.deliveryPoint}</th>
+                            <th>${item.Record.deliveryDateTime}</th>
+                            <th><span class="loading_sign">${item.Record.status}</span></th>
+                        </tr>`)
+                }
+            // if peer1 
+            } else if (peer == "peer1") { 
+                if (item.Record.status == "none") {
+                    $('#transaction_data_body').append(` 
+                        <tr class="table_row_link" data-link="/workorder_info?key=${item.Key}">
+                            <th>${item.Record.cargoOwner}</th>
+                            <th>${item.Record.loadingPoint}</th>
+                            <th>${item.Record.loadingDateTime}</th>
+                            <th>${item.Record.deliveryPoint}</th>
+                            <th>${item.Record.deliveryDateTime}</th>
+                            <th><span class="loading_sign">${item.Record.status}</span></th>
+                        </tr>`)
+                } else {
+                    $('#transaction_data_body').append(` 
+                        <tr class="table_row_link" data-link="#">
+                            <th>${item.Record.cargoOwner}</th>
+                            <th>${item.Record.loadingPoint}</th>
+                            <th>${item.Record.loadingDateTime}</th>
+                            <th>${item.Record.deliveryPoint}</th>
+                            <th>${item.Record.deliveryDateTime}</th>
+                            <th><span class="loading_sign">${item.Record.status}</span></th>
+                        </tr>`)
+                }
+                
             } else {
                 $('#transaction_data_body').append(` 
-                        <tr class="table_row_link" data-link="/workorder_info?key=${item.Key}">
+                        <tr class="table_row_link" data-link="#">
                             <th>${item.Record.cargoOwner}</th>
                             <th>${item.Record.loadingPoint}</th>
                             <th>${item.Record.loadingDateTime}</th>
@@ -127,7 +163,81 @@
         $(document).on('click','.table_row_link',function(){
             var url = $(this).data('link');
             window.location.href = url;
-        })
+        });
+
+        // sidebar
+        if (peer == "peer0") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/transaction" class="sidebar_item">
+                    <li>Transaction</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+
+        if (peer == "peer1") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        } 
+
+        if (peer == "peer2") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+
+        if (peer == "peer3") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
     })
 </script>
 </html>
