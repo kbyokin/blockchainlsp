@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction</title>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="./assets/css/transaction.css">
+    <link rel="stylesheet" href="./assets/css/side_navbar.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+</head>
+<body>
+    <div id="alert-wrapper"></div>
+    <!-- =====================================================================sidebar===================================================================== -->
+    <section class="sidebar">
+        <div class="sidebar_burger">
+            <i class="fas fa-arrow-alt-circle-left"></i>close
+        </div>
+        <div class="sidebar_wrapper" id="sidebarmenu">
+            <!-- <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/transaction" class="sidebar_item">
+                    <li>Transaction</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+               <a href="/car_owner" class="sidebar_item">
+                    <li>Car Owner</li>
+                </a>
+                <a href="/register" class="sidebar_item">
+                    <li>Register</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form> -->
+        </div>
+    </section>
+    <!--======================================================================= main_content =======================================================================-->
+    <section class="transaction main_content">
+        <!-- header bar -->
+        <div class="header">
+            <div class="header_menu">
+                <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
+                <div class="nav_group">
+                    <a href="/" class="nav_item">HOME</a>
+                    <form action="/logout?_method=DELETE" method="POST">
+                        <button type="submit" class="logout_btn">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="main_content_flex">
+            <div id="transaction_form_wrapper" class="main_content_body main_content_left">
+               <h2>Add Transactions</h2>
+                <hr>
+                <!-- add transaction form -->
+                <form action="/channels/mychannel/chaincodes/transactioninfo/fcn/createTransaction" id="add_transaction_form" method="POST">
+                    <div class="form-group">
+                        <label for="cargoowner" class="form-label">Cargo Owner</label>
+                        <input type="text" placeholder="John Doe" class="form-control input-check-text-only" pattern="^[a-zA-Zก-๙0-9 ]+$" oninput="setCustomValidity('')" id="cargoOwner" name="cargo_owner">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm">
+                            <label for="loadingpoint" class="form-label">Loading Place</label>
+                            <input type="text" placeholder="Bangkok" class="form-control input-check-text-only" pattern="^[a-zA-Zก-๙0-9 ]+$" oninput="setCustomValidity('')" id="loadingPoint" name="loading_point">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm">
+                            <label for="loadingDateTime" class="form-label">Loading Date-Time</label>
+                            <input type="datetime-local" id="loadingDateTime" class="form-control" name="loading_date_time">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm">
+                            <label for="deliverypoint" class="form-label">Delivery Place</label>
+                            <input type="text" placeholder="Chiang Mai" class="form-control input-check-text-only" pattern="^[a-zA-Zก-๙0-9 ]+$" oninput="setCustomValidity('')" id="deliverygpoint" name="deliverygpoint">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm">
+                            <label for="DeliveryDateTime" class="form-label">Delivery Date-Time</label>
+                            <input type="datetime-local" id="deliveryDateTime" class="form-control" name="delivery_date_time">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm">
+                            <label for="productid">Product ID</label>
+                            <input type="text" placeholder="99" class="form-control input-check-number-only" pattern="^[0-9]+$" oninput="setCustomValidity('')" id="productid" name="product_id">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm">
+                            <label for="quantity">Quantity</label>
+                            <input type="text" placeholder="10" class="form-control input-check-number-only" pattern="^[0-9]+$" oninput="setCustomValidity('')" name="quantity">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-sm">
+                            <label for="totalweight">Total Weight</label>
+                            <input type="text" placeholder="150" class="form-control input-check-number-only" pattern="^[0-9]+$" oninput="setCustomValidity('')" name="total_weight">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pakcingdim">Packing Dimension</label>
+                        <input type="text" class="form-control input-check-number-math" placeholder="12x15x20" pattern="^[0-9+\-*\/%x]+$" oninput="setCustomValidity('')" name="packing_dimension">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Transaction</button>
+                    <input type="reset" value="Clear Data" class="btn btn-outline-danger">
+                </form>
+            </div>
+            <div class="main_content_body main_content_right">
+                <h2>Car Available</h2>
+                <hr>
+                <div class="">
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                </div>
+            </div>    
+        </div>
+    </section>
+    <!-- =========================================modal========================================= -->
+
+<script src="./assets/js/global.js"></script>
+<script src="./assets/js/input_pattern.js"></script>
+<script>
+    var peer = <%-JSON.stringify(peer)%>;
+
+    $(document).ready(function(){
+        var sendDataRequest = <%-JSON.stringify(status)%>; 
+        // var sendDataRequest = false;
+        if(sendDataRequest === "true"){
+            $('#alert-wrapper').html(`<div class="alert alert-success" role="alert">
+                ส่งข้อมูลสำเร็จ<i class="far fa-check-circle ml-2"></i>
+            </div>`)
+            setTimeout(() => {
+                $('#alert-wrapper').fadeOut(2000);
+            }, 1000);
+        }
+        if(sendDataRequest === "false"){
+            $('#alert-wrapper').html(`<div class="alert alert-danger" role="alert">
+                ส่งข้อมูลผิดพลาด<i class="far fa-times-circle ml-2"></i>
+            </div>`)
+            setTimeout(() => {
+                $('#alert-wrapper').fadeOut(2000);
+            }, 1000);
+        }
+
+        // sidebar
+        if (peer == "peer0") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/transaction" class="sidebar_item">
+                    <li>Transaction</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+
+        if (peer == "peer1") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        } 
+
+        if (peer == "peer2") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+
+        if (peer == "peer3") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+    })
+
+</script>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <!-- style css -->
+    <link rel="stylesheet" href="./assets/css/side_navbar.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/car_owner.css">
+    <!-- DATA TABLE CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
+</head>
+<style>
+    .check_end_btn{
+        padding:3px 12px;
+        width:100%;
+        text-align: center;
+        box-shadow:0 0 5px rgba(0,0,0,0.3);
+        cursor:pointer;
+        border-radius: 7px;
+        user-select: none;
+    }
+    .check_end_btn_:checked ~ .check_end_btn{
+        background:greenyellow;
+        pointer-events: none;
+    }
+    .car_owner_information_table tr{
+        height:50px;    
+    }
+    .car_owner_information{
+        background:rgb(238, 238, 238);
+        box-shadow:0 0 5px rgba(0,0,0,0.5);
+        margin-bottom:30px
+    }
+    .car_owner_information_header{
+        width:200px;
+        min-width:150px;
+    }
+    .section_close input{
+        pointer-events: none;
+    }
+</style>
+<body>
+    <!-- =====================================================================sidebar===================================================================== -->
+    <section class="sidebar">
+        <div class="sidebar_burger">
+            <i class="fas fa-arrow-alt-circle-left"></i>close
+        </div>
+        <div class="sidebar_wrapper" id="sidebarmenu">
+            <!-- <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/transaction" class="sidebar_item">
+                    <li>Transaction</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+               <a href="/car_owner" class="sidebar_item">
+                    <li>Car Owner</li>
+                </a>
+                <a href="/register" class="sidebar_item">
+                    <li>Register</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form> -->
+            <!-- <a href="./login.html" class="login_btn">Login</a> -->
+        </div>
+    </section>
+    <!-- main content -->
+    <section class="main_content">
+         <!-- header bar -->
+         <div class="header">
+            <div class="header_menu pt-3 pb-3">
+                <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
+                <div class="nav_group">
+                    <a href="/" class="nav_item">HOME</a>
+                    <form action="/logout?_method=DELETE" method="POST">
+                        <button type="submit" class="logout_btn">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="main_content_flex">
+            <!-- main section -->
+            <div class="main_content_body  main_content_left" id="noti">
+                <h3>Truck Info:</h3>
+                <div class="car_owner_information p-3 rounded">
+                    <div class="table-responsive">
+                        <table class="car_owner_information_table" >
+                            <tbody id="car_owner_information_table_body">
+                                <!-- content here -->
+                                <!-- content here -->
+                                <!-- content here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- car owner loading section -->
+                <div id="car_owner_loading_section" class="car_owner_loading_section p-3 rounded mb-3 border">
+                    <h3 class="text-center mb-4">-LOADING SECTION-</h3>
+                    <p class="mb-3">Loading Time: <span id="loading_time_">1-17-2021</span></p>
+                    <!-- form loading section -->
+                    <form action="/channels/mychannel/chaincodes/transactioninfo/fcn/createLoadingInfo" id="loading_section_form" class="car_owner_form" method="post">
+                        <div class="form-group">
+                            <input type="text"  placeholder="Please key starting mileage number" name="startmileageno" id="startmileageno_input" class="startmileageno_input mile form-control" required>
+                        </div>
+                        <div id="details_load"></div>
+                        <div class="form-group">
+                            <input type="submit" id="startmileageno_btn" class="btn car_owner_btn btn-primary" value="Start">
+                        </div>
+                    </form>
+                </div>
+                <!-- car owner delivery section -->
+                <div  id="car_owner_delivery_section" class="car_owner_delivery_section section_close p-3 rounded border">
+                    <h3 class="text-center mb-4">-DELIVERY SECTION-</h3>
+                    <p class="mb-3">delivery Time: <span id="delivery_time_">0000000</span></p>
+                      <!-- form delivery section -->
+                      <form action="/channels/mychannel/chaincodes/transactioninfo/fcn/createDeliveryInfo" id="delivery_section_form" class="car_owner_form" method="post">
+                        <div class="form-group ">
+                            <input type="text" id="finishmileageno_input" name="finishmileageno" placeholder="Please key ending mileage number" class="mile form-control" required disabled>
+                        </div>
+                        <div id="details_delivery"></div>
+                        <div class="form-group ">
+                            <input type="submit" id="finishmileageno_btn" class="btn car_owner_btn btn-secondary"  value="wait for loading..."  disabled>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="main_content_body main_content_right">
+                <h5>History</h5>
+                <hr>
+                <div class="">
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                    <!-- CONTENT HERE -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ===================================modal=================================== -->
+    <div class="modal fade" id="carOwner-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="carOwner-modal-title"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-center" id="carOwner-modal-body">
+              ...
+            </div>
+            <div class="modal-footer" id="carOwner-modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="confirm_form">Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+<script src="./assets/js/global.js"></script>
+<script>
+    // get currnt work
+    var result = <%-JSON.stringify(current)%>; 
+    var peer = <%-JSON.stringify(peer)%>;
+
+    $(document).ready(function(){
+
+        if (Object.keys(result).length === 0) {
+            $('#noti').html('<h2>ไม่มีงาน</h2>')
+        } else {
+            // click open confirm modal================================
+        $(document).on('click','.car_owner_btn',function(e){
+            var inputValue = $(this).parents('form').children().eq(0).children();
+            console.log(inputValue.val())
+            if(inputValue.val() == ''){
+                return
+            }
+            e.preventDefault()
+            var form = $(this).parents('form');
+            var miles = $(inputValue).val()
+            $('#carOwner-modal-body').html(`<p>Please confirm <h3 style="color:red;">${miles} miles</h3> is correct?</p>`)
+            $('#carOwner-modal-title').html('Confirm Value')
+            $('#carOwner-modal').modal('show');
+            $('#confirm_form').on('click',function(){
+                form.submit();
+            })
+        })
+        // result car owner=========================================
+          // คอมเม้นออกเมื่อใช้จริง***************************************
+        // คอมเม้นเมื่อใช้จริง อันนี้ไว้ทดสอบ*******************************
+        // var result = [{"Key": "as54d5as4d",
+        // "Record": {
+        //         "cargoOwner" : "John Doe",
+        //         "loadingPoint" : "Bangkok", 
+        //         "loadingDateTime" : "12-1-2012", 
+        //         "deliveryPoint" : "Hatyai",
+        //         "deliveryDateTime" : "13-1-2012", 
+        //         "productID" : "521as5d15", 
+        //         "quantity" : "10", 
+        //         "packingDim" : "11", 
+        //         "totalWeight" : "13",
+        //         "startmileageno" : "1230",
+        //         "loadingend" : "true",
+        //         "finishmileageno" : "55",
+        //         "deliveryend" : "false",
+        //         "jobassigninfo" : "JOBxxxxxxxxxx"
+
+        //     }
+        // }]
+        console.log(result); 
+
+        
+        //loading
+            $('#details_load').html(` <input type="hidden" name="transOrderInfo" id="transOrderInfo" value="${result.Key}">
+            <input type="hidden" name="loadingend" id="loadingend" value="true">
+            `);
+
+        // delivery
+            $('#details_delivery').html(` <input type="hidden" name="transOrderInfo" id="transOrderInfo" value="${result.Key}">
+            <input type="hidden" name="deliveryend" id="deliveryend" value="true">
+            `);
+            $('#car_owner_information_table_body').html(`  <tr>
+                                    <th class="car_owner_information_header">Job ID:</th>
+                                    <td><input type="text" name="" value="${result.Key}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">Loading Place:</th>
+                                    <td><input type="text" name="" value="${result.Record.orderinfo.loadingPoint}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">Delivery Place:</th>
+                                    <td><input type="text" name="" value="${result.Record.orderinfo.deliveryPoint}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">Quantity:</th>
+                                    <td><input type="text" name="" value="${result.Record.orderinfo.quantity}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">PackingDim:</th>
+                                    <td><input type="text" name="" value="${result.Record.orderinfo.packingDim}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">Total Weight:</th>
+                                    <td><input type="text" name="" value="${result.Record.orderinfo.totalWeight}" class="form-control" disabled></td>
+                                </tr>`)
+            var loadingTime = result.Record.orderinfo.loadingDateTime?result.Record.orderinfo.loadingDateTime:'Wait For Loading Time';
+            var deliveryTime = result.Record.orderinfo.deliveryDateTime?result.Record.orderinfo.deliveryDateTime:'Wait For Delivery Time';
+            $('#loading_time_').html(loadingTime);
+            $('#delivery_time_').html(deliveryTime);
+            if(result.Record.loadinginfo.loadingend == "true"){
+                $('#car_owner_loading_section').addClass('section_close');
+                $('#car_owner_delivery_section').removeClass('section_close')
+                $('#startmileageno_input').attr('disabled',true).val(result.Record.loadinginfo.startmileageno);
+                $('#startmileageno_btn').attr('disabled',true).val('Loading Success')
+                $('#finishmileageno_input').removeAttr('disabled').attr('placeholder','Key ending mileage numver');
+                $('#finishmileageno_btn').removeAttr('disabled').val('Finish');
+            }
+            if(result.Record.loadinginfo.loadingend == "true" && result.Record.deliveryinfo.deliveryend == "true"){
+                $('#finishmileageno_input').val(result.Record.deliveryinfo.finishmileageno).attr('disabled',true)
+                $('#car_owner_delivery_section').addClass('section_close');
+                $('#finishmileageno_btn').attr('disabled',true).val('Finish Success');
+
+                
+            }
+        }
+
+        
+        // sidebar
+        if (peer == "peer0") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/transaction" class="sidebar_item">
+                    <li>Transaction</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+
+        if (peer == "peer1") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        } 
+
+        if (peer == "peer2") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+
+        if (peer == "peer3") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+        
+    })
+</script>
+
+</html>

@@ -1,0 +1,2 @@
+Installed chaincodes on peer:
+Package ID: transactioninfo_1:94c2169aba9ad88d6c6bbec453326b08caaaa90f4b4d7343a5b713f3358353f1, Label: transactioninfo_1
