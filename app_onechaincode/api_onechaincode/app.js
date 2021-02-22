@@ -128,14 +128,25 @@ app.delete('/logout', (req, res) => {
 })
 
 
-app.get('/register', checkNotAuthenticated, async (req, res) => {
-    // res.render('register.ejs')
-    res.sendFile(path.join(__dirname, '/views/register.html'));
+app.get('/register', checkAuthenticated, async (req, res) => {
+    var peer = req.user.peer;
+    var status = '';
+    if (req.query.status != undefined) {
+        status = req.query.status;
+    }
+    if (peer == 'peer1') {
+        // res.render('register.ejs')
+        //res.sendFile(path.join(__dirname, '/views/register.html'));.
+        res.render(__dirname + '/views/register.html', {status: status});
+    } else {
+        res.redirect('/');
+    }
+    
 
 });
 
 // Register and enroll user
-app.post('/register', checkNotAuthenticated, async function (req, res) {
+app.post('/register', checkAuthenticated, async function (req, res) {
     var username = req.body.name;
     var password = req.body.password;
     var email = req.body.email;
@@ -201,9 +212,9 @@ app.post('/register', checkNotAuthenticated, async function (req, res) {
                     });
             
             });
-            res.redirect('/login')
+            res.redirect('/register?status=true')
         } catch (e) {
-            res.redirect('/register')
+            res.redirect('/register?status=false')
         }
             res.json(response);
     } else {
@@ -264,9 +275,9 @@ app.post('/register', checkNotAuthenticated, async function (req, res) {
                     });
             
             });
-            res.redirect('/login')
+            res.redirect('/register?status=true')
         } catch (e) {
-            res.redirect('/register')
+            res.redirect('/register?status=false')
         }
             res.json(response);
     } else {
@@ -320,9 +331,9 @@ app.post('/register', checkNotAuthenticated, async function (req, res) {
                     });
             
             });
-            res.redirect('/login')
+            res.redirect('/register?status=true')
         } catch (e) {
-            res.redirect('/register')
+            res.redirect('/register?status=false')
         }
             res.json(response);
     } else {
@@ -354,7 +365,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
         console.log("name = " + req.user.name);
         console.log("password = " + req.user.password);
         console.log("peer = " + req.user.peer);
-        var message;
+        var message = [];
         var channelName = 'mychannel';
         // var chaincodeName = 'orderinfo'
         var peer = req.user.peer;
