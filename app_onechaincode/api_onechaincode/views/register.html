@@ -16,47 +16,83 @@
     <!-- login css -->
     <base href="/">
     <link rel="stylesheet" href="./assets/css/register.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/side_navbar.css">
 </head>
 
 <body>
     <div id="alert-wrapper"></div>
-    <div class="header">
-        <div class="header_menu">
-            <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
-            <div class="nav_group">
-                <a href="/" class="nav_item">HOME</a>
-                <form action="/logout?_method=DELETE" method="POST">
-                    <button type="submit" class="logout_btn">Logout</button>
-                </form>
+    <!-- =====================================================================sidebar===================================================================== -->
+    <section class="sidebar">
+        <div class="sidebar_burger">
+            <i class="fas fa-arrow-alt-circle-left"></i>close
+        </div>
+        <div class="sidebar_wrapper" id="sidebarmenu">
+            <!-- <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/transaction" class="sidebar_item">
+                    <li>Transaction</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+                <a href="/car_owner" class="sidebar_item">
+                    <li>Car Owner</li>
+                </a>
+                <a href="/register" class="sidebar_item">
+                    <li>Register</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form> -->
+            <!-- <a href="./login.html" class="login_btn">Login</a> -->
+        </div>
+    </section>
+    <section class="main_content">
+        <div class="header">
+            <div class="header_menu">
+                <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
+                <div class="nav_group">
+                    <a href="/" class="nav_item">HOME</a>
+                    <form action="/logout?_method=DELETE" method="POST">
+                        <button type="submit" class="logout_btn">Logout</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-   <section class="register">
-       <form action="/register" method="post" class="register_form">
-           <h2>Register</h2>
-           <div class="form-group register_group" id="register_wrapper">
-                <input type="text" name="name" id="name" placeholder="Name" required>
-                <input type="email" name="email" id="email" placeholder="Email" required>
-                <input type="password" name="password" id="password" placeholder="Password" pattern="(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}"  onInvalid="setCustomValidity('ต้องประกอบด้วยตัวเลขและตัวอักษรและมี 6 ตัวขึ้นไป')" oninput="setCustomValidity('')" required>
-                <div class="pattern_xix">
-                    <span class="min6char">มีตั้งแต่ 6 ตัวอักษรขึ้นไป</span><br>
-                    <span class="checkchar">ต้องประกอบด้วยตัวเลขและตัวอักษร</span>
+       <section class="register">
+           <form action="/register" method="post" class="register_form">
+               <h2>Register</h2>
+               <div class="form-group register_group" id="register_wrapper">
+                    <input type="text" name="name" id="name" placeholder="Name" required>
+                    <input type="email" name="email" id="email" placeholder="Email" required>
+                    <input type="password" name="password" id="password" placeholder="Password" pattern="(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}"  onInvalid="setCustomValidity('ต้องประกอบด้วยตัวเลขและตัวอักษรและมี 6 ตัวขึ้นไป')" oninput="setCustomValidity('')" required>
+                    <div class="pattern_xix">
+                        <span class="min6char">มีตั้งแต่ 6 ตัวอักษรขึ้นไป</span><br>
+                        <span class="checkchar">ต้องประกอบด้วยตัวเลขและตัวอักษร</span>
+                    </div>
+                    <select name="peer" id="peer" class="form-control" required> 
+                        <option value="" disabled selected>Please select the Peer</option>
+                        <option value="peer0">Peer 0 (Customer Service)</option>
+                        <option value="peer1">Peer 1 (Transportation Unit)</option>
+                        <option value="peer2">Peer 2 (Subcontractors)</option>
+                        <option value="peer3">Peer 3 (Transporters)</option>
+                    </select>
+                    <div id="special_input"></div>
                 </div>
-                <select name="peer" id="peer" class="form-control" required> 
-                    <option value="" disabled selected>Please select the Peer</option>
-                    <option value="peer0">Peer 0 (Customer Service)</option>
-                    <option value="peer1">Peer 1 (Transportation Unit)</option>
-                    <option value="peer2">Peer 2 (Subcontractors)</option>
-                    <option value="peer3">Peer 3 (Transporters)</option>
-                </select>
-                <div id="special_input"></div>
-            </div>
-            <div class="form-group register_btn_group">
-                <input type="submit" value="Register" class="register_btn">
-                <span class="login_group">Already has an account? <a href="/login" class="login_btn">Login</a></span>
-            </div>
-       </form>
-   </section>
+                <div class="form-group register_btn_group">
+                    <input type="submit" value="Register" class="register_btn">
+                    <span class="login_group">Already has an account? <a href="/login" class="login_btn">Login</a></span>
+                </div>
+           </form>
+       </section>
+    </section>
 </body>
 <script src="./assets/js/register.js"></script>
 <script>
@@ -77,6 +113,8 @@
 
         // get alert status
         var sendDataRequest = <%-JSON.stringify(status)%>;
+        // get peer
+        var peer = <%-JSON.stringify(peer)%>;
         // var sendDataRequest = false;
         if(sendDataRequest === "true"){
             $('#alert-wrapper').html(`<div class="alert alert-success" role="alert">
@@ -93,6 +131,83 @@
             setTimeout(() => {
                 $('#alert-wrapper').fadeOut(2000);
             }, 1000);
+        }
+
+        // sidebar
+        if (peer == "peer0") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/transaction" class="sidebar_item">
+                    <li>Transaction</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+
+        if (peer == "peer1") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+                <a href="/register" class="sidebar_item">
+                    <li>Register</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        } 
+
+        if (peer == "peer2") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+
+        if (peer == "peer3") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
         }
     })
 </script>

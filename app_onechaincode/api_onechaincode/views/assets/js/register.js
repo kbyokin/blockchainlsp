@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    $(document).on('click','.burger_menu',function(){
+        $('.main_content').toggleClass('active')
+        $('.sidebar').toggleClass('active')
+    })
     $('#password').keyup(function(){
         var valid = true
         if(this.value.length >= 6){

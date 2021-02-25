@@ -137,7 +137,7 @@ app.get('/register', checkAuthenticated, async (req, res) => {
     if (peer == 'peer1') {
         // res.render('register.ejs')
         //res.sendFile(path.join(__dirname, '/views/register.html'));.
-        res.render(__dirname + '/views/register.html', {status: status});
+        res.render(__dirname + '/views/register.html', {status: status, peer: peer});
     } else {
         res.redirect('/');
     }
