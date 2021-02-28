@@ -82,6 +82,7 @@ class Transactioninfo extends Contract {
                 quantity: quantity,
                 packingDim: packingDim,
                 totalWeight: totalWeight,
+                timeSave: Date.now(),
                 }
                 
             };
@@ -130,6 +131,7 @@ class Transactioninfo extends Contract {
                 quantity: quantity,
                 packingDim: packingDim,
                 totalWeight: totalWeight,
+                timeSave: Date.now(),
                 };
                 
     
@@ -177,6 +179,7 @@ class Transactioninfo extends Contract {
             if (peer == "peer1") {
                 record.myjobassignment = {
                     truckID: truckID,
+                    timeSave: Date.now(),
                 };
                     
                 await ctx.stub.putState(transactionID, Buffer.from(JSON.stringify(record)));
@@ -230,6 +233,7 @@ class Transactioninfo extends Contract {
             if (peer == "peer1") {
                 record.workinfo = {
                     subcontractID: subcontractID,
+                    timeSave: Date.now(),
                 };
                     
                 await ctx.stub.putState(transactionID, Buffer.from(JSON.stringify(record)));
@@ -282,6 +286,7 @@ class Transactioninfo extends Contract {
             if (peer == "peer2") {
                 record.subjobassignment = {
                     truckID: truckID,
+                    timeSave: Date.now(),
                 };
                     
                 await ctx.stub.putState(transactionID, Buffer.from(JSON.stringify(record)));
@@ -336,6 +341,7 @@ class Transactioninfo extends Contract {
                 record.loadinginfo = {
                     startmileageno: startmileageno,
                     loadingend: loadingend,
+                    timeSave: Date.now(),
                 };
                     
                 await ctx.stub.putState(transactionID, Buffer.from(JSON.stringify(record)));
@@ -390,6 +396,7 @@ class Transactioninfo extends Contract {
                 record.deliveryinfo = {
                     finishmileageno: finishmileageno,
                     deliveryend: deliveryend,
+                    timeSave: Date.now(),
                 };
                     
                 await ctx.stub.putState(transactionID, Buffer.from(JSON.stringify(record)));
