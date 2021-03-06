@@ -1,7 +1,0 @@
-Installed chaincodes on peer:
-Package ID: subjobassignment_1:90969a6cb8377628bb78a1bd5caf79ef571f7adf14849c0824812fd274d8d74e, Label: subjobassignment_1
-Package ID: orderinfo_1:2658531fcc405fc7420450f56061b5e527be822692a01c58886b0549cf4861b7, Label: orderinfo_1
-Package ID: workinfo_1:c94ba259ca6b0b70bce92ae49e779e9801ee095c337b4ecef93b7062adc77288, Label: workinfo_1
-Package ID: myjobassignment_1:f492bd8bd08fded6cecb3d6db7387d45c3c69585ec65456001d564a34122d7d0, Label: myjobassignment_1
-Package ID: loadinginfo_1:e06291a3f932fc2acba0a56d8cb66762a3baace56d25a9efb4b575df2a8693b1, Label: loadinginfo_1
-Package ID: deliveryinfo_1:1b1583d951e6a96d7f6cd55b7b4ef45c0043a438be6fc852f92294ebdcea9c60, Label: deliveryinfo_1
