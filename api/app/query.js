@@ -204,6 +204,18 @@ const querycurrentworktruck = async (result) => {
     return current;
 }
 
+// query all work have to do work for peer3
+const queryallworkhavetodotruck = async (result) => {
+    let workHaveToDo = [];
+    for (let index = 0; index < result.length; index++) {
+        if (typeof(result[index].Record.loadinginfo) == "undefined" || typeof(result[index].Record.deliveryinfo) == "undefined") {
+            workHaveToDo.push(result[index]);
+        }
+        
+    }
+    return workHaveToDo;
+}
+
 
 
 exports.query = query;
@@ -212,3 +224,4 @@ exports.checkstatus = checkstatus;
 exports.queryworkpeer2 = queryworkpeer2;
 exports.queryallworktruck = queryallworktruck;
 exports.querycurrentworktruck = querycurrentworktruck;
+exports.queryallworkhavetodotruck = queryallworkhavetodotruck;

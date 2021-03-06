@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +18,7 @@
     <link rel="stylesheet" href="./assets/css/side_navbar.css">
     <link rel="stylesheet" href="./assets/css/global.css">
 </head>
+
 <body>
     <div id="alert-wrapper"></div>
     <!-- =====================================================================sidebar===================================================================== -->
@@ -66,7 +68,7 @@
         </div>
         <div class="main_content_flex">
             <div id="transaction_form_wrapper" class="main_content_body main_content_left">
-               <h2>Add Transactions</h2>
+                <h2>Add Transactions</h2>
                 <hr>
                 <!-- add transaction form -->
                 <form action="/channels/mychannel/chaincodes/transactioninfo/fcn/createTransaction" id="add_transaction_form" method="POST">
@@ -116,7 +118,7 @@
                     </div>
                     <div class="form-group">
                         <label for="pakcingdim">Packing Dimension</label>
-                        <input type="text" class="form-control input-check-number-math" placeholder="12x15x20" pattern="^[0-9+\-*\/%x]+$" oninput="setCustomValidity('')" name="packing_dimension">
+                        <input type="text" class="form-control input-check-number-math" placeholder="12x15x20" pattern="^[0-9+\.-*\/%x]+$" oninput="setCustomValidity('')" name="packing_dimension">
                         <div class="invalid-feedback"></div>
                     </div>
                     <button type="submit" class="btn btn-primary">Add Transaction</button>
@@ -132,39 +134,39 @@
                     <!-- CONTENT HERE -->
                     <!-- CONTENT HERE -->
                 </div>
-            </div>    
+            </div>
         </div>
     </section>
     <!-- =========================================modal========================================= -->
 
-<script src="./assets/js/global.js"></script>
-<script src="./assets/js/input_pattern.js"></script>
-<script>
-    var peer = <%-JSON.stringify(peer)%>;
+    <script src="./assets/js/global.js"></script>
+    <script src="./assets/js/input_pattern.js"></script>
+    <script>
+        var peer = <%-JSON.stringify(peer)%>;
 
-    $(document).ready(function(){
-        var sendDataRequest = <%-JSON.stringify(status)%>; 
-        // var sendDataRequest = false;
-        if(sendDataRequest === "true"){
-            $('#alert-wrapper').html(`<div class="alert alert-success" role="alert">
+        $(document).ready(function() {
+            var sendDataRequest = <%-JSON.stringify(status)%>;
+            // var sendDataRequest = false;
+            if (sendDataRequest === "true") {
+                $('#alert-wrapper').html(`<div class="alert alert-success" role="alert">
                 ส่งข้อมูลสำเร็จ<i class="far fa-check-circle ml-2"></i>
             </div>`)
-            setTimeout(() => {
-                $('#alert-wrapper').fadeOut(2000);
-            }, 1000);
-        }
-        if(sendDataRequest === "false"){
-            $('#alert-wrapper').html(`<div class="alert alert-danger" role="alert">
+                setTimeout(() => {
+                    $('#alert-wrapper').fadeOut(2000);
+                }, 1000);
+            }
+            if (sendDataRequest === "false") {
+                $('#alert-wrapper').html(`<div class="alert alert-danger" role="alert">
                 ส่งข้อมูลผิดพลาด<i class="far fa-times-circle ml-2"></i>
             </div>`)
-            setTimeout(() => {
-                $('#alert-wrapper').fadeOut(2000);
-            }, 1000);
-        }
+                setTimeout(() => {
+                    $('#alert-wrapper').fadeOut(2000);
+                }, 1000);
+            }
 
-        // sidebar
-        if (peer == "peer0") {
-            $('#sidebarmenu').html(`
+            // sidebar
+            if (peer == "peer0") {
+                $('#sidebarmenu').html(`
             <div class="sidebar_header">
                 <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
@@ -180,10 +182,10 @@
                 <button type="submit" class="login_btn">Logout</button>
             </form>
             `);
-        }
+            }
 
-        if (peer == "peer1") {
-            $('#sidebarmenu').html(`
+            if (peer == "peer1") {
+                $('#sidebarmenu').html(`
             <div class="sidebar_header">
                 <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
@@ -202,10 +204,10 @@
                 <button type="submit" class="login_btn">Logout</button>
             </form>
             `);
-        } 
+            }
 
-        if (peer == "peer2") {
-            $('#sidebarmenu').html(`
+            if (peer == "peer2") {
+                $('#sidebarmenu').html(`
             <div class="sidebar_header">
                 <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
@@ -221,10 +223,10 @@
                 <button type="submit" class="login_btn">Logout</button>
             </form>
             `);
-        }
+            }
 
-        if (peer == "peer3") {
-            $('#sidebarmenu').html(`
+            if (peer == "peer3") {
+                $('#sidebarmenu').html(`
             <div class="sidebar_header">
                 <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
@@ -237,8 +239,8 @@
                 <button type="submit" class="login_btn">Logout</button>
             </form>
             `);
-        }
-    })
+            }
+        })
+    </script>
 
-</script>
 </html>

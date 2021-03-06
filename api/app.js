@@ -423,6 +423,7 @@ app.get('/car_owner', checkAuthenticated, async (req, res) => {
         var message;
         var result = [];
         var current = {};
+        var workHaveToDo = [];
         var channelName = 'mychannel';
         // var chaincodeName = 'orderinfo'
         var peer = req.user.peer;
@@ -439,7 +440,10 @@ app.get('/car_owner', checkAuthenticated, async (req, res) => {
         // current work
         current = await query.querycurrentworktruck(result);
 
-        res.render(__dirname + '/views/car_owner.html', {all: result, current: current, name: req.user.name, peer: req.user.peer});
+        // work have to do work
+        workHaveToDo = await query.queryallworkhavetodotruck(result);
+
+        res.render(__dirname + '/views/car_owner.html', {all: result, current: current, name: req.user.name, peer: req.user.peer, workHaveToDo: workHaveToDo});
 
 
     } catch (error) {
