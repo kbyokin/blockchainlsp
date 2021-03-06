@@ -82,7 +82,7 @@ function getErrorMessage(field) {
     return response;
 }
 
-app.use(express.static(path.join(__dirname, "/views"), {index: '_'}));
+app.use(express.static(path.join(__dirname, "/views"), { index: '_' }));
 // app.use(express.static(path.join(__dirname, "../template"), {index: '_'}));
 
 // get function from that file
@@ -137,11 +137,11 @@ app.get('/register', checkAuthenticated, async (req, res) => {
     if (peer == 'peer1') {
         // res.render('register.ejs')
         //res.sendFile(path.join(__dirname, '/views/register.html'));.
-        res.render(__dirname + '/views/register.html', {status: status, peer: peer});
+        res.render(__dirname + '/views/register.html', { status: status, peer: peer });
     } else {
         res.redirect('/');
     }
-    
+
 
 });
 
@@ -168,60 +168,62 @@ app.post('/register', checkAuthenticated, async function (req, res) {
 
         let response = await helper.getRegisteredUser(username, peer, true);
 
-    
 
-    logger.debug('-- returned from registering the username %s for organization %s', username, peer);
-    if (response && typeof response !== 'string') {
-        logger.debug('Successfully registered the username %s for organization %s', username, peer);
-        // response.token = token;
-        // after req.body correspond to what we put in name=
-        try {
-            // create hash for password 10 is how long hash we generate
-            // await will return after wating for it
-            const hashedPassword = await bcrypt.hash(password, 10);
-            // now let's psuh these to users variable for store user's data
-            let _id =  Date.now().toString();
-            await users.push({
-                id: _id,
-                name: username,
-                email: email,
-                password: hashedPassword,
-                peer: peer,
-                subconID: subconID
-            });
-            // then redirect to login page
-            await fs.readFile('user/userData.json', 'utf-8', (err, data) => {
-                if (err) {
-                    throw err;
-                }
-            
-                var json = JSON.parse(data);
-                json.push({ "id": _id,
-                            "name": username,
-                            "email": email,
-                            "password": hashedPassword,
-                        "peer" : peer,
-                        "subconID": subconID});
-                console.log(json);
-            
-                fs.writeFile("user/userData.json", JSON.stringify(json), (err) => {
+
+        logger.debug('-- returned from registering the username %s for organization %s', username, peer);
+        if (response && typeof response !== 'string') {
+            logger.debug('Successfully registered the username %s for organization %s', username, peer);
+            // response.token = token;
+            // after req.body correspond to what we put in name=
+            try {
+                // create hash for password 10 is how long hash we generate
+                // await will return after wating for it
+                const hashedPassword = await bcrypt.hash(password, 10);
+                // now let's psuh these to users variable for store user's data
+                let _id = Date.now().toString();
+                await users.push({
+                    id: _id,
+                    name: username,
+                    email: email,
+                    password: hashedPassword,
+                    peer: peer,
+                    subconID: subconID
+                });
+                // then redirect to login page
+                await fs.readFile('user/userData.json', 'utf-8', (err, data) => {
+                    if (err) {
+                        throw err;
+                    }
+
+                    var json = JSON.parse(data);
+                    json.push({
+                        "id": _id,
+                        "name": username,
+                        "email": email,
+                        "password": hashedPassword,
+                        "peer": peer,
+                        "subconID": subconID
+                    });
+                    console.log(json);
+
+                    fs.writeFile("user/userData.json", JSON.stringify(json), (err) => {
                         if (err) {
                             throw err;
                         }
                         console.log("JSON data is saved.");
                     });
-            
-            });
-            res.redirect('/register?status=true')
-        } catch (e) {
-            res.redirect('/register?status=false')
-        }
+
+                });
+                res.redirect('/register?status=true')
+            } catch (e) {
+                res.redirect('/register?status=false')
+            }
             res.json(response);
-    } else {
-        logger.debug('Failed to register the username %s for organization %s with::%s', username, peer, response);
-        res.json({ success: false, message: response });
-    }
-        
+        } else {
+            logger.debug('Failed to register the username %s for organization %s with::%s', username, peer, response);
+            res.json({ success: false, message: response });
+        }
+
     } else if (peer === 'peer3') {
         var subconID = req.body.subconID;
         var truckid = req.body.truckid;
@@ -229,119 +231,123 @@ app.post('/register', checkAuthenticated, async function (req, res) {
 
         let response = await helper.getRegisteredUser(username, peer, true);
 
-    
 
-    logger.debug('-- returned from registering the username %s for organization %s', username, peer);
-    if (response && typeof response !== 'string') {
-        logger.debug('Successfully registered the username %s for organization %s', username, peer);
-        // response.token = token;
-        // after req.body correspond to what we put in name=
-        try {
-            // create hash for password 10 is how long hash we generate
-            // await will return after wating for it
-            const hashedPassword = await bcrypt.hash(password, 10);
-            // now let's psuh these to users variable for store user's data
-            let _id =  Date.now().toString();
-            await users.push({
-                id: _id,
-                name: username,
-                email: email,
-                password: hashedPassword,
-                peer: peer,
-                subconID: subconID,
-                truckid: newtruckid
-            });
-            // then redirect to login page
-            await fs.readFile('user/userData.json', 'utf-8', (err, data) => {
-                if (err) {
-                    throw err;
-                }
-            
-                var json = JSON.parse(data);
-                json.push({ "id": _id,
-                            "name": username,
-                            "email": email,
-                            "password": hashedPassword,
-                        "peer" : peer,
+
+        logger.debug('-- returned from registering the username %s for organization %s', username, peer);
+        if (response && typeof response !== 'string') {
+            logger.debug('Successfully registered the username %s for organization %s', username, peer);
+            // response.token = token;
+            // after req.body correspond to what we put in name=
+            try {
+                // create hash for password 10 is how long hash we generate
+                // await will return after wating for it
+                const hashedPassword = await bcrypt.hash(password, 10);
+                // now let's psuh these to users variable for store user's data
+                let _id = Date.now().toString();
+                await users.push({
+                    id: _id,
+                    name: username,
+                    email: email,
+                    password: hashedPassword,
+                    peer: peer,
+                    subconID: subconID,
+                    truckid: newtruckid
+                });
+                // then redirect to login page
+                await fs.readFile('user/userData.json', 'utf-8', (err, data) => {
+                    if (err) {
+                        throw err;
+                    }
+
+                    var json = JSON.parse(data);
+                    json.push({
+                        "id": _id,
+                        "name": username,
+                        "email": email,
+                        "password": hashedPassword,
+                        "peer": peer,
                         "subconID": subconID,
-                        "truckid": newtruckid});
-                console.log(json);
-            
-                fs.writeFile("user/userData.json", JSON.stringify(json), (err) => {
+                        "truckid": newtruckid
+                    });
+                    console.log(json);
+
+                    fs.writeFile("user/userData.json", JSON.stringify(json), (err) => {
                         if (err) {
                             throw err;
                         }
                         console.log("JSON data is saved.");
                     });
-            
-            });
-            res.redirect('/register?status=true')
-        } catch (e) {
-            res.redirect('/register?status=false')
-        }
+
+                });
+                res.redirect('/register?status=true')
+            } catch (e) {
+                res.redirect('/register?status=false')
+            }
             res.json(response);
-    } else {
-        logger.debug('Failed to register the username %s for organization %s with::%s', username, peer, response);
-        res.json({ success: false, message: response });
-    }
+        } else {
+            logger.debug('Failed to register the username %s for organization %s with::%s', username, peer, response);
+            res.json({ success: false, message: response });
+        }
 
     } else {
 
-    let response = await helper.getRegisteredUser(username, peer, true);
+        let response = await helper.getRegisteredUser(username, peer, true);
 
-    
 
-    logger.debug('-- returned from registering the username %s for organization %s', username, peer);
-    if (response && typeof response !== 'string') {
-        logger.debug('Successfully registered the username %s for organization %s', username, peer);
-        // response.token = token;
-        // after req.body correspond to what we put in name=
-        try {
-            // create hash for password 10 is how long hash we generate
-            // await will return after wating for it
-            const hashedPassword = await bcrypt.hash(password, 10);
-            // now let's psuh these to users variable for store user's data
-            let _id =  Date.now().toString();
-            await users.push({
-                id: _id,
-                name: username,
-                email: email,
-                password: hashedPassword,
-                peer: peer
-            });
-            // then redirect to login page
-            await fs.readFile('user/userData.json', 'utf-8', (err, data) => {
-                if (err) {
-                    throw err;
-                }
-            
-                var json = JSON.parse(data);
-                json.push({ "id": _id,
-                            "name": username,
-                            "email": email,
-                            "password": hashedPassword,
-                        "peer" : peer});
-                console.log(json);
-            
-                fs.writeFile("user/userData.json", JSON.stringify(json), (err) => {
+
+        logger.debug('-- returned from registering the username %s for organization %s', username, peer);
+        if (response && typeof response !== 'string') {
+            logger.debug('Successfully registered the username %s for organization %s', username, peer);
+            // response.token = token;
+            // after req.body correspond to what we put in name=
+            try {
+                // create hash for password 10 is how long hash we generate
+                // await will return after wating for it
+                const hashedPassword = await bcrypt.hash(password, 10);
+                // now let's psuh these to users variable for store user's data
+                let _id = Date.now().toString();
+                await users.push({
+                    id: _id,
+                    name: username,
+                    email: email,
+                    password: hashedPassword,
+                    peer: peer
+                });
+                // then redirect to login page
+                await fs.readFile('user/userData.json', 'utf-8', (err, data) => {
+                    if (err) {
+                        throw err;
+                    }
+
+                    var json = JSON.parse(data);
+                    json.push({
+                        "id": _id,
+                        "name": username,
+                        "email": email,
+                        "password": hashedPassword,
+                        "peer": peer
+                    });
+                    console.log(json);
+
+                    fs.writeFile("user/userData.json", JSON.stringify(json), (err) => {
                         if (err) {
                             throw err;
                         }
                         console.log("JSON data is saved.");
                     });
-            
-            });
-            res.redirect('/register?status=true')
-        } catch (e) {
-            res.redirect('/register?status=false')
-        }
-            res.json(response);
-    } else {
-        logger.debug('Failed to register the username %s for organization %s with::%s', username, peer, response);
-        res.json({ success: false, message: response });
-    }
 
-}
+                });
+                res.redirect('/register?status=true')
+            } catch (e) {
+                res.redirect('/register?status=false')
+            }
+            res.json(response);
+        } else {
+            logger.debug('Failed to register the username %s for organization %s with::%s', username, peer, response);
+            res.json({ success: false, message: response });
+        }
+
+    }
 
 });
 
@@ -377,20 +383,20 @@ app.get('/', checkAuthenticated, async (req, res) => {
             message = await query.query(channelName, 'transactioninfo', 'queryAllTransactions', name, peer);
             // check status
             message = await query.checkstatus(message, peer);
-            
 
-            res.render(__dirname + '/views/index.html', {data: message, name: req.user.name, peer: req.user.peer});
+
+            res.render(__dirname + '/views/index.html', { data: message, name: req.user.name, peer: req.user.peer });
         } else if (peer === "peer1") {
-            
+
             message = await query.query(channelName, 'transactioninfo', 'queryAllTransactions', name, peer);
             // check status
             message = await query.checkstatus(message, peer);
-            
-
-            
 
 
-            res.render(__dirname + '/views/index.html', {data: message, name: req.user.name, peer: req.user.peer});
+
+
+
+            res.render(__dirname + '/views/index.html', { data: message, name: req.user.name, peer: req.user.peer });
         } else if (peer === "peer2") {
             let result = [];
             let subconID = req.user.subconID;
@@ -400,20 +406,20 @@ app.get('/', checkAuthenticated, async (req, res) => {
             message = await query.queryworkpeer2(message, subconID);
             // check status
             message = await query.checkstatus(message, peer);
-            
-            res.render(__dirname + '/views/index.html', {data: message, name: req.user.name, peer: req.user.peer});
+
+            res.render(__dirname + '/views/index.html', { data: message, name: req.user.name, peer: req.user.peer });
         } else if (peer === "peer3") {
             res.redirect('/car_owner');
-            
+
         }
- 
-         console.log("result => ", message);
-        
+
+        console.log("result => ", message);
+
     } catch (err) {
         console.log('error = ', err);
     }
 
-    
+
 
 });
 
@@ -428,22 +434,22 @@ app.get('/car_owner', checkAuthenticated, async (req, res) => {
         // var chaincodeName = 'orderinfo'
         var peer = req.user.peer;
         var name = req.user.name;
-        
-        var truckid =  req.user.truckid;
+
+        var truckid = req.user.truckid;
         var transporter = req.user.subconID;
         // query all transaction
         message = await query.query(channelName, 'transactioninfo', 'queryAllTransactions', name, peer);
 
         // all work
         result = await query.queryallworktruck(message, truckid);
-        
+
         // current work
         current = await query.querycurrentworktruck(result);
 
         // work have to do work
         workHaveToDo = await query.queryallworkhavetodotruck(result);
 
-        res.render(__dirname + '/views/car_owner.html', {all: result, current: current, name: req.user.name, peer: req.user.peer, workHaveToDo: workHaveToDo});
+        res.render(__dirname + '/views/car_owner.html', { all: result, current: current, name: req.user.name, peer: req.user.peer, workHaveToDo: workHaveToDo });
 
 
     } catch (error) {
@@ -468,68 +474,68 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
         var args;
         if (fcn === "createTransaction") {
             args = [req.body.cargo_owner,
-                req.body.loading_point,
-                req.body.loading_date_time,
-                req.body.deliverygpoint,
-                req.body.delivery_date_time,
-                req.body.product_id,
-                req.body.quantity,
-                req.body.packing_dimension,
-                req.body.total_weight,
-                ];
+            req.body.loading_point,
+            req.body.loading_date_time,
+            req.body.deliverygpoint,
+            req.body.delivery_date_time,
+            req.body.product_id,
+            req.body.quantity,
+            req.body.packing_dimension,
+            req.body.total_weight,
+            ];
         } else if (fcn === "changeDataTransaction") {
             args = [req.body.transactionID,
-                req.body.cargoOwner,
-                req.body.loadingPoint,
-                req.body.loadingDateTime,
-                req.body.deliverygpoint,
-                req.body.deliverygDateTime,
-                req.body.productid,
-                req.body.quantity,
-                req.body.pakcingdim,
-                req.body.total_weight,
-                ];
+            req.body.cargoOwner,
+            req.body.loadingPoint,
+            req.body.loadingDateTime,
+            req.body.deliverygpoint,
+            req.body.deliverygDateTime,
+            req.body.productid,
+            req.body.quantity,
+            req.body.pakcingdim,
+            req.body.total_weight,
+            ];
         } else if (fcn === "deleteTransaction") {
             args = [req.body.transactionID];
         } else if (fcn === "createWorkInfo") {
             args = [req.body.transaction_order_info,
-                req.body.subconID,
-                ];
+            req.body.subconID,
+            ];
         } else if (fcn === "deleteWorkInfo") {
             args = [req.body.workID,
-                ];
+            ];
         } else if (fcn === "createJobAssignmentInfo") {
             args = [req.body.transaction_order_info,
-                req.body.work_truck_id,
-                ];
+            req.body.work_truck_id,
+            ];
         } else if (fcn === "deleteJobAssignmentInfo") {
             args = [req.body.myjobassignmentID,
-                ];
+            ];
         } else if (fcn === "createSubJobAssignment") {
             args = [req.body.transaction_order_info,
-                req.body.work_truck_id,
-                ];
+            req.body.work_truck_id,
+            ];
         } else if (fcn === "deleteSubJobAssignment") {
             args = [req.body.subjobassignmentID,
-                ];
+            ];
         } else if (fcn === "createLoadingInfo") {
             args = [req.body.transOrderInfo,
-                req.body.startmileageno,
-                req.body.loadingend,
-                ];
+            req.body.startmileageno,
+            req.body.loadingend,
+            ];
         } else if (fcn === "deleteLoadingInfo") {
             args = [req.body.loadingID,
-                ];
+            ];
         } else if (fcn === "createDeliveryInfo") {
             args = [req.body.transOrderInfo,
-                req.body.finishmileageno,
-                req.body.deliveryend,
-                ];
+            req.body.finishmileageno,
+            req.body.deliveryend,
+            ];
         } else if (fcn === "deleteDeliveryInfo") {
             args = [req.body.deliveryID,
-                ];
+            ];
         }
-            
+
 
 
         logger.debug('name  : ' + name);
@@ -555,8 +561,8 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
             return;
         }
 
-        let message = await invoke.invokeTransaction(channelName, chaincodeName, fcn, args, name, peer );
-        
+        let message = await invoke.invokeTransaction(channelName, chaincodeName, fcn, args, name, peer);
+
 
         const response_payload = {
             result: message,
@@ -566,29 +572,29 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
 
         // for redirect
         if (fcn === "createTransaction") {
-           if (message.result[0] === true) {
-            res.redirect('/transaction?status=' + message.result[0].toString());
-           } else {
-            res.redirect('/transaction?status=' + message.result.toString());
-           }
+            if (message.result[0] === true) {
+                res.redirect('/transaction?status=' + message.result[0].toString());
+            } else {
+                res.redirect('/transaction?status=' + message.result.toString());
+            }
         } else if (fcn === "createWorkInfo") {
             if (message.result[0] === true) {
                 res.redirect('/workorder_info?status=' + message.result[0].toString());
-               } else {
+            } else {
                 res.redirect('/workorder_info?status=' + message.result.toString());
-               }
+            }
         } else if (fcn === "createJobAssignmentInfo") {
             if (message.result[0] === true) {
                 res.redirect('/workorder_info?status=' + message.result[0].toString());
-               } else {
+            } else {
                 res.redirect('/workorder_info?status=' + message.result.toString());
-               }
+            }
         } else if (fcn === "createSubJobAssignment") {
             if (message.result[0] === true) {
                 res.redirect('/workorder_info?status=' + message.result[0].toString());
-               } else {
+            } else {
                 res.redirect('/workorder_info?status=' + message.result.toString());
-               }
+            }
         } else if (fcn === "createLoadingInfo") {
             res.redirect('/car_owner');
             // res.send(response_payload);
@@ -609,15 +615,22 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
 });
 
 
-app.get('/transaction', checkAuthenticated, async (req, res) => { 
+app.get('/transaction', checkAuthenticated, async (req, res) => {
     var status = "";
     if (req.query.status != undefined) {
         status = req.query.status;
         console.log("un");
     }
-    
+
     console.log(status);
-    res.render(__dirname + '/views/transaction.html', {status: status, name: req.user.name, peer: req.user.peer});
+    res.render(__dirname + '/views/transaction.html', { status: status, name: req.user.name, peer: req.user.peer });
+})
+
+app.get('/tracking', checkAuthenticated, async (req, res) => {
+    var key = req.query.key;
+    console.log(key);
+    var query_key = await query.querybyid("mychannel", "transactioninfo", "queryTransaction", key, req.user.peer)
+    res.render(__dirname + '/views/tracking.html', { key: query_key })
 })
 
 app.get('/workorder_info', checkAuthenticated, async (req, res) => {
@@ -656,18 +669,18 @@ app.get('/workorder_info', checkAuthenticated, async (req, res) => {
                     truckid.push(Data[index].truckid);
                 }
             }
-            
-            
+
+
         }
         console.log("data => ", Data);
         console.log("truckid => ", truckid);
-        res.render(__dirname + '/views/workorder_info.html', {key: key, status: status, truckid: truckid, name: req.user.name, peer: req.user.peer, workid: workid});
+        res.render(__dirname + '/views/workorder_info.html', { key: key, status: status, truckid: truckid, name: req.user.name, peer: req.user.peer, workid: workid });
     });
-    
+
     console.log("key => ", key);
-    
-    
-    
+
+
+
 })
 
 
@@ -711,7 +724,7 @@ app.get('/channels/:channelName/chaincodes/:chaincodeName', async function (req,
         }
         // res.send(response_payload);
         // res.render('index.html', {name: message})
-        res.render(__dirname + '/views/index.html', {name:response_payload});
+        res.render(__dirname + '/views/index.html', { name: response_payload });
         console.log(__dirname);
     } catch (error) {
         const response_payload = {
