@@ -1,0 +1,162 @@
+.main_content_body {
+    min-height: 100vh;
+    background: none;
+    box-shadow: none;
+}
+
+.tracking-left-side {
+    width: 400px;
+    background: white;
+    padding: 20px;
+    margin-right: 30px;
+    border-radius: 15px;
+}
+
+.tracking-right-side {
+    width: calc(100%);
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.tracking-car-detail {
+    display: flex;
+}
+
+.tracking-car-detail label {
+    min-width: 100px;
+}
+
+.tracking-wrapper {
+    display: flex;
+    margin-left: 20px;
+}
+
+.tracking-dots,
+.tracking-detail-wrap {
+    display: grid;
+    grid-template-rows: repeat(auto-fit, 150px);
+    justify-content: flex-start;
+}
+
+.tracking-dots {
+    margin-right: 30px;
+}
+
+.track-dot-wrap {
+    display: inline-block;
+    position: relative;
+    min-height: 150px;
+}
+
+.track-dot-wrap:not(:last-child)::after {
+    content: '';
+    height: 100%;
+    border-left: 1px dashed black;
+    display: block;
+    position: absolute;
+    right: 50%;
+    transform: translateX(-50%);
+}
+
+.track-dot {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid rgb(31, 168, 42);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: rgb(202, 189, 189);
+}
+
+.track-dot-wrap .track-dot::after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f00c";
+    background: transparent !important;
+    font-size: 30px;
+    color: #00b100;
+}
+
+.tracking-dots .track-dot-wrap.active .track-dot {
+    background: rgb(253, 242, 217);
+    border-color: rgb(230, 131, 2);
+}
+
+.tracking-dots .track-dot-wrap.active .track-dot::after {
+    font-family: "Font Awesome 5 Free";
+    content: "\f0d1";
+    font-size: 20px;
+    color: rgb(221, 99, 99);
+}
+
+.tracking-dots>.track-dot-wrap .track-dot {
+    background: rgb(215, 250, 201);
+}
+
+.tracking-dots .track-dot-wrap.active~.track-dot-wrap .track-dot::after {
+    font-family: "Font Awesome 5 Free";
+    content: "\f1da";
+    font-size: 20px;
+    color: rgba(105, 103, 103, 0.76);
+    font-size: 27px;
+}
+
+.tracking-dots .track-dot-wrap.active~.track-dot-wrap .track-dot {
+    background: rgb(255, 255, 255);
+    border-color: rgb(75, 75, 75);
+}
+
+.track-dot::after {
+    background: red;
+}
+
+.track-detail {
+    margin-left: 25px;
+}
+
+.track-detail .track-detail-head {
+    padding: 10px 15px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    position: relative;
+}
+
+.track-detail .track-detail-head::before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    display: block;
+    position: absolute;
+    background: white;
+    box-shadow: -3px -3px 3px -2px rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    left: 0;
+    top: 50%;
+    transform: rotate(-45deg) translateY(-50%);
+}
+
+@media screen and (max-width:795px) {
+    .main_content_body {
+        flex-direction: column;
+    }
+    .tracking-left-side {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width:459px) {
+    .main_content_body {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    .tracking-left-side,
+    .tracking-right-side {
+        margin: 10px 0;
+    }
+}
