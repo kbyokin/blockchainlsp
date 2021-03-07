@@ -423,6 +423,15 @@ app.get('/', checkAuthenticated, async (req, res) => {
 
 });
 
+app.get('/tracking', checkAuthenticated, async (req, res) => {
+    var key = req.query.key;
+
+    console.log(key);
+    var query_key = await query.querybyid("mychannel", "transactioninfo", "queryTransaction", req.user.name, key, req.user.peer)
+
+    res.render(__dirname + '/views/tracking.html', { key: query_key })
+})
+
 // car owner (peer3)
 app.get('/car_owner', checkAuthenticated, async (req, res) => {
     try {
@@ -626,12 +635,6 @@ app.get('/transaction', checkAuthenticated, async (req, res) => {
     res.render(__dirname + '/views/transaction.html', { status: status, name: req.user.name, peer: req.user.peer });
 })
 
-app.get('/tracking', checkAuthenticated, async (req, res) => {
-    var key = req.query.key;
-    console.log(key);
-    var query_key = await query.querybyid("mychannel", "transactioninfo", "queryTransaction", key, req.user.peer)
-    res.render(__dirname + '/views/tracking.html', { key: query_key })
-})
 
 app.get('/workorder_info', checkAuthenticated, async (req, res) => {
     var key = "";
