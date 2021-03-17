@@ -1,1 +1,1 @@
-./deployChaincode.sh: line 95: peer: command not found
+Installed chaincodes on peer:

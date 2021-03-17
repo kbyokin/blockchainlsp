@@ -6,15 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <!-- fontawesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
     <!-- style css -->
     <link rel="stylesheet" href="./assets/css/index.css">
     <link rel="stylesheet" href="./assets/css/side_navbar.css">
     <link rel="stylesheet" href="./assets/css/tracking.css">
     <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js"
+        integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -85,8 +89,9 @@
                 <hr>
                 <div class="tracking-wrapper">
 
-                    <div class="tracking-dots">
-                        <div class="track-dot-wrap" data-tracking="1">
+                    <!-- append information from api below -->
+                    <div class="tracking-dots" id="tracking_dot_left">
+                        <!-- <div class="track-dot-wrap" data-tracking="1">
                             <span class="track-dot"></span>
                         </div>
                         <div class="track-dot-wrap active" data-tracking="2">
@@ -98,12 +103,14 @@
                         <div class="track-dot-wrap " data-tracking="4">
                             <span class="track-dot"></span>
                         </div>
-                        <div class="track-dot-wrap" data-tracking="5">
+                        <div class="track-dot-wrap " data-tracking="5">
                             <span class="track-dot"></span>
-                        </div>
+                        </div> -->
                     </div>
-                    <div class="tracking-detail-wrap">
-                        <div class="tracking-detail" data-tracking="1">
+
+                    <!-- append information from api below -->
+                    <div class="tracking-detail-wrap" id="tracking_detail_right">
+                        <!-- <div class="tracking-detail" data-tracking="1">
                             <div class="tracking-detail-header">
                                 <b>Delivered</b>
                             </div>
@@ -158,7 +165,7 @@
                                 6/3/2564 10.30น.
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- <div class="track-detail">
                     <div class="track-detail-head">ปลายทางรับพัสดุ</div>
@@ -174,12 +181,251 @@
 
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#transaction_table').DataTable();
-        $(document).on('click', '.table_row_link', function() {
-            var url = $(this).data('link');
-            window.location.href = url;
-        })
+    $(document).ready(function () {
+        var data = <% -JSON.stringify(key) %>;
+        console.log(data);
+
+        if (key.deliveryTime = ! null) {
+            // show all 5 rows
+            $('#tracking_dot_side').append(`
+                <div class="track-dot-wrap" data-tracking="1">
+                    <span class="track-dot"></span>
+                </div>
+                <div class="track-dot-wrap active" data-tracking="2">
+                    <span class="track-dot"></span>
+                </div>
+                <div class="track-dot-wrap" data-tracking="3">
+                    <span class="track-dot"></span>
+                </div>
+                <div class="track-dot-wrap " data-tracking="4">
+                    <span class="track-dot"></span>
+                </div>
+                <div class="track-dot-wrap" data-tracking="5">
+                    <span class="track-dot"></span>
+                </div>
+            `)
+            $('#tracking_detail_right').append(`
+                <div class="tracking-detail" data-tracking="1">
+                    <div class="tracking-detail-header">
+                        <b>Delivered</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.deliveryTime}
+                    </div>
+                </div>
+                <div class="tracking-detail" data-tracking="2">
+                    <div class="tracking-detail-header">
+                        <b>Shipping</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.shippingTime}
+                    </div>
+                </div>
+                <div class="tracking-detail" data-tracking="3">
+                    <div class="tracking-detail-header">
+                        <b>Loading</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.loadingTime}
+                    </div>
+                </div>
+                <div class="tracking-detail" data-tracking="4">
+                    <div class="tracking-detail-header">
+                        <b>Assign transaction to ..</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.assignTime}
+                    </div>
+                </div>
+                <div class="tracking-detail" data-tracking="5">
+                    <div class="tracking-detail-header">
+                        <b>Transaction created</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.transTime}
+                    </div>
+                </div>
+            `)
+        } else if (key.shippingTime != null) {
+            // show only 4 rows
+            $('#tracking_dot_side').append(`
+                <div class="track-dot-wrap active" data-tracking="2">
+                    <span class="track-dot"></span>
+                </div>
+                <div class="track-dot-wrap" data-tracking="3">
+                    <span class="track-dot"></span>
+                </div>
+                <div class="track-dot-wrap " data-tracking="4">
+                    <span class="track-dot"></span>
+                </div>
+                <div class="track-dot-wrap" data-tracking="5">
+                    <span class="track-dot"></span>
+                </div>
+            `)
+            $('#tracking_detail_right').append(`
+                <div class="tracking-detail" data-tracking="2">
+                    <div class="tracking-detail-header">
+                        <b>Shipping</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.shippingTime}
+                    </div>
+                </div>
+                <div class="tracking-detail" data-tracking="3">
+                    <div class="tracking-detail-header">
+                        <b>Loading</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.loadingTime}
+                    </div>
+                </div>
+                <div class="tracking-detail" data-tracking="4">
+                    <div class="tracking-detail-header">
+                        <b>Assign transaction to ..</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.assignTime}
+                    </div>
+                </div>
+                <div class="tracking-detail" data-tracking="5">
+                    <div class="tracking-detail-header">
+                        <b>Transaction created</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.transTime}
+                    </div>
+                </div>
+            `)
+        } else if (key.loadingTime != null) {
+            // show only 3 rows
+            $('#tracking_dot_side').append(`
+                <div class="track-dot-wrap" data-tracking="3">
+                    <span class="track-dot"></span>
+                </div>
+                <div class="track-dot-wrap " data-tracking="4">
+                    <span class="track-dot"></span>
+                </div>
+                <div class="track-dot-wrap" data-tracking="5">
+                    <span class="track-dot"></span>
+                </div>
+            `)
+            $('#tracking_detail_right').append(`
+                <div class="tracking-detail" data-tracking="3">
+                    <div class="tracking-detail-header">
+                        <b>Loading</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.loadingTime}
+                    </div>
+                </div>
+                <div class="tracking-detail" data-tracking="4">
+                    <div class="tracking-detail-header">
+                        <b>Assign transaction to ..</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.assignTime}
+                    </div>
+                </div>
+                <div class="tracking-detail" data-tracking="5">
+                    <div class="tracking-detail-header">
+                        <b>Transaction created</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.transTime}
+                    </div>
+                </div>
+            `)
+        } else if (key.assignTime != null) {
+            // show only 2 rows
+            $('#tracking_dot_side').append(`
+                <div class="track-dot-wrap " data-tracking="4">
+                    <span class="track-dot"></span>
+                </div>
+                <div class="track-dot-wrap" data-tracking="5">
+                    <span class="track-dot"></span>
+                </div>
+            `)
+            $('#tracking_detail_right').append(`
+                <div class="tracking-detail" data-tracking="4">
+                    <div class="tracking-detail-header">
+                        <b>Assign transaction to ..</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.assignTime}
+                    </div>
+                </div>
+                <div class="tracking-detail" data-tracking="5">
+                    <div class="tracking-detail-header">
+                        <b>Transaction created</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.transTime}
+                    </div>
+                </div>
+            `)
+        } else {
+            // show only 1 row
+            $('#tracking_dot_side').append(`
+                <div class="track-dot-wrap" data-tracking="5">
+                    <span class="track-dot"></span>
+                </div>
+            `)
+            $('#tracking_detail_right').append(`
+                <div class="tracking-detail" data-tracking="5">
+                    <div class="tracking-detail-header">
+                        <b>Transaction created</b>
+                    </div>
+                    <div class="tracking-detail-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                    </div>
+                    <div class="tracking-detail-time">
+                        ${key.transTime}
+                    </div>
+                </div>
+            `)
+        }
     })
 </script>
 
