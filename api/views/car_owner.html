@@ -183,111 +183,14 @@
 <script src="./assets/js/global.js"></script>
 <script>
     // get currnt work
-    var result = <%-JSON.stringify(current)%>; 
+    var result = <%-JSON.stringify(result)%>; 
+    console.log(result);
     var peer = <%-JSON.stringify(peer)%>;
+    console.log(peer);
+    var keyTrans = <%-JSON.stringify(key)%>;
 
     $(document).ready(function(){
 
-        if (Object.keys(result).length === 0) {
-            $('#noti').html('<h2>ไม่มีงาน</h2>')
-        } else {
-            // click open confirm modal================================
-        $(document).on('click','.car_owner_btn',function(e){
-            var inputValue = $(this).parents('form').children().eq(0).children();
-            console.log(inputValue.val())
-            if(inputValue.val() == ''){
-                return
-            }
-            e.preventDefault()
-            var form = $(this).parents('form');
-            var miles = $(inputValue).val()
-            $('#carOwner-modal-body').html(`<p>Please confirm <h3 style="color:red;">${miles} miles</h3> is correct?</p>`)
-            $('#carOwner-modal-title').html('Confirm Value')
-            $('#carOwner-modal').modal('show');
-            $('#confirm_form').on('click',function(){
-                form.submit();
-            })
-        })
-        // result car owner=========================================
-          // คอมเม้นออกเมื่อใช้จริง***************************************
-        // คอมเม้นเมื่อใช้จริง อันนี้ไว้ทดสอบ*******************************
-        // var result = [{"Key": "as54d5as4d",
-        // "Record": {
-        //         "cargoOwner" : "John Doe",
-        //         "loadingPoint" : "Bangkok", 
-        //         "loadingDateTime" : "12-1-2012", 
-        //         "deliveryPoint" : "Hatyai",
-        //         "deliveryDateTime" : "13-1-2012", 
-        //         "productID" : "521as5d15", 
-        //         "quantity" : "10", 
-        //         "packingDim" : "11", 
-        //         "totalWeight" : "13",
-        //         "startmileageno" : "1230",
-        //         "loadingend" : "true",
-        //         "finishmileageno" : "55",
-        //         "deliveryend" : "false",
-        //         "jobassigninfo" : "JOBxxxxxxxxxx"
-
-        //     }
-        // }]
-        console.log(result); 
-
-        
-        //loading
-            $('#details_load').html(` <input type="hidden" name="transOrderInfo" id="transOrderInfo" value="${result.Key}">
-            <input type="hidden" name="loadingend" id="loadingend" value="true">
-            `);
-
-        // delivery
-            $('#details_delivery').html(` <input type="hidden" name="transOrderInfo" id="transOrderInfo" value="${result.Key}">
-            <input type="hidden" name="deliveryend" id="deliveryend" value="true">
-            `);
-            $('#car_owner_information_table_body').html(`  <tr>
-                                    <th class="car_owner_information_header">Job ID:</th>
-                                    <td><input type="text" name="" value="${result.Key}" class="form-control" disabled></td>
-                                </tr>
-                                <tr>
-                                    <th class="car_owner_information_header">Loading Place:</th>
-                                    <td><input type="text" name="" value="${result.Record.orderinfo.loadingPoint}" class="form-control" disabled></td>
-                                </tr>
-                                <tr>
-                                    <th class="car_owner_information_header">Delivery Place:</th>
-                                    <td><input type="text" name="" value="${result.Record.orderinfo.deliveryPoint}" class="form-control" disabled></td>
-                                </tr>
-                                <tr>
-                                    <th class="car_owner_information_header">Quantity:</th>
-                                    <td><input type="text" name="" value="${result.Record.orderinfo.quantity}" class="form-control" disabled></td>
-                                </tr>
-                                <tr>
-                                    <th class="car_owner_information_header">PackingDim:</th>
-                                    <td><input type="text" name="" value="${result.Record.orderinfo.packingDim}" class="form-control" disabled></td>
-                                </tr>
-                                <tr>
-                                    <th class="car_owner_information_header">Total Weight:</th>
-                                    <td><input type="text" name="" value="${result.Record.orderinfo.totalWeight}" class="form-control" disabled></td>
-                                </tr>`)
-            var loadingTime = result.Record.orderinfo.loadingDateTime?result.Record.orderinfo.loadingDateTime:'Wait For Loading Time';
-            var deliveryTime = result.Record.orderinfo.deliveryDateTime?result.Record.orderinfo.deliveryDateTime:'Wait For Delivery Time';
-            $('#loading_time_').html(loadingTime);
-            $('#delivery_time_').html(deliveryTime);
-            if(result.Record.loadinginfo.loadingend == "true"){
-                $('#car_owner_loading_section').addClass('section_close');
-                $('#car_owner_delivery_section').removeClass('section_close')
-                $('#startmileageno_input').attr('disabled',true).val(result.Record.loadinginfo.startmileageno);
-                $('#startmileageno_btn').attr('disabled',true).val('Loading Success')
-                $('#finishmileageno_input').removeAttr('disabled').attr('placeholder','Key ending mileage numver');
-                $('#finishmileageno_btn').removeAttr('disabled').val('Finish');
-            }
-            if(result.Record.loadinginfo.loadingend == "true" && result.Record.deliveryinfo.deliveryend == "true"){
-                $('#finishmileageno_input').val(result.Record.deliveryinfo.finishmileageno).attr('disabled',true)
-                $('#car_owner_delivery_section').addClass('section_close');
-                $('#finishmileageno_btn').attr('disabled',true).val('Finish Success');
-
-                
-            }
-        }
-
-        
         // sidebar
         if (peer == "peer0") {
             $('#sidebarmenu').html(`
@@ -364,6 +267,108 @@
             </form>
             `);
         }
+        
+
+        if (Object.keys(result).length === 0) {
+            $('#noti').html('<h2>ไม่มีงาน</h2>')
+        } else {
+            // click open confirm modal================================
+        $(document).on('click','.car_owner_btn',function(e){
+            var inputValue = $(this).parents('form').children().eq(0).children();
+            console.log(inputValue.val())
+            if(inputValue.val() == ''){
+                return
+            }
+            e.preventDefault()
+            var form = $(this).parents('form');
+            var miles = $(inputValue).val()
+            $('#carOwner-modal-body').html(`<p>Please confirm <h3 style="color:red;">${miles} miles</h3> is correct?</p>`)
+            $('#carOwner-modal-title').html('Confirm Value')
+            $('#carOwner-modal').modal('show');
+            $('#confirm_form').on('click',function(){
+                form.submit();
+            })
+        })
+        // result car owner=========================================
+          // คอมเม้นออกเมื่อใช้จริง***************************************
+        // คอมเม้นเมื่อใช้จริง อันนี้ไว้ทดสอบ*******************************
+        // var result = [{"Key": "as54d5as4d",
+        // "Record": {
+        //         "cargoOwner" : "John Doe",
+        //         "loadingPoint" : "Bangkok", 
+        //         "loadingDateTime" : "12-1-2012", 
+        //         "deliveryPoint" : "Hatyai",
+        //         "deliveryDateTime" : "13-1-2012", 
+        //         "productID" : "521as5d15", 
+        //         "quantity" : "10", 
+        //         "packingDim" : "11", 
+        //         "totalWeight" : "13",
+        //         "startmileageno" : "1230",
+        //         "loadingend" : "true",
+        //         "finishmileageno" : "55",
+        //         "deliveryend" : "false",
+        //         "jobassigninfo" : "JOBxxxxxxxxxx"
+
+        //     }
+        // }]
+
+        
+        //loading
+            $('#details_load').html(` <input type="hidden" name="transOrderInfo" id="transOrderInfo" value="${keyTrans}">
+            <input type="hidden" name="loadingend" id="loadingend" value="true">
+            `);
+
+        // delivery
+            $('#details_delivery').html(` <input type="hidden" name="transOrderInfo" id="transOrderInfo" value="${keyTrans}">
+            <input type="hidden" name="deliveryend" id="deliveryend" value="true">
+            `);
+            $('#car_owner_information_table_body').html(`  <tr>
+                                    <th class="car_owner_information_header">Job ID:</th>
+                                    <td><input type="text" name="" value="${keyTrans}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">Loading Place:</th>
+                                    <td><input type="text" name="" value="${result.orderinfo.loadingPoint}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">Delivery Place:</th>
+                                    <td><input type="text" name="" value="${result.orderinfo.deliveryPoint}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">Quantity:</th>
+                                    <td><input type="text" name="" value="${result.orderinfo.quantity}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">PackingDim:</th>
+                                    <td><input type="text" name="" value="${result.orderinfo.packingDim}" class="form-control" disabled></td>
+                                </tr>
+                                <tr>
+                                    <th class="car_owner_information_header">Total Weight:</th>
+                                    <td><input type="text" name="" value="${result.orderinfo.totalWeight}" class="form-control" disabled></td>
+                                </tr>`)
+            var loadingTime = result.orderinfo.loadingDateTime?result.orderinfo.loadingDateTime:'Wait For Loading Time';
+            var deliveryTime = result.orderinfo.deliveryDateTime?result.orderinfo.deliveryDateTime:'Wait For Delivery Time';
+            $('#loading_time_').html(loadingTime);
+            $('#delivery_time_').html(deliveryTime);
+            if(result.loadinginfo.loadingend == "true"){
+                $('#car_owner_loading_section').addClass('section_close');
+                $('#car_owner_delivery_section').removeClass('section_close')
+                $('#startmileageno_input').attr('disabled',true).val(result.loadinginfo.startmileageno);
+                $('#startmileageno_btn').attr('disabled',true).val('Loading Success')
+                $('#finishmileageno_input').removeAttr('disabled').attr('placeholder','Key ending mileage numver');
+                $('#finishmileageno_btn').removeAttr('disabled').val('Finish');
+            }
+            if(result.loadinginfo.loadingend == "true" && result.deliveryinfo.deliveryend == "true"){
+                $('#finishmileageno_input').val(result.deliveryinfo.finishmileageno).attr('disabled',true)
+                $('#car_owner_delivery_section').addClass('section_close');
+                $('#finishmileageno_btn').attr('disabled',true).val('Finish Success');
+
+                
+            }
+        }
+
+        
+        
         
     })
 </script>

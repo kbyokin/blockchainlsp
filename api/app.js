@@ -409,7 +409,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
 
             res.render(__dirname + '/views/index.html', { data: message, name: req.user.name, peer: req.user.peer });
         } else if (peer === "peer3") {
-            res.redirect('/car_owner');
+            res.redirect('/allcar_owner');
 
         }
 
@@ -432,8 +432,8 @@ app.get('/tracking', checkAuthenticated, async (req, res) => {
     res.render(__dirname + '/views/tracking.html', { key: query_key })
 })
 
-// car owner (peer3)
-app.get('/car_owner', checkAuthenticated, async (req, res) => {
+// all car owner (peer3)
+app.get('/allcar_owner', checkAuthenticated, async (req, res) => {
     try {
         var message;
         var result = [];
@@ -458,7 +458,30 @@ app.get('/car_owner', checkAuthenticated, async (req, res) => {
         // work have to do work
         workHaveToDo = await query.queryallworkhavetodotruck(result);
 
-        res.render(__dirname + '/views/car_owner.html', { all: result, current: current, name: req.user.name, peer: req.user.peer, workHaveToDo: workHaveToDo });
+        // add status
+        workHaveToDo = await query.checkstatus(workHaveToDo, peer);
+
+
+        res.render(__dirname + '/views/allcar_owner.html', { all: result, current: current, name: req.user.name, peer: req.user.peer, workHaveToDo: workHaveToDo });
+
+
+    } catch (error) {
+        console.log('error = ', error);
+    }
+});
+
+
+// car owner (peer3)
+app.get('/car_owner', checkAuthenticated, async (req, res) => {
+    try {
+        var peer = req.user.peer;
+        var result;
+        var key = req.query.key;
+
+        result = await query.querybyid("mychannel", "transactioninfo", "queryTransaction", req.user.name, key, req.user.peer)
+
+
+        res.render(__dirname + '/views/car_owner.html', { result: result, peer: peer, key: key });
 
 
     } catch (error) {
@@ -605,10 +628,10 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName/fcn/:_fcn', async fun
                 res.redirect('/workorder_info?status=' + message.result.toString());
             }
         } else if (fcn === "createLoadingInfo") {
-            res.redirect('/car_owner');
+            res.redirect('/allcar_owner');
             // res.send(response_payload);
         } else if (fcn === "createDeliveryInfo") {
-            res.redirect('/car_owner');
+            res.redirect('/allcar_owner');
             // res.send(response_payload);
         }
 

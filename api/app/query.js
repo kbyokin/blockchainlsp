@@ -145,6 +145,16 @@ const checkstatus = async (message, peer) => {
                 message[index].status = 'none';
             }
         }
+    } else if (peer == "peer3") {
+        for (let index = 0; index < message.length; index++) {
+            if (typeof(message[index].Record.deliveryinfo) != "undefined") {
+                message[index].status = 'delivery';
+            } else if (typeof(message[index].Record.loadinginfo) != "undefined"){
+                message[index].status = 'loading';
+            } else {
+                message[index].status = 'none';
+            }
+        }
     } else {
         for (let index = 0; index < message.length; index++) {
             if (typeof(message[index].Record.deliveryinfo) != "undefined") {
