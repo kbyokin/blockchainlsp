@@ -91,42 +91,25 @@
 
                     <!-- append information from api below -->
                     <div class="tracking-dots" id="tracking_dot_left">
-                        <!-- <div class="track-dot-wrap" data-tracking="1">
-                            <span class="track-dot"></span>
-                        </div>
-                        <div class="track-dot-wrap active" data-tracking="2">
+                        <div class="track-dot-wrap" data-tracking="4">
                             <span class="track-dot"></span>
                         </div>
                         <div class="track-dot-wrap" data-tracking="3">
                             <span class="track-dot"></span>
                         </div>
-                        <div class="track-dot-wrap " data-tracking="4">
+                        <div class="track-dot-wrap" data-tracking="2">
                             <span class="track-dot"></span>
                         </div>
-                        <div class="track-dot-wrap " data-tracking="5">
+                        <div class="track-dot-wrap " data-tracking="1">
                             <span class="track-dot"></span>
-                        </div> -->
+                        </div>
                     </div>
 
                     <!-- append information from api below -->
                     <div class="tracking-detail-wrap" id="tracking_detail_right">
-                        <!-- <div class="tracking-detail" data-tracking="1">
+                        <div class="tracking-detail" data-tracking="4">
                             <div class="tracking-detail-header">
                                 <b>Delivered</b>
-                            </div>
-                            <div class="tracking-detail-body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                            </div>
-                            <div class="tracking-detail-time">
-                                6/3/2564 10.30น.
-                            </div>
-                        </div>
-                        <div class="tracking-detail" data-tracking="2">
-                            <div class="tracking-detail-header">
-                                <b>Shipping</b>
-                            </div>
-                            <div class="tracking-detail-body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
                             </div>
                             <div class="tracking-detail-time">
                                 6/3/2564 10.30น.
@@ -136,36 +119,27 @@
                             <div class="tracking-detail-header">
                                 <b>Loading</b>
                             </div>
-                            <div class="tracking-detail-body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                            </div>
                             <div class="tracking-detail-time">
                                 6/3/2564 10.30น.
                             </div>
                         </div>
-                        <div class="tracking-detail" data-tracking="4">
+                        <div class="tracking-detail" data-tracking="2">
                             <div class="tracking-detail-header">
-                                <b>Assign transaction to ..</b>
-                            </div>
-                            <div class="tracking-detail-body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
+                                <b>Assign transaction to </b>
                             </div>
                             <div class="tracking-detail-time">
                                 6/3/2564 10.30น.
                             </div>
                         </div>
-                        <div class="tracking-detail" data-tracking="5">
+                        <div class="tracking-detail" data-tracking="1">
                             <div class="tracking-detail-header">
                                 <b>Transaction created</b>
                             </div>
-                            <div class="tracking-detail-body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                            </div>
                             <div class="tracking-detail-time">
                                 6/3/2564 10.30น.
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
                 <!-- <div class="track-detail">
                     <div class="track-detail-head">ปลายทางรับพัสดุ</div>
@@ -182,249 +156,104 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
 <script>
     $(document).ready(function () {
-        var data = <% -JSON.stringify(key) %>;
-        console.log(data);
+        // ข้อมูลจำลอง--------------------------------------------------
+        var result = {
+            "Key": "TRAN0001",
+            "Record": {
+                "orderinfo": {
+                    "cargoOwner": "plume",
+                    "deliveryDateTime": "",
+                    "deliveryPoint": "",
+                    "loadingDateTime": "",
+                    "loadingPoint": "",
+                    "packingDim": "",
+                    "productID": "",
+                    "quantity": "",
+                    "timeSave": 1615037608988,
+                    "totalWeight": ""
+                },
+                // "myjobassignment": {
+                //     "timeSave": 1615037773088,
+                //     "truckID": "001"
+                // },
+                "subjobassignment": {
+                    "truckID": "0001SUB015",
+                    "timeSave": 1615037608988,
+                },
+                "workinfo": {
+                    "subcontractID": "0001",
+                    "timeSave": 1615037608988,
+                },
+                "loadinginfo": {
+                    "loadingend": "true",
+                    "startmileageno": "100",
+                    "timeSave": 1615038104639
+                },
+                // "deliveryinfo": {
+                //     "deliveryend": "true",
+                //     "finishmileageno": "101",
+                //     "timeSave": 1615038112650
+                // },
+            }
+        }
 
-        if (key.deliveryTime = ! null) {
-            // show all 5 rows
-            $('#tracking_dot_side').append(`
-                <div class="track-dot-wrap" data-tracking="1">
-                    <span class="track-dot"></span>
-                </div>
-                <div class="track-dot-wrap active" data-tracking="2">
-                    <span class="track-dot"></span>
-                </div>
-                <div class="track-dot-wrap" data-tracking="3">
-                    <span class="track-dot"></span>
-                </div>
-                <div class="track-dot-wrap " data-tracking="4">
-                    <span class="track-dot"></span>
-                </div>
-                <div class="track-dot-wrap" data-tracking="5">
-                    <span class="track-dot"></span>
-                </div>
-            `)
-            $('#tracking_detail_right').append(`
-                <div class="tracking-detail" data-tracking="1">
-                    <div class="tracking-detail-header">
-                        <b>Delivered</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.deliveryTime}
-                    </div>
-                </div>
-                <div class="tracking-detail" data-tracking="2">
-                    <div class="tracking-detail-header">
-                        <b>Shipping</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.shippingTime}
-                    </div>
-                </div>
-                <div class="tracking-detail" data-tracking="3">
-                    <div class="tracking-detail-header">
-                        <b>Loading</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.loadingTime}
-                    </div>
-                </div>
-                <div class="tracking-detail" data-tracking="4">
-                    <div class="tracking-detail-header">
-                        <b>Assign transaction to ..</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.assignTime}
-                    </div>
-                </div>
-                <div class="tracking-detail" data-tracking="5">
-                    <div class="tracking-detail-header">
-                        <b>Transaction created</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.transTime}
-                    </div>
-                </div>
-            `)
-        } else if (key.shippingTime != null) {
-            // show only 4 rows
-            $('#tracking_dot_side').append(`
-                <div class="track-dot-wrap active" data-tracking="2">
-                    <span class="track-dot"></span>
-                </div>
-                <div class="track-dot-wrap" data-tracking="3">
-                    <span class="track-dot"></span>
-                </div>
-                <div class="track-dot-wrap " data-tracking="4">
-                    <span class="track-dot"></span>
-                </div>
-                <div class="track-dot-wrap" data-tracking="5">
-                    <span class="track-dot"></span>
-                </div>
-            `)
-            $('#tracking_detail_right').append(`
-                <div class="tracking-detail" data-tracking="2">
-                    <div class="tracking-detail-header">
-                        <b>Shipping</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.shippingTime}
-                    </div>
-                </div>
-                <div class="tracking-detail" data-tracking="3">
-                    <div class="tracking-detail-header">
-                        <b>Loading</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.loadingTime}
-                    </div>
-                </div>
-                <div class="tracking-detail" data-tracking="4">
-                    <div class="tracking-detail-header">
-                        <b>Assign transaction to ..</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.assignTime}
-                    </div>
-                </div>
-                <div class="tracking-detail" data-tracking="5">
-                    <div class="tracking-detail-header">
-                        <b>Transaction created</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.transTime}
-                    </div>
-                </div>
-            `)
-        } else if (key.loadingTime != null) {
-            // show only 3 rows
-            $('#tracking_dot_side').append(`
-                <div class="track-dot-wrap" data-tracking="3">
-                    <span class="track-dot"></span>
-                </div>
-                <div class="track-dot-wrap " data-tracking="4">
-                    <span class="track-dot"></span>
-                </div>
-                <div class="track-dot-wrap" data-tracking="5">
-                    <span class="track-dot"></span>
-                </div>
-            `)
-            $('#tracking_detail_right').append(`
-                <div class="tracking-detail" data-tracking="3">
-                    <div class="tracking-detail-header">
-                        <b>Loading</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.loadingTime}
-                    </div>
-                </div>
-                <div class="tracking-detail" data-tracking="4">
-                    <div class="tracking-detail-header">
-                        <b>Assign transaction to ..</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.assignTime}
-                    </div>
-                </div>
-                <div class="tracking-detail" data-tracking="5">
-                    <div class="tracking-detail-header">
-                        <b>Transaction created</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.transTime}
-                    </div>
-                </div>
-            `)
-        } else if (key.assignTime != null) {
-            // show only 2 rows
-            $('#tracking_dot_side').append(`
-                <div class="track-dot-wrap " data-tracking="4">
-                    <span class="track-dot"></span>
-                </div>
-                <div class="track-dot-wrap" data-tracking="5">
-                    <span class="track-dot"></span>
-                </div>
-            `)
-            $('#tracking_detail_right').append(`
-                <div class="tracking-detail" data-tracking="4">
-                    <div class="tracking-detail-header">
-                        <b>Assign transaction to ..</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.assignTime}
-                    </div>
-                </div>
-                <div class="tracking-detail" data-tracking="5">
-                    <div class="tracking-detail-header">
-                        <b>Transaction created</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.transTime}
-                    </div>
-                </div>
-            `)
-        } else {
-            // show only 1 row
-            $('#tracking_dot_side').append(`
-                <div class="track-dot-wrap" data-tracking="5">
-                    <span class="track-dot"></span>
-                </div>
-            `)
-            $('#tracking_detail_right').append(`
-                <div class="tracking-detail" data-tracking="5">
-                    <div class="tracking-detail-header">
-                        <b>Transaction created</b>
-                    </div>
-                    <div class="tracking-detail-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, nihil!
-                    </div>
-                    <div class="tracking-detail-time">
-                        ${key.transTime}
-                    </div>
-                </div>
-            `)
+        var result = <%-JSON.stringify(result)%>;
+
+        // เช็คว่ามีข้อมูลในฐานข้อมูลไหม เพื่อเก็บค่า data-tracking
+        if (typeof (result.Record.orderinfo) !== 'undefined') {
+            dataTracking = 1
+        }
+        if (typeof (result.Record.myjobassignment) !== 'undefined' || result.Record.subjobassignment !== 'undefined') {
+            dataTracking = 2
+        }
+        // if (typeof (result.Record.subjobassignment) != 'undefined') {
+        //     dataTracking = 3
+        // }
+        if (typeof (result.Record.loadinginfo) !== 'undefined' || typeof (result.Record.workinfo) !== 'undefined') {
+            dataTracking = 3
+        }
+        if (typeof (result.Record.deliveryinfo) !== 'undefined') {
+            dataTracking = 4
+        }
+        // เปลี่ยน display เป็น none-------------------------
+        // **** แนะนำว่าย้ายไปใน css ดีกว่า เป็น .tracking-detail,.track-dot-wrap{display:none;}  *****
+        $('.tracking-detail').css('display', 'none');
+        $('.track-dot-wrap').css('display', 'none');
+        // เปลี่ยน display เป็น block ของ tracking dot และ tracking detail หากมีค่า data-tracking--------------------
+        for (var i = 0; i < dataTracking + 1; i++) {
+            $(`.tracking-detail[data-tracking="${i}"]`).css('display', 'block');
+            $(`.track-dot-wrap[data-tracking="${i}"]`).css('display', 'block');
+        }
+        // เขียนข้อมูลในแต่ละ div ----------------------------------------------------------
+        if (typeof (result.Record.orderinfo) !== 'undefined') {
+            $(`.tracking-detail .tracking-detail-time`).eq(3).html(getDateTime(result.Record.orderinfo.timeSave))
+        }
+        if (typeof (result.Record.myjobassignment) !== 'undefined') {
+            $(`.tracking-detail .tracking-detail-header b`).eq(2).append('TRUCK ID : ' + result.Record.myjobassignment.truckID)
+            $(`.tracking-detail .tracking-detail-time`).eq(2).html(getDateTime(result.Record.myjobassignment.timeSave))
+        }
+        if (typeof (result.Record.subjobassignment) != 'undefined') {
+            $(`.tracking-detail .tracking-detail-header b`).eq(2).append('TRUCK ID : ' + result.Record.subjobassignment.truckID)
+            $(`.tracking-detail .tracking-detail-time`).eq(2).html(getDateTime(result.Record.subjobassignment.timeSave))
+        }
+        if (typeof (result.Record.loadinginfo) !== 'undefined') {
+            $(`.tracking-detail .tracking-detail-time`).eq(1).html(getDateTime(result.Record.loadinginfo.timeSave))
+        }
+        if (typeof (result.Record.deliveryinfo) !== 'undefined') {
+            $(`.tracking-detail .tracking-detail-time`).eq(0).html(getDateTime(result.Record.deliveryinfo.timeSave))
+        }
+        // function format date time------------------------------------------------------
+        function getDateTime(time) {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            var date = new Date(time);
+            var day = date.getDay();
+            var dayName = String(date).split(' ')[0];
+            var month = date.getMonth();
+            var year = date.getFullYear();
+            var time = String(date).split(' ')[4].slice(0, 5)
+            return (`${dayName} ${day} ${monthNames[month]} ${year} ${time}`);
         }
     })
 </script>

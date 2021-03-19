@@ -429,7 +429,7 @@ app.get('/tracking', checkAuthenticated, async (req, res) => {
     console.log(key);
     var query_key = await query.querybyid("mychannel", "transactioninfo", "queryTransaction", req.user.name, key, req.user.peer)
 
-    res.render(__dirname + '/views/tracking.html', { key: query_key })
+    res.render(__dirname + '/views/tracking.html', { result: query_key })
 })
 
 // all car owner (peer3)
