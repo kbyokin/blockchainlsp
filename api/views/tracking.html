@@ -27,30 +27,30 @@
         <div class="sidebar_burger">
             <i class="fas fa-arrow-alt-circle-left"></i>close
         </div>
-        <div class="sidebar_wrapper">
-            <div class="sidebar_header">
+        <div class="sidebar_wrapper" id="sidebarmenu">
+            <!-- <div class="sidebar_header">
                 <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
             </div>
             <ul class="sidebar_items">
-                <a href="./index.html" class="sidebar_item">
+                <a href="/" class="sidebar_item">
                     <li>Home</li>
                 </a>
-                <a href="./transaction.html" class="sidebar_item">
+                <a href="/transaction" class="sidebar_item">
                     <li>Transaction</li>
                 </a>
-                <a href="./workorder_info.html" class="sidebar_item">
+                <a href="/workorder_info" class="sidebar_item">
                     <li>Working Info</li>
                 </a>
-                <a href="./car_owner.html" class="sidebar_item">
+               <a href="/car_owner" class="sidebar_item">
                     <li>Car Owner</li>
                 </a>
-                <a href="./register.html" class="sidebar_item">
+                <a href="/register" class="sidebar_item">
                     <li>Register</li>
                 </a>
             </ul>
             <form action="/logout?_method=DELETE" method="POST">
                 <button type="submit" class="login_btn">Logout</button>
-            </form>
+            </form> -->
             <!-- <a href="./login.html" class="login_btn">Login</a> -->
         </div>
     </section>
@@ -60,7 +60,7 @@
             <div class="header_menu">
                 <button class="burger_menu"><i class="fas fa-bars"></i><span class="burger_text">MENU</span></button>
                 <div class="nav_group">
-                    <a href="./index.html" class="nav_item">HOME</a>
+                    <a href="/" class="nav_item">HOME</a>
                     <form action="/logout?_method=DELETE" method="POST">
                         <button type="submit" class="logout_btn">Logout</button>
                     </form>
@@ -71,17 +71,17 @@
             <div class="tracking-left-side">
                 <h3>Tracking Detail</h3>
                 <hr>
-                <div class="tracking-car-detail">
+                <div class="tracking-car-detail" id="transid">
                     <label for="" style="margin-right:15px;">Job ID:</label>
-                    <span>85451525</span>
+                    <span></span>
                 </div>
-                <div class="tracking-car-detail">
+                <div class="tracking-car-detail" id="car_owner">
                     <label for="" style="margin-right:15px;">Car Owner:</label>
-                    <span>John Doe</span>
+                    <span></span>
                 </div>
-                <div class="tracking-car-detail">
+                <div class="tracking-car-detail" id="truckid">
                     <label for="" style="margin-right:15px;">Car ID:</label>
-                    <span>13</span>
+                    <span></span>
                 </div>
             </div>
             <div class="tracking-right-side">
@@ -91,7 +91,7 @@
 
                     <!-- append information from api below -->
                     <div class="tracking-dots" id="tracking_dot_left">
-                        <div class="track-dot-wrap" data-tracking="4">
+                        <!-- <div class="track-dot-wrap" data-tracking="4">
                             <span class="track-dot"></span>
                         </div>
                         <div class="track-dot-wrap" data-tracking="3">
@@ -102,11 +102,19 @@
                         </div>
                         <div class="track-dot-wrap " data-tracking="1">
                             <span class="track-dot"></span>
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- append information from api below -->
                     <div class="tracking-detail-wrap" id="tracking_detail_right">
+                        <!-- <div class="tracking-detail" data-tracking="5">
+                            <div class="tracking-detail-header">
+                                <b>Delivered</b>
+                            </div>
+                            <div class="tracking-detail-time">
+                                
+                            </div>
+                        </div>
                         <div class="tracking-detail" data-tracking="4">
                             <div class="tracking-detail-header">
                                 <b>Delivered</b>
@@ -139,7 +147,7 @@
                                 6/3/2564 10.30น.
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- <div class="track-detail">
                     <div class="track-detail-head">ปลายทางรับพัสดุ</div>
@@ -156,65 +164,163 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
 <script>
     $(document).ready(function () {
-        // ข้อมูลจำลอง--------------------------------------------------
-        var result = {
-            "Key": "TRAN0001",
-            "Record": {
-                "orderinfo": {
-                    "cargoOwner": "plume",
-                    "deliveryDateTime": "",
-                    "deliveryPoint": "",
-                    "loadingDateTime": "",
-                    "loadingPoint": "",
-                    "packingDim": "",
-                    "productID": "",
-                    "quantity": "",
-                    "timeSave": 1615037608988,
-                    "totalWeight": ""
-                },
-                // "myjobassignment": {
-                //     "timeSave": 1615037773088,
-                //     "truckID": "001"
-                // },
-                "subjobassignment": {
-                    "truckID": "0001SUB015",
-                    "timeSave": 1615037608988,
-                },
-                "workinfo": {
-                    "subcontractID": "0001",
-                    "timeSave": 1615037608988,
-                },
-                "loadinginfo": {
-                    "loadingend": "true",
-                    "startmileageno": "100",
-                    "timeSave": 1615038104639
-                },
-                // "deliveryinfo": {
-                //     "deliveryend": "true",
-                //     "finishmileageno": "101",
-                //     "timeSave": 1615038112650
-                // },
-            }
-        }
+        
 
         var result = <%-JSON.stringify(result)%>;
+        var peer = <%-JSON.stringify(peer)%>;
+        var key = <%-JSON.stringify(key)%>;
+        console.log(result);
 
         // เช็คว่ามีข้อมูลในฐานข้อมูลไหม เพื่อเก็บค่า data-tracking
-        if (typeof (result.Record.orderinfo) !== 'undefined') {
-            dataTracking = 1
+        if (typeof (result.workinfo) !== 'undefined') {
+
+            $('#tracking_detail_right').html(`<div class="tracking-detail" data-tracking="5">
+                            <div class="tracking-detail-header">
+                                <b>Delivered</b>
+                            </div>
+                            <div class="tracking-detail-time">
+                                
+                            </div>
+                        </div>
+                        <div class="tracking-detail" data-tracking="4">
+                            <div class="tracking-detail-header">
+                                <b>Loading</b>
+                            </div>
+                            <div class="tracking-detail-time">
+                                6/3/2564 10.30น.
+                            </div>
+                        </div>
+                        <div class="tracking-detail" data-tracking="3">
+                            <div class="tracking-detail-header">
+                                <b>Assign transaction to </b>
+                            </div>
+                            <div class="tracking-detail-time">
+                                6/3/2564 10.30น.
+                            </div>
+                        </div>
+                        <div class="tracking-detail" data-tracking="2">
+                            <div class="tracking-detail-header">
+                                <b>Assign transaction to </b>
+                            </div>
+                            <div class="tracking-detail-time">
+                                6/3/2564 10.30น.
+                            </div>
+                        </div>
+                        <div class="tracking-detail" data-tracking="1">
+                            <div class="tracking-detail-header">
+                                <b>Transaction created</b>
+                            </div>
+                            <div class="tracking-detail-time">
+                                6/3/2564 10.30น.
+                            </div>
+                        </div>
+                    </div>`);
+                $('#tracking_dot_left').html(`<div class="track-dot-wrap" data-tracking="5">
+                            <span class="track-dot"></span>
+                        </div>
+                        <div class="track-dot-wrap" data-tracking="4">
+                            <span class="track-dot"></span>
+                        </div>
+                        <div class="track-dot-wrap" data-tracking="3">
+                            <span class="track-dot"></span>
+                        </div>
+                        <div class="track-dot-wrap" data-tracking="2">
+                            <span class="track-dot"></span>
+                        </div>
+                        <div class="track-dot-wrap " data-tracking="1">
+                            <span class="track-dot"></span>
+                        </div>`);
+
+            // Tracking Detail
+            $('#transid span').html(key);
+            $('#car_owner span').html(result.orderinfo.cargoOwner);
+            if (typeof (result.orderinfo) !== 'undefined') {
+                dataTracking = 1
+            }
+            if (typeof (result.workinfo) !== 'undefined') {
+                dataTracking = 2
+            }
+            if (typeof (result.subjobassignment) != 'undefined') {
+                dataTracking = 3
+                $('#truckid span').html(result.subjobassignment.truckID);
+            }
+            if (typeof (result.loadinginfo) !== 'undefined') {
+                dataTracking = 4
+            }
+            if (typeof (result.deliveryinfo) !== 'undefined') {
+                dataTracking = 5
+            }
+        } else {
+            $('#tracking_detail_right').html(`
+                        <div class="tracking-detail" data-tracking="4">
+                            <div class="tracking-detail-header">
+                                <b>Delivered</b>
+                            </div>
+                            <div class="tracking-detail-time">
+                                6/3/2564 10.30น.
+                            </div>
+                        </div>
+                        <div class="tracking-detail" data-tracking="3">
+                            <div class="tracking-detail-header">
+                                <b>Loading</b>
+                            </div>
+                            <div class="tracking-detail-time">
+                                6/3/2564 10.30น.
+                            </div>
+                        </div>
+                        <div class="tracking-detail" data-tracking="2">
+                            <div class="tracking-detail-header">
+                                <b>Assign transaction to </b>
+                            </div>
+                            <div class="tracking-detail-time">
+                                6/3/2564 10.30น.
+                            </div>
+                        </div>
+                        <div class="tracking-detail" data-tracking="1">
+                            <div class="tracking-detail-header">
+                                <b>Transaction created</b>
+                            </div>
+                            <div class="tracking-detail-time">
+                                6/3/2564 10.30น.
+                            </div>
+                        </div>
+                    </div>`);
+                    $('#tracking_dot_left').html(`
+                        <div class="track-dot-wrap" data-tracking="4">
+                            <span class="track-dot"></span>
+                        </div>
+                        <div class="track-dot-wrap" data-tracking="3">
+                            <span class="track-dot"></span>
+                        </div>
+                        <div class="track-dot-wrap" data-tracking="2">
+                            <span class="track-dot"></span>
+                        </div>
+                        <div class="track-dot-wrap " data-tracking="1">
+                            <span class="track-dot"></span>
+                        </div>`);
+
+            // Tracking Detail
+            $('#transid span').html(key);
+            $('#car_owner span').html(result.orderinfo.cargoOwner);
+            
+            if (typeof (result.orderinfo) !== 'undefined') {
+                dataTracking = 1
+            }
+            if (typeof (result.myjobassignment) !== 'undefined') {
+                dataTracking = 2
+                $('#truckid span').html(result.myjobassignment.truckID);
+            }
+            // if (typeof (result.subjobassignment) != 'undefined') {
+            //     dataTracking = 3
+            // }
+            if (typeof (result.loadinginfo) !== 'undefined') {
+                dataTracking = 3
+            }
+            if (typeof (result.deliveryinfo) !== 'undefined') {
+                dataTracking = 4
+            }
         }
-        if (typeof (result.Record.myjobassignment) !== 'undefined' || result.Record.subjobassignment !== 'undefined') {
-            dataTracking = 2
-        }
-        // if (typeof (result.Record.subjobassignment) != 'undefined') {
-        //     dataTracking = 3
-        // }
-        if (typeof (result.Record.loadinginfo) !== 'undefined' || typeof (result.Record.workinfo) !== 'undefined') {
-            dataTracking = 3
-        }
-        if (typeof (result.Record.deliveryinfo) !== 'undefined') {
-            dataTracking = 4
-        }
+            
         // เปลี่ยน display เป็น none-------------------------
         // **** แนะนำว่าย้ายไปใน css ดีกว่า เป็น .tracking-detail,.track-dot-wrap{display:none;}  *****
         $('.tracking-detail').css('display', 'none');
@@ -225,35 +331,134 @@
             $(`.track-dot-wrap[data-tracking="${i}"]`).css('display', 'block');
         }
         // เขียนข้อมูลในแต่ละ div ----------------------------------------------------------
-        if (typeof (result.Record.orderinfo) !== 'undefined') {
-            $(`.tracking-detail .tracking-detail-time`).eq(3).html(getDateTime(result.Record.orderinfo.timeSave))
+        if (typeof (result.workinfo) !== 'undefined') {
+            if (typeof (result.orderinfo) !== 'undefined') {
+                $(`.tracking-detail .tracking-detail-time`).eq(4).html(getDateTime(result.orderinfo.timeSave))
+            }
+            if (typeof (result.workinfo) !== 'undefined') {
+                $(`.tracking-detail .tracking-detail-header b`).eq(3).html('Work to subcontract: ' + result.workinfo.subcontractID)
+                $(`.tracking-detail .tracking-detail-time`).eq(3).html(getDateTime(result.workinfo.timeSave))
+            }
+            if (typeof (result.subjobassignment) != 'undefined') {
+                $(`.tracking-detail .tracking-detail-header b`).eq(2).append('TRUCK ID : ' + result.subjobassignment.truckID)
+                $(`.tracking-detail .tracking-detail-time`).eq(2).html(getDateTime(result.subjobassignment.timeSave))
+            }
+            if (typeof (result.loadinginfo) !== 'undefined') {
+                $(`.tracking-detail .tracking-detail-time`).eq(1).html(getDateTime(result.loadinginfo.timeSave))
+            }
+            if (typeof (result.deliveryinfo) !== 'undefined') {
+                $(`.tracking-detail .tracking-detail-time`).eq(0).html(getDateTime(result.deliveryinfo.timeSave))
+            }
+        } else {
+            if (typeof (result.orderinfo) !== 'undefined') {
+                $(`.tracking-detail .tracking-detail-time`).eq(3).html(getDateTime(result.orderinfo.timeSave))
+            }
+            if (typeof (result.myjobassignment) !== 'undefined') {
+                $(`.tracking-detail .tracking-detail-header b`).eq(2).append('TRUCK ID : ' + result.myjobassignment.truckID)
+                $(`.tracking-detail .tracking-detail-time`).eq(2).html(getDateTime(result.myjobassignment.timeSave))
+            }
+            // if (typeof (result.subjobassignment) != 'undefined') {
+            //     $(`.tracking-detail .tracking-detail-header b`).eq(2).append('TRUCK ID : ' + result.subjobassignment.truckID)
+            //     $(`.tracking-detail .tracking-detail-time`).eq(2).html(getDateTime(result.subjobassignment.timeSave))
+            // }
+            if (typeof (result.loadinginfo) !== 'undefined') {
+                $(`.tracking-detail .tracking-detail-time`).eq(1).html(getDateTime(result.loadinginfo.timeSave))
+            }
+            if (typeof (result.deliveryinfo) !== 'undefined') {
+                $(`.tracking-detail .tracking-detail-time`).eq(0).html(getDateTime(result.deliveryinfo.timeSave))
+            }
         }
-        if (typeof (result.Record.myjobassignment) !== 'undefined') {
-            $(`.tracking-detail .tracking-detail-header b`).eq(2).append('TRUCK ID : ' + result.Record.myjobassignment.truckID)
-            $(`.tracking-detail .tracking-detail-time`).eq(2).html(getDateTime(result.Record.myjobassignment.timeSave))
-        }
-        if (typeof (result.Record.subjobassignment) != 'undefined') {
-            $(`.tracking-detail .tracking-detail-header b`).eq(2).append('TRUCK ID : ' + result.Record.subjobassignment.truckID)
-            $(`.tracking-detail .tracking-detail-time`).eq(2).html(getDateTime(result.Record.subjobassignment.timeSave))
-        }
-        if (typeof (result.Record.loadinginfo) !== 'undefined') {
-            $(`.tracking-detail .tracking-detail-time`).eq(1).html(getDateTime(result.Record.loadinginfo.timeSave))
-        }
-        if (typeof (result.Record.deliveryinfo) !== 'undefined') {
-            $(`.tracking-detail .tracking-detail-time`).eq(0).html(getDateTime(result.Record.deliveryinfo.timeSave))
-        }
+            
         // function format date time------------------------------------------------------
         function getDateTime(time) {
             const monthNames = ["January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"
             ];
             var date = new Date(time);
-            var day = date.getDay();
+            var day = date.getDate();
             var dayName = String(date).split(' ')[0];
             var month = date.getMonth();
             var year = date.getFullYear();
             var time = String(date).split(' ')[4].slice(0, 5)
             return (`${dayName} ${day} ${monthNames[month]} ${year} ${time}`);
+        }
+
+
+        // sidebar
+        if (peer == "peer0") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/transaction" class="sidebar_item">
+                    <li>Transaction</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+
+        if (peer == "peer1") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+                <a href="/register" class="sidebar_item">
+                    <li>Register</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+
+        if (peer == "peer2") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+                <a href="/workorder_info" class="sidebar_item">
+                    <li>Working Info</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
+        }
+
+        if (peer == "peer3") {
+            $('#sidebarmenu').html(`
+            <div class="sidebar_header">
+                <img src="./assets/image/logo_LSP1.png" class="logo" alt="">
+            </div>
+            <ul class="sidebar_items">
+                <a href="/" class="sidebar_item">
+                    <li>Home</li>
+                </a>
+            </ul>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="login_btn">Logout</button>
+            </form>
+            `);
         }
     })
 </script>
