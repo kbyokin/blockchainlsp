@@ -174,7 +174,7 @@
         if(transactionId !== ''){
             $('#transaction_order_info').val(transactionId)
         }else{
-            $('#transaction_order_info').val('กรุณากรอกข้อมูล')
+            $('#transaction_order_info').val('Please fill in the blank')
         }
         // get alert status
         var sendDataRequest = <%-JSON.stringify(status)%>;
