@@ -74,8 +74,8 @@
                     <input type="email" name="email" id="email" placeholder="Email" required>
                     <input type="password" name="password" id="password" placeholder="Password" pattern="(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{6,}"  onInvalid="setCustomValidity('ต้องประกอบด้วยตัวเลขและตัวอักษรและมี 6 ตัวขึ้นไป')" oninput="setCustomValidity('')" required>
                     <div class="pattern_xix">
-                        <span class="min6char">มีตั้งแต่ 6 ตัวอักษรขึ้นไป</span><br>
-                        <span class="checkchar">ต้องประกอบด้วยตัวเลขและตัวอักษร</span>
+                        <span class="min6char">Must be at least 6 characters long.</span><br>
+                        <span class="checkchar">Must contain numbers and letters</span>
                     </div>
                     <select name="peer" id="peer" class="form-control" required> 
                         <option value="" disabled selected>Please select the Peer</option>
